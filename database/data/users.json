@@ -1,0 +1,12 @@
+{
+    "employer": [
+        {
+            "email": "employer@domain.com"
+        }
+    ],
+    "jobseeker": [
+        {
+            "email": "jobseeker@domain.com"
+        }
+    ]
+}
