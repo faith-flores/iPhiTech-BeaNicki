@@ -10,6 +10,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -18,6 +19,8 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    protected static ?string $navigationGroup = 'User Management';
 
     public static function form(Form $form): Form
     {
@@ -28,6 +31,7 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
+                    ->unique()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('email_verified_at'),
@@ -52,14 +56,20 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('roles.name'),
+                Tables\Columns\TextColumn::make('roles.name')
+                        ->sortable(),
                 Tables\Columns\IconColumn::make('is_super_admin')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('active')
+                    ->sortable()
                     ->boolean(),
                 Tables\Columns\IconColumn::make('logged_in')
                     ->boolean(),
@@ -71,6 +81,8 @@ class UserResource extends Resource
                     ->dateTime(),
             ])
             ->filters([
+                Filter::make('active')
+                    ->query(fn (Builder $query): Builder => $query->where('active', true)),
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
