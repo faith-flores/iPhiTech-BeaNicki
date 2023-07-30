@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\JobFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -45,5 +46,13 @@ class Job extends Model
     protected static function newFactory()
     {
         return new JobFactory();
+    }
+
+    public function scopeAccount(Builder $builder) : Builder
+    {
+        // Allow admin to see all Jobs
+        if (auth()->user()->isSuperAdmin()) return $builder;
+
+        return $builder->whereBelongsTo(auth()->user()->account);
     }
 }

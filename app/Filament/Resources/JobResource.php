@@ -9,8 +9,9 @@ use App\Models\Account;
 use App\Models\Job;
 use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Grid;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -36,33 +37,65 @@ class JobResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\RichEditor::make('description')
-                    ->required()
-                    ->maxLength(16777215),
-                Forms\Components\TextInput::make('working_hours')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('schedule_id')
-                    ->numeric()
-                    ->required(),
-                Forms\Components\TextInput::make('type_of_work_id')
-                    ->numeric()
-                    ->required(),
-                Forms\Components\TextInput::make('skill_level_id')
-                    ->numeric()
-                    ->required(),
-                Forms\Components\TextInput::make('total_hire_count')
-                    ->numeric()
-                    ->default(1)
-                ,
-                Forms\Components\TextInput::make('salary')
-                    ->numeric()
-                    ->required(),
-                Forms\Components\DatePicker::make('start_date'),
-                Forms\Components\DatePicker::make('interview_availability'),
+                Grid::make(3)
+                    ->schema([
+                        Card::make()
+                            ->columnSpan(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('title')
+                                    ->label("Job Post Title")
+                                    ->required()
+                                    ->maxLength(255),
+                                Grid::make(2)
+                                    ->schema([
+                                    Forms\Components\TextInput::make('salary')
+                                        ->numeric()
+                                        ->required(),
+                                    Forms\Components\DatePicker::make('start_date'),
+                                    Forms\Components\TextInput::make('total_hire_count')
+                                        ->label("Total Vacancies")
+                                        ->numeric()
+                                        ->default(1),
+                                    Forms\Components\TextInput::make('type_of_work_id')
+                                        ->label("Type of Work")
+                                        ->numeric()
+                                        ->required(),
+                                ]),
+                                Forms\Components\RichEditor::make('description')
+                                    ->label("Job Overview")
+                                    ->required(),
+                        ]),
+                        Card::make()
+                            ->columnSpan(1)
+                            ->schema([
+                                Fieldset::make()
+                                    ->label("Schedule Details")
+                                    ->columns(1)
+                                    ->schema([
+                                        Forms\Components\TextInput::make('working_hours')
+                                            ->required()
+                                            ->maxLength(255),
+                                        Forms\Components\TextInput::make('schedule_id')
+                                            ->label("Schedule Type")
+                                            ->numeric()
+                                            ->required(),
+                                        Forms\Components\TextInput::make('hours_per_week')
+                                            ->label("Hours Per Week")
+                                            ->numeric()
+                                            ->required(),
+
+                                    ]),
+                                    Forms\Components\TextInput::make('skill_level_id')
+                                        ->label("Skill Level")
+                                        ->numeric()
+                                        ->required(),
+                                    Forms\Components\TextInput::make('skills')
+                                        ->label("Skill Requirement")
+                                        ->numeric()
+                                        ->required(),
+                            ]),
+                    ])
+                    ->columns(3),
             ]);
     }
 
@@ -70,22 +103,17 @@ class JobResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('title')
+                    ->limit(100),
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('working_hours'),
-                Tables\Columns\TextColumn::make('schedule_id'),
-                Tables\Columns\TextColumn::make('type_of_work_id'),
-                Tables\Columns\TextColumn::make('skill_level_id'),
                 Tables\Columns\TextColumn::make('total_hire_count'),
-                Tables\Columns\TextColumn::make('salary'),
                 Tables\Columns\TextColumn::make('start_date')
                     ->date(),
                 Tables\Columns\TextColumn::make('interview_availability')
                     ->date(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
             ])
             ->filters([
             ])
@@ -102,7 +130,6 @@ class JobResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AccountRelationManager::class
         ];
     }
 
@@ -119,6 +146,7 @@ class JobResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
+            ->account()
             ->withoutGlobalScopes([
             ]);
     }
