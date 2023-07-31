@@ -48,6 +48,30 @@ class Job extends Model
         return new JobFactory();
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function schedule() : BelongsTo
+    {
+        return $this->belongsTo(PicklistItem::class, 'schedule_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function skill_level() : BelongsTo
+    {
+        return $this->belongsTo(PicklistItem::class, 'skill_level_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function type_of_work() : BelongsTo
+    {
+        return $this->belongsTo(PicklistItem::class, 'type_of_work_id');
+    }
+
     public function scopeAccount(Builder $builder) : Builder
     {
         // Allow admin to see all Jobs

@@ -3,19 +3,22 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\JobResource\Pages;
-use App\Filament\Resources\JobResource\RelationManagers;
-use App\Filament\Resources\JobResource\RelationManagers\AccountRelationManager;
 use App\Models\Account;
 use App\Models\Job;
+use App\Models\PicklistItem;
 use Closure;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -28,11 +31,6 @@ class JobResource extends Resource
 
     protected static ?string $navigationGroup = 'Jobs';
 
-    /**
-     * @var string|Closure|null
-     */
-    private static ?string $relationshipName = "account";
-
     public static function form(Form $form): Form
     {
         return $form
@@ -42,26 +40,23 @@ class JobResource extends Resource
                         Card::make()
                             ->columnSpan(2)
                             ->schema([
-                                Forms\Components\TextInput::make('title')
+                                TextInput::make('title')
                                     ->label("Job Post Title")
                                     ->required()
                                     ->maxLength(255),
                                 Grid::make(2)
                                     ->schema([
-                                    Forms\Components\TextInput::make('salary')
+                                    TextInput::make('salary')
                                         ->numeric()
                                         ->required(),
-                                    Forms\Components\DatePicker::make('start_date'),
-                                    Forms\Components\TextInput::make('total_hire_count')
+                                    DatePicker::make('start_date'),
+                                    TextInput::make('total_hire_count')
                                         ->label("Total Vacancies")
                                         ->numeric()
                                         ->default(1),
-                                    Forms\Components\TextInput::make('type_of_work_id')
-                                        ->label("Type of Work")
-                                        ->numeric()
-                                        ->required(),
+                                    static::getTypeOfWorkInput(),
                                 ]),
-                                Forms\Components\RichEditor::make('description')
+                                RichEditor::make('description')
                                     ->label("Job Overview")
                                     ->required(),
                         ]),
@@ -72,27 +67,18 @@ class JobResource extends Resource
                                     ->label("Schedule Details")
                                     ->columns(1)
                                     ->schema([
-                                        Forms\Components\TextInput::make('working_hours')
+                                        TextInput::make('working_hours')
                                             ->required()
                                             ->maxLength(255),
-                                        Forms\Components\TextInput::make('schedule_id')
-                                            ->label("Schedule Type")
-                                            ->numeric()
-                                            ->required(),
-                                        Forms\Components\TextInput::make('hours_per_week')
+                                        static::getScheduleInput(),
+                                        TextInput::make('hours_per_week')
                                             ->label("Hours Per Week")
                                             ->numeric()
                                             ->required(),
 
                                     ]),
-                                    Forms\Components\TextInput::make('skill_level_id')
-                                        ->label("Skill Level")
-                                        ->numeric()
-                                        ->required(),
-                                    Forms\Components\TextInput::make('skills')
-                                        ->label("Skill Requirement")
-                                        ->numeric()
-                                        ->required(),
+                                    static::getSkillLevelInput(),
+                                    // TODO: Add Skills selection
                             ]),
                     ])
                     ->columns(3),
@@ -103,16 +89,13 @@ class JobResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->limit(100),
-                Tables\Columns\TextColumn::make('description'),
-                Tables\Columns\TextColumn::make('working_hours'),
-                Tables\Columns\TextColumn::make('total_hire_count'),
-                Tables\Columns\TextColumn::make('start_date')
-                    ->date(),
-                Tables\Columns\TextColumn::make('interview_availability')
-                    ->date(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('title')
+                    ->searchable()
+                    ->limit(50),
+                TextColumn::make('schedule.label')->searchable(),
+                TextColumn::make('skill_level.label')->searchable(),
+                TextColumn::make('type_of_work.label')->searchable(),
+                TextColumn::make('created_at')
                     ->dateTime(),
             ])
             ->filters([
@@ -151,6 +134,35 @@ class JobResource extends Resource
             ]);
     }
 
+    public static function getTypeOfWorkInput() : Select
+    {
+        return Select::make('type_of_work_id')
+            ->required()
+            ->label("Employee Classication Type")
+            ->relationship('type_of_work', 'label', (function (Builder $query) {
+                $query->ofPicklistIdentifier('type-of-work');
+            }));
+    }
+
+    public static function getScheduleInput() : Select
+    {
+        return Select::make('schedule_id')
+            ->required()
+            ->relationship('schedule', 'label', (function (Builder $query) {
+                $query->ofPicklistIdentifier('schedule');
+            }));
+    }
+
+    public static function getSkillLevelInput() : Select
+    {
+        return Select::make('skill_level_id')
+            ->required()
+            ->label("Preferred Experience Level")
+            ->relationship('skill_level', 'label', (function (Builder $query) {
+                $query->ofPicklistIdentifier('skill-level');
+            }));
+    }
+
     /**
      * @param   Job $job
      * @param array $data
@@ -162,6 +174,24 @@ class JobResource extends Resource
         if ($account_id = Arr::get($data, 'account')) {
             if($account = Account::query()->find($account_id)){
                 $job->account()->associate($account);
+            }
+        }
+
+        if ($skill_level_id = Arr::get($data, 'skill_level_id')) {
+            if($picklistItem = PicklistItem::query()->find($skill_level_id)){
+                $job->skill_level()->associate($picklistItem);
+            }
+        }
+
+        if ($schedule = Arr::get($data, 'schedule_id')) {
+            if($picklistItem = PicklistItem::query()->find($schedule)){
+                $job->schedule()->associate($picklistItem);
+            }
+        }
+
+        if ($type_of_work = Arr::get($data, 'type_of_work_id')) {
+            if($picklistItem = PicklistItem::query()->find($type_of_work)){
+                $job->type_of_work()->associate($picklistItem);
             }
         }
 
