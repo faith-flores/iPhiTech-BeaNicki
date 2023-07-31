@@ -6,6 +6,9 @@ namespace App\Models;
 
 use App\Models\Traits\Uuidable;
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Models\Contracts\HasName;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +16,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasName
 {
     use HasApiTokens, HasFactory, Notifiable;
     use Uuidable;
@@ -73,6 +76,11 @@ class User extends Authenticatable
     protected static function newFactory()
     {
         return new UserFactory();
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->name;
     }
 
     /**
