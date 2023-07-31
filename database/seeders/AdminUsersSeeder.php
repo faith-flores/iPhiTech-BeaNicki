@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
@@ -58,6 +59,9 @@ class AdminUsersSeeder extends Seeder
              * @var User $user
              */
             $user = User::factory()->create($data);
+
+            event(new Registered($user));
+
             $user->syncRoles($role);
 
             return $user;
