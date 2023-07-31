@@ -21,7 +21,7 @@ class SkillResource extends Resource
 {
     protected static ?string $model = Skill::class;
 
-    protected static ?string $label = "Skill Category";
+    protected static ?string $label = "Skills Categories";
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -49,8 +49,11 @@ class SkillResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('label'),
-                Tables\Columns\TextColumn::make('identifier'),
+                Tables\Columns\TextColumn::make('label')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('identifier')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('default_item'),
                 Tables\Columns\IconColumn::make('is_tag')
                     ->boolean(),

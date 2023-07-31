@@ -7,6 +7,9 @@ namespace App\Models;
 use App\Models\Traits\Uuidable;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Models\Contracts\HasName;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasName
 {
     use HasApiTokens, HasFactory, Notifiable;
     use Uuidable;
@@ -78,6 +81,11 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function newFactory()
     {
         return new UserFactory();
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->name;
     }
 
     /**
