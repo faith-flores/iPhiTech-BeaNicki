@@ -25,7 +25,7 @@ class SkillResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    protected static ?string $navigationGroup = 'User Management';
+    protected static ?string $navigationGroup = 'Admin Management';
 
 
     public static function form(Form $form): Form

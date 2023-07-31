@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
@@ -22,8 +23,8 @@ class UsersSeeder extends Seeder
             $data = File::get($file_path);
             $data = json_decode($data, true);
 
-            foreach ($data as $role_slug => $users) {
-                $role = Role::query()->where("name", "=", $role_slug)->first();
+            foreach ($data as $role => $users) {
+                $role = Role::query()->where("name", "=", $role)->first();
 
                 if ($role) {
                     foreach ($users as $user) {
@@ -48,6 +49,8 @@ class UsersSeeder extends Seeder
              */
             $user = User::factory()->create($data);
             $user->syncRoles($role);
+
+            event(new Registered($user));
 
             return $user;
         }

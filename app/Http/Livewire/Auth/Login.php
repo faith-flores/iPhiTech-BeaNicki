@@ -17,6 +17,9 @@ class Login extends Component
     /** @var bool */
     public $remember = false;
 
+    /** @var string */
+    public $loginRole = "";
+
     protected $rules = [
         'email' => ['required', 'email'],
         'password' => ['required'],
@@ -33,6 +36,11 @@ class Login extends Component
         }
 
         return redirect()->intended(route('home'));
+    }
+
+    public function setLoginRole($role)
+    {
+        $this->loginRole = $role;
     }
 
     public function render()
