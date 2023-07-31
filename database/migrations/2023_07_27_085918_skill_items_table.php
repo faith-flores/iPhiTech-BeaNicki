@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->unsignedBigInteger('skill_id')->nullable();
             $table->string('label', 50)->index();
             $table->text('description')->nullable();
             $table->string('identifier', 100);
@@ -24,12 +23,7 @@ return new class extends Migration
             $table->boolean('status');
             $table->json('meta')->nullable();
 
-            $table->foreign('skill_id')
-                ->references('id')
-                ->on('skills')
-                ->onUpdate('RESTRICT')
-                ->onDelete('RESTRICT')
-            ;
+            $table->foreignId('skill_id')->index()->constrained()->cascadeOnDelete();
         });
     }
 
