@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureProfileIsCompleted;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -321,7 +322,8 @@ return [
     'middleware' => [
         'auth' => [
             Authenticate::class,
-            EnsureEmailIsVerified::class
+            EnsureEmailIsVerified::class,
+            EnsureProfileIsCompleted::class
         ],
         'base' => [
             EncryptCookies::class,
