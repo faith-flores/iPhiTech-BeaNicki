@@ -3,25 +3,21 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PicklistResource\Pages;
-use App\Filament\Resources\PicklistResource\RelationManagers;
 use App\Filament\Resources\PicklistResource\RelationManagers\PicklistsRelationManager;
 use App\Models\Picklist;
-use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 class PicklistResource extends Resource
 {
     protected static ?string $model = Picklist::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
     protected static ?string $navigationGroup = 'Admin Management';
 
@@ -88,7 +84,7 @@ class PicklistResource extends Resource
 
         return Forms\Components\TextInput::make('label')
             ->maxLength(255)
-            ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state) {
+            ->afterStateUpdated(function (\Filament\Forms\Get $get, \Filament\Forms\Set $set, ?string $state) {
                 if (! $get('is_slug_changed_manually') && filled($state)) {
                     $set('identifier', Str::slug($state, "_"));
                 }
