@@ -60,6 +60,9 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                /**
+                 * TODO: check for column which can have sort enable
+                 */
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
@@ -67,6 +70,7 @@ class UserResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
+                    ->label('Email Verification Date')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('roles.name')
                         ->sortable(),
@@ -78,13 +82,15 @@ class UserResource extends Resource
                 Tables\Columns\IconColumn::make('logged_in')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Date Created')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime(),
             ])
             ->filters([
+                /**
+                 * TODO: check for other filter opportunities
+                 */
                 Filter::make('active')
                     ->query(fn (Builder $query): Builder => $query->where('active', true)),
                 Filter::make('employers')
