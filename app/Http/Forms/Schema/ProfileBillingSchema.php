@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Forms\Schema;
 
+use App\Http\Forms\Schema\Types\InvoiceName;
 use App\Models\Billing;
 use App\Models\Profile;
 use Filament\Forms\Components\Grid;
@@ -17,9 +18,7 @@ class ProfileBillingSchema
             ->schema([
                 TextInput::make('company_name')
                     ->required(),
-                TextInput::make('invoice_name')
-                    ->label('Name on Invoice')
-                    ->required(),
+                InvoiceName::make(),
                 TextInput::make('email')
                     ->required(),
                 AddressSchema::make()->model(Billing::class),

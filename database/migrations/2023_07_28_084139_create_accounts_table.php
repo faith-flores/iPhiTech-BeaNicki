@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('web_url', 1024)->nullable();
             $table->boolean('is_active')->default(false);
             $table->boolean('is_multi_user')->default(false);
-            ;
+            $table->foreignId('client_status_id')->nullable()->constrained('picklist_items')->nullOnDelete();
         });
     }
 

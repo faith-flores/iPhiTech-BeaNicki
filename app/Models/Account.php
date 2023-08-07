@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Contracts\HasAddress;
 use App\Models\Traits\WithAddress;
 use Database\Factories\AccountFactory;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,8 +31,6 @@ class Account extends Model implements HasAddress
         'email',
         'company_phone',
         'web_url',
-        'is_active',
-        'is_multi_user',
     ];
 
     /**
@@ -63,6 +60,31 @@ class Account extends Model implements HasAddress
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function owner_user() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_user_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function billings() : HasMany
+    {
+        return $this->hasMany(Billing::class, 'account_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function default_billing() : HasOne
+    {
+        return $this->hasOne(Billing::class, 'account_id')
+            ->where('is_default', true);
+    }
+
+    /**
      * @return HasMany
      */
     public function profiles() : HasMany
@@ -83,7 +105,3 @@ class Account extends Model implements HasAddress
         return $account;
     }
 }
-/**
- * TODO: Profile Wizard
- *
- */

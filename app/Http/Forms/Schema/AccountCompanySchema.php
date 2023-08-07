@@ -7,6 +7,7 @@ use App\Http\Forms\Schema\Types\FirstName;
 use App\Http\Forms\Schema\Types\LastName;
 use App\Http\Forms\Schema\Types\Phone;
 use App\Models\Account;
+use App\Models\User;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
@@ -24,14 +25,16 @@ class AccountCompanySchema
             ->schema([
                 TextInput::make('company_name')
                     ->required(),
-                AddressSchema::make()->model(Account::class),
+                AddressSchema::make(),
                 TextInput::make('company_phone')
                     ->required()
                     ->tel()
-                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/'),
+                    ->telRegex('/^(09|\+639)\d{9}$/'),
                 TextInput::make('web_url')
                     ->label('Website Address')
                     ->url(),
-            ]);
+            ])
+            ->relationship('account')
+            ->model(User::class);
     }
 }

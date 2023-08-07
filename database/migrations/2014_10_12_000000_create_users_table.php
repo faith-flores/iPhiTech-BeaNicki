@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('active')->default(0);
             $table->boolean('logged_in')->default(0);
             $table->boolean('must_reset_password')->default(0);
+            $table->boolean('terms')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

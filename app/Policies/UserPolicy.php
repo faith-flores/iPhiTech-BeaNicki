@@ -84,4 +84,17 @@ class UserPolicy
     {
         return $authUser->can('auth.users.manage');
     }
+
+    /**
+     * Determine whether the user can edit a user.
+     *
+     * @param User $authUser
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function editProfile(User $authUser, User $user)
+    {
+        return $this->edit($authUser, $user);
+    }
 }

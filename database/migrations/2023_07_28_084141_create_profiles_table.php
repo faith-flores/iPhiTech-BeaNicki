@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('phone', 20);
 
             $table->boolean('is_profile_completed')->default(false);
+            $table->integer('status')->default(1);
+
             $table->softDeletes();
 
             $table->foreign('client_manager_id')
