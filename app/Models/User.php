@@ -7,7 +7,6 @@ namespace App\Models;
 use App\Models\Traits\Uuidable;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -116,5 +115,10 @@ class User extends Authenticatable implements MustVerifyEmail, HasName
      */
     public function isSuperAdmin() : bool {
         return !!$this->is_super_admin;
+    }
+
+    public function scopeHasRole(Builder $query, string $role)
+    {
+        return $query->whereHas('roles', fn ($query) => $query->where('name', $role));
     }
 }
