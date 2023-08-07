@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
@@ -14,6 +15,7 @@ use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
@@ -44,25 +46,30 @@ class UserResource extends Resource
                     ->hiddenOn([Pages\EditUser::class, Pages\ViewUser::class])
                     ->required()
                     ->maxLength(255),
-                Tables\Columns\TextColumn::make('role'),
-                Forms\Components\Toggle::make('is_super_admin')
-                    ->required(),
+                Select::make('roles')
+                        ->relationship('roles', 'name')
+                        ->options(Role::all()->pluck('name', 'id'))
+                        ->multiple()
+                        ->visible(fn (): bool => auth()->user()->isSuperAdmin()),
                 Forms\Components\Toggle::make('active')
                     ->required(),
                 Forms\Components\Toggle::make('logged_in')
                     ->required(),
                 Forms\Components\Toggle::make('must_reset_password')
                     ->required(),
+                Forms\Components\Toggle::make('is_super_admin')
+                    ->required()
+                    ->visible(fn (): bool => auth()->user()->isSuperAdmin()),
             ]);
     }
 
+    /**
+     * TODO: check for column which can have sort enable
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                /**
-                 * TODO: check for column which can have sort enable
-                 */
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
@@ -104,6 +111,7 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
