@@ -1,10 +1,10 @@
 {
     "Employer": [
-        "auth.employer.read.own",
-        "auth.employer.edit.own"
+        "employer.read.own",
+        "employer.edit.own"
     ],
     "Jobseeker": [
-        "auth.jobseeker.read.own",
-        "auth.jobseeker.edit.own"
+        "jobseeker.read.own",
+        "jobseeker.edit.own"
     ]
 }

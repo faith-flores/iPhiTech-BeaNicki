@@ -2,14 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\Contracts\HasAddress;
+use App\Models\Traits\WithAddress;
 use Database\Factories\AccountFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Arr;
 
-class Account extends Model
+class Account extends Model implements HasAddress
 {
     use HasFactory;
+    use WithAddress;
 
     const ACCOUNT_TYPE_PERSONAL = 0;
     const ACCOUNT_TYPE_BUSINESS = 1;
@@ -25,8 +31,6 @@ class Account extends Model
         'email',
         'company_phone',
         'web_url',
-        'is_active',
-        'is_multi_user',
     ];
 
     /**
@@ -44,10 +48,60 @@ class Account extends Model
      */
     public function user() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'owner_user_id')->withTrashed();
+        return $this->belongsTo(User::class, 'owner_user_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function master_profile() : HasOne
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'owner_user_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function owner_user() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_user_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function billings() : HasMany
+    {
+        return $this->hasMany(Billing::class, 'account_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function default_billing() : HasOne
+    {
+        return $this->hasOne(Billing::class, 'account_id')
+            ->where('is_default', true);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function profiles() : HasMany
+    {
+        return $this->hasMany(Profile::class);
+    }
+
+    public function fillRelations(Account $account, $data)
+    {
+        if ($account->getKey() === auth()->user()->account->getKey()) {
+            if (Arr::exists($data, 'address')) {
+                if ($address = Arr::get($data, 'address')) {
+                    $account->address->updateOrCreate([], $address);
+                }
+            }
+        }
+
+        return $account;
     }
 }
-/**
- * TODO: Profile Wizard
- *
- */

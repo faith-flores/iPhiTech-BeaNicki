@@ -15,28 +15,20 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->unsignedBigInteger('account_id');
-            /**
-             * TODO: relate profile_id
-             */
+            $table->foreignId('account_id')->constrained('profiles_accounts')->restrictOnDelete();
+            $table->foreignId('profile_id')->constrained('profiles')->restrictOnDelete();
+
             $table->string('title');
             $table->mediumText('description');
             $table->string('working_hours');
-            $table->integer('schedule_id');
-            $table->integer('type_of_work_id');
-            $table->integer('skill_level_id');
+            $table->foreignId('schedule_id')->nullable()->constrained('picklist_items')->nullOnDelete();
+            $table->foreignId('skill_level_id')->nullable()->constrained('picklist_items')->nullOnDelete();
+            $table->foreignId('type_of_work_id')->nullable()->constrained('picklist_items')->nullOnDelete();
             $table->integer('total_hire_count')->nullable();
             $table->decimal('salary')->default(0);
             $table->date('start_date')->nullable();
             $table->date('interview_availability')->nullable();
             $table->unsignedTinyInteger('status')->nullable();
-
-            $table->foreign('account_id')
-                ->references('id')
-                ->on('profiles_accounts')
-                ->onUpdate('NO ACTION')
-                ->onDelete('RESTRICT')
-            ;
         });
     }
 
