@@ -87,6 +87,12 @@ class UserResource extends Resource
             ->filters([
                 Filter::make('active')
                     ->query(fn (Builder $query): Builder => $query->where('active', true)),
+                Filter::make('employers')
+                    ->label("Employers")
+                    ->query(fn (Builder $query): Builder => $query->hasRole(User::USER_ROLE_EMPLOYER)),
+                Filter::make('jobseekers')
+                    ->label("Jobseekers")
+                    ->query(fn (Builder $query): Builder => $query->hasRole(User::USER_ROLE_JOBSEEKER)),
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
@@ -114,12 +120,15 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
+            'editProfile' => Pages\ProfileWizard::route('/client/{record}/edit-profile'),
         ];
     }
 
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
+            ->where('is_super_admin', false)
+            ->orderBy('id', 'DESC')
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
