@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('province')->nullable();
             $table->string('country')->nullable();
             $table->string('zip_code')->nullable();
-            $table->string('address_type', 25)->index();
+            $table->string('address_type', 25)->index()->nullable();
         });
     }
 

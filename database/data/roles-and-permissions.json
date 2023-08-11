@@ -1,10 +1,18 @@
-{
-    "Employer": [
-        "employer.read.own",
-        "employer.edit.own"
-    ],
-    "Jobseeker": [
-        "jobseeker.read.own",
-        "jobseeker.edit.own"
-    ]
-}
+[
+    {
+        "guard": "web",
+        "role": "employer",
+        "permissions": [
+            "employer.read.own",
+            "employer.edit.own"
+        ]
+    },
+    {
+        "guard": "jobseeker",
+        "role": "jobseeker",
+        "permissions": [
+            "jobseeker.read.own",
+            "jobseeker.edit.own"
+        ]
+    }
+]

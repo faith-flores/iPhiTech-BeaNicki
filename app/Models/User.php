@@ -6,18 +6,21 @@ namespace App\Models;
 
 use App\Models\Traits\Uuidable;
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\HasName;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail, HasName
+class User extends Authenticatable implements MustVerifyEmail, HasName, FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
     use Uuidable;
@@ -25,8 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasName
     use HasRoles;
     use SoftDeletes;
 
-    const USER_ROLE_JOBSEEKER = "Jobseeker";
-    const USER_ROLE_EMPLOYER = "Employer";
+    const USER_ROLE_JOBSEEKER = "jobseeker";
+    const USER_ROLE_EMPLOYER = "employer";
 
     /**
      * The attributes that are mass assignable.
@@ -84,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasName
 
     public function getFilamentName(): string
     {
-        return $this->name;
+        return $this->name ?? "";
     }
 
     /**
@@ -120,5 +123,18 @@ class User extends Authenticatable implements MustVerifyEmail, HasName
     public function scopeHasRole(Builder $query, string $role)
     {
         return $query->whereHas('roles', fn ($query) => $query->where('name', $role));
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if (Auth::guard('jobseeker')->check()) {
+            return $panel->getAuthGuard() === "jobseeker";
+        }
+
+        if (Auth::guard('web')->check()) {
+            return $panel->getAuthGuard() === "web";
+        }
+
+        return false;
     }
 }

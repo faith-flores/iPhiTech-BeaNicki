@@ -6,6 +6,8 @@ use App\Filament\Resources\UserResource;
 use App\Filament\Services\AccountResourceService;
 use App\Filament\Services\ProfileResourceService;
 use App\Http\Forms\Schema\AccountCompanySchema;
+use App\Http\Forms\Schema\AddressSchema;
+use App\Http\Forms\Schema\JobseekerProfileWizardSchema;
 use App\Http\Forms\Schema\ProfileBillingSchema;
 use App\Http\Forms\Schema\ProfileSchema;
 use App\Http\Forms\Schema\Types\AccountType;
@@ -14,6 +16,7 @@ use App\Models\Account;
 use App\Models\Profile;
 use App\Models\User;
 use Closure;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
@@ -27,6 +30,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Resources\Pages\Page;
 use Illuminate\Database\Eloquent\Model;
@@ -57,12 +61,12 @@ class ProfileWizard extends Page implements HasForms
         $account->load(['address']);
 
         $data = [
-            'master_profile' => [
-                ...$account->master_profile->toArray(),
+            'master_profile' => $account->master_profile ? [
+                ...$account?->master_profile->toArray(),
                 ...['email' => $account->email]
-            ],
+            ] : null,
             'account' => $account,
-            'billing' => $account->master_profile->billing ?? []
+            'billing' => $account?->master_profile->billing ?? []
         ];
 
         $this->form->fill([...$account->toArray(), ...$data]);
@@ -70,17 +74,22 @@ class ProfileWizard extends Page implements HasForms
 
     public function form(Form $form): Form
     {
+        return $this->employerForm($form);
+    }
+
+    public function employerForm(Form $form)
+    {
         return $form
-            ->schema([
-                Wizard::make([
-                    self::getProfileStep(),
-                    self::getCompanyStep(),
-                    self::getBillingStep(),
-                    self::getCompleteStep()
-                ])
-                ->submitAction(new HtmlString('<button type="submit" class="btn btn-primary">Go to Dashboard</button>'))
-            ])->statePath('data')
-            ->model();
+        ->schema([
+            Wizard::make([
+                self::getProfileStep(),
+                self::getCompanyStep(),
+                self::getBillingStep(),
+                self::getCompleteStep()
+            ])
+            ->submitAction(new HtmlString('<button type="submit" class="btn btn-primary">Go to Dashboard</button>'))
+        ])
+        ->statePath('data');
     }
 
     public function submit()
@@ -101,6 +110,7 @@ class ProfileWizard extends Page implements HasForms
                                 ->relationship('master_profile')
                                 ->model(Account::class),
                             AccountType::make()
+                                ->visible($this->record->hasRole(User::USER_ROLE_EMPLOYER))
                                 ->afterStateUpdated(fn (Set $set) => $set('same_company_address', false)),
                             Checkbox::make('terms')
                                 ->label('I accept the BeaNicki Terms of Service and Privacy Policy')

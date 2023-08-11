@@ -21,15 +21,18 @@ class RolesSeeder extends Seeder
             $data = File::get($file_path);
             $data = json_decode($data, true);
 
-            foreach ($data as $role_slug => $permissions) {
-                $role = Role::query()->where("name", "=", $role_slug)->first();
+            foreach ($data as $list) {
+                $role = Role::findByParam([
+                    'name' => $list['role'],
+                    'guard_name' => $list['guard']
+                ]);
 
                 if (! $role) {
-                    $role = Role::create(["name" => $role_slug]);
+                    $role = Role::create(["name" => $list['role'], "guard_name" => $list['guard']]);
                 }
 
-                foreach ($permissions as $permission_name) {
-                    $permission = Permission::findOrCreate($permission_name);
+                foreach ($list['permissions'] as $permission_name) {
+                    $permission = Permission::findOrCreate($permission_name, $list['guard']);
                     $role->givePermissionTo($permission);
                 }
             }

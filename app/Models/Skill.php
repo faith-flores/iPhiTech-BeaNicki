@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Skill extends Model
 {
     use HasFactory;
+
+    const REPEATER_PREFIX = "skill_items_";
 
     /**
      * @var string[]
@@ -46,6 +49,11 @@ class Skill extends Model
      */
     public function skill_items() : HasMany
     {
-        return $this->hasMany(SkillItem::class);
+        return $this->hasMany(SkillItem::class, 'skill_id')->withoutGlobalScopes();
+    }
+
+    public function getRepeaterFieldKey()
+    {
+        return self::REPEATER_PREFIX . Str::slug($this->label);
     }
 }

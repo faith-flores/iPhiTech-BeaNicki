@@ -53,8 +53,7 @@ class SkillResource extends Resource
                 Tables\Columns\IconColumn::make('is_tag')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->sortable()
                     ->dateTime(),
             ])
             ->filters([
@@ -62,6 +61,7 @@ class SkillResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -1,6 +1,8 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+import preset from './vendor/filament/support/tailwind.config.preset'
 
 module.exports = {
+    presets: [preset],
     darkMode: 'class',
     theme: {
         extend: {
@@ -15,6 +17,9 @@ module.exports = {
         }
     },
     content: [
+        './app/Filament/**/*.php',
+        './resources/views/filament/**/*.blade.php',
+        './vendor/filament/**/*.blade.php',
         './app/**/*.php',
         './resources/**/*.html',
         './resources/**/*.js',

@@ -92,4 +92,25 @@ abstract class ModelService
 
         return new $class($values);
     }
+
+	/**
+	 * Finds a single object by a set of criteria.
+	 *
+	 * @param mixed[] $criteria The criteria.
+	 *
+	 * @return object|null The object.
+	 */
+	public function findOneBy(array $criteria)
+	{
+		$query = $this->query();
+		foreach ($criteria as $key => $value) {
+			if (is_array($value)) {
+				$query->whereIn($key, $value);
+			} else {
+				$query->where($key, $value);
+			}
+		}
+
+		return $query->first();
+	}
 }
