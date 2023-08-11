@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->string('first_name', 100);
             $table->string('last_name', 100);
-            $table->string('phone', 20);
+            $table->string('phone_number', 20);
 
             $table->boolean('is_profile_completed')->default(false);
             $table->integer('status')->default(1);

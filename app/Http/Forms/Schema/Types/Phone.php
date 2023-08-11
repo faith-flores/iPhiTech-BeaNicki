@@ -10,9 +10,10 @@ class Phone
 
     public static function make() : Field
     {
-        return TextInput::make('phone')
+        return TextInput::make('phone_number')
             ->required()
             ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+            ->tel()
         ;
     }
 }

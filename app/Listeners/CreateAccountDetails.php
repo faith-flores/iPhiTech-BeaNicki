@@ -2,10 +2,11 @@
 
 namespace App\Listeners;
 
+use App\Events\UserRegistered;
+use App\Filament\Services\JobseekerResourceService;
 use App\Models\Account;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Models\Jobseeker;
+use App\Models\User;
 
 class CreateAccountDetails
 {
@@ -20,9 +21,19 @@ class CreateAccountDetails
     /**
      * Handle the event.
      */
-    public function handle(Registered $event): void
+    public function handle(UserRegistered $event): void
     {
         $user = $event->user;
+
+        if ($event->role === User::USER_ROLE_EMPLOYER) {
+            $this->createClientAccount($user);
+        } else if ($event->role === User::USER_ROLE_JOBSEEKER) {
+            $this->createJobseekerProfile($user);
+        }
+    }
+
+    private function createClientAccount($user)
+    {
         $account = Account::query()->where('owner_user_id', $user->getKey())->first();
 
         if (empty($account)) {
@@ -34,6 +45,22 @@ class CreateAccountDetails
             $account->user()->associate($user);
 
             $account->save();
+        }
+    }
+
+    private function createJobseekerProfile($user)
+    {
+        $jobseeker = Jobseeker::query()->where('user_id', $user->getKey())->first();
+
+        if (empty($jobseeker)) {
+            $data = [
+                'user_id' => $user->getKey(),
+                'email' => $user->email,
+                'phone_number' => $user->phone_number,
+                'nickname' => $user->name,
+            ];
+
+            app(JobseekerResourceService::class)->add($data);
         }
     }
 }

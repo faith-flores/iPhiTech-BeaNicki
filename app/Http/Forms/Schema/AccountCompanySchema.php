@@ -2,14 +2,8 @@
 
 namespace App\Http\Forms\Schema;
 
-use App\Http\Forms\Schema\Types\Email;
-use App\Http\Forms\Schema\Types\FirstName;
-use App\Http\Forms\Schema\Types\LastName;
-use App\Http\Forms\Schema\Types\Phone;
-use App\Models\Account;
 use App\Models\User;
 use Filament\Forms\Components\Component;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\TextInput;
 

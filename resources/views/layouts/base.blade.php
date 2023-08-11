@@ -16,15 +16,27 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+
+        @filamentStyles
+
         @livewireStyles
         @livewireScripts
+
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
 
     <body>
+        @livewire('notifications')
         @yield('body')
+
+        @filamentScripts
     </body>
 </html>

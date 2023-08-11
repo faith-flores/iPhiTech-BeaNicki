@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Events\UserRegistered;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Spatie\Permission\Models\Role;
@@ -23,12 +22,12 @@ class UsersSeeder extends Seeder
             $data = File::get($file_path);
             $data = json_decode($data, true);
 
-            foreach ($data as $role => $users) {
-                $role = Role::query()->where("name", "=", $role)->first();
+            foreach ($data as $list) {
+                $role = Role::query()->where("name", "=", $list['role'])->first();
 
                 if ($role) {
-                    foreach ($users as $user) {
-                        $this->createUser($user, $role);
+                    foreach ($list['users'] as $email) {
+                        $this->createUser($email, $role);
                     }
                 }
             }
@@ -41,16 +40,16 @@ class UsersSeeder extends Seeder
      *
      * @return bool|User
      */
-    private function createUser($data, Role $role)
+    private function createUser($email, Role $role)
     {
-        if (!User::query()->where('email',  $data['email'])->exists()) {
+        if (!User::query()->where('email',  $email)->exists()) {
             /**
              * @var User $user
              */
-            $user = User::factory()->create($data);
+            $user = User::factory()->create(['email' => $email]);
             $user->syncRoles($role);
 
-            event(new Registered($user));
+            event(new UserRegistered($user, $role->name));
 
             return $user;
         }

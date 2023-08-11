@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->uuid('uuid');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->unique();
+            $table->string('phone_number')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_super_admin')->default(0);

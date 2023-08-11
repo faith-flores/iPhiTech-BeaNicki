@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(route('filament.pages.dashboard'));
+                return redirect(route('filament.app.pages.dashboard'));
             }
         }
 
