@@ -44,11 +44,14 @@ class JobseekerProfileWizard extends EditRecord
 
     protected function afterSave()
     {
-        // Save the relationships from the form to the post after it is created.
-        $this->form->model($this->getRecord())->saveRelationships();
-
         $data = app(SkillResourceService::class)->formatFormSkillsData($this->data);
 
-        app(JobseekerResourceService::class)->editProfile($this->getRecord(), $data);
+        if (app(JobseekerResourceService::class)->editProfile($this->getRecord(), $data)) {
+            $this->redirect(route('filament.jobseekers.pages.dashboard'));
+        }
+
+        /**
+         * TODO: Error message
+         */
     }
 }

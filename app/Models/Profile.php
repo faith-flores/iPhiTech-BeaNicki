@@ -24,6 +24,8 @@ class Profile extends Model
         'phone',
     ];
 
+    protected $appends = ['display_name'];
+
     protected $visible = [
         'id',
         'first_name',
@@ -82,6 +84,19 @@ class Profile extends Model
         return $this->belongsTo(Billing::class, 'billing_id');
     }
 
+    protected function getDisplayNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProfileCompleted() : bool
+    {
+        return $this->is_profile_completed === true;
+    }
+
     /**
      * Model Functions
      */
@@ -92,6 +107,7 @@ class Profile extends Model
 
         return $this->save();
     }
+
 
     public function editProfile(User $user, $data)
     {
@@ -119,13 +135,5 @@ class Profile extends Model
         }
 
         throw new Exception("Unable to save profile data", 1);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isProfileCompleted() : bool
-    {
-        return $this->is_profile_completed === true;
     }
 }

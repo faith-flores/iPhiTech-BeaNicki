@@ -10,6 +10,7 @@ use Closure;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -59,6 +60,10 @@ class JobResource extends Resource
                                 RichEditor::make('description')
                                     ->label("Job Overview")
                                     ->required(),
+                                FileUpload::make('attachment')
+                                    ->directory('test-attachments')
+                                    ->preserveFilenames()
+                                    ->visibility('private')
                         ]),
                         Card::make()
                             ->columnSpan(1)
@@ -78,6 +83,10 @@ class JobResource extends Resource
 
                                     ]),
                                     static::getSkillLevelInput(),
+                                    Select::make('skills')
+                                        ->relationship('skills', 'label')
+                                        ->multiple()
+                                        ->preload()
                                     // TODO: Add Skills selection
                             ]),
                     ])
