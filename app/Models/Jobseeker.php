@@ -74,6 +74,14 @@ class Jobseeker extends Model implements HasAddress
     /**
      * @return BelongsTo
      */
+    public function gender() : BelongsTo
+    {
+        return $this->belongsTo(PicklistItem::class, 'gender_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function hours_to_work() : BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'hours_to_work_id');
@@ -85,6 +93,14 @@ class Jobseeker extends Model implements HasAddress
     public function desired_salary() : BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'desired_salary_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function education_attainment() : BelongsTo
+    {
+        return $this->belongsTo(PicklistItem::class, 'education_attainment_id');
     }
 
     /**

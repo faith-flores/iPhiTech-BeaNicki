@@ -8,14 +8,12 @@ use App\Http\Forms\Schema\Types\DateOfBirth;
 use App\Http\Forms\Schema\Types\DesiredSalary;
 use App\Http\Forms\Schema\Types\EmploymentStatus;
 use App\Http\Forms\Schema\Types\HoursToWork;
+use App\Http\Forms\Schema\Types\Jobseeker\Gender;
+use App\Http\Forms\Schema\Types\Jobseeker\HighestEducationAttainment;
 use App\Http\Forms\Schema\Types\Phone;
 use App\Http\Forms\Schema\Types\Website;
-use App\Models\Account;
 use App\Models\Jobseeker;
-use App\Models\Skill;
-use App\Models\SkillItem;
 use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -63,6 +61,8 @@ class JobseekerProfileWizardSchema implements HasFormSchema
             ->schema([
                 TextInput::make('job_title')->required(),
                 Textarea::make('skills_summary')->required(),
+                HighestEducationAttainment::make(),
+                Gender::make(),
                 DesiredSalary::make(),
                 TextInput::make('experience')->required(),
                 EmploymentStatus::make(),

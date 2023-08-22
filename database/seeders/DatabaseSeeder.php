@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PicklistsSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(SkillsSeeder::class);
+        $this->call(JobsSeeder::class);
 
         /**
          * TODO: Create Subscription, Plans
