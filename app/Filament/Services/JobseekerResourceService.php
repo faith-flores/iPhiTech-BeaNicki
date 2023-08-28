@@ -47,9 +47,9 @@ class JobseekerResourceService extends ModelService
     /**
      * @param array $data
      *
-     * @return bool|Model
+     * @return bool|Jobseeker
      */
-    public function update($data, Jobseeker $jobseeker)
+    public function update($data, Jobseeker $jobseeker) : bool|Jobseeker
     {
         $jobseeker = $this->getModel($jobseeker);
 
