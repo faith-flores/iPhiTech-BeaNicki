@@ -39,7 +39,6 @@ class JobseekerProfileWizardSchema implements HasFormSchema
     {
         return Step::make('Personal')
             ->icon('heroicon-o-identification')
-            ->description('Lorem ipsum dolor')
             ->schema([
                 Section::make('Profile Details')
                     ->description('Please complete your profile information below.')
@@ -57,7 +56,6 @@ class JobseekerProfileWizardSchema implements HasFormSchema
     {
         return Step::make('Jobseeker Profile')
             ->icon('heroicon-o-identification')
-            ->description('Lorem ipsum dolor')
             ->schema([
                 TextInput::make('job_title')->required(),
                 Textarea::make('skills_summary')->required(),
@@ -67,7 +65,6 @@ class JobseekerProfileWizardSchema implements HasFormSchema
                 TextInput::make('experience')->required(),
                 EmploymentStatus::make(),
                 HoursToWork::make(),
-                DateOfBirth::make(),
                 Phone::make(),
                 Website::make(),
             ])->model(Jobseeker::class);
@@ -75,42 +72,11 @@ class JobseekerProfileWizardSchema implements HasFormSchema
 
     private static function wizardStepSkills()
     {
-        $skills = app(SkillResourceService::class)->query()->select('skills.*')->with('skill_items')->get();
-
-        $schema = [];
-
-        foreach ($skills as $key => $skill) {
-            $options = $skill->skill_items()->pluck('label', 'id')->toArray();
-
-            $schema[$key] = Tabs\Tab::make($skill->label)->schema([
-                Repeater::make($skill->getRepeaterFieldKey())
-                    ->orderColumn(false)
-                    ->label('Skills')
-                    ->schema([
-                        Select::make("skill_item_id")
-                            ->label('Select Skill')
-                            ->options($options)
-                            ->in(array_column($options, 'id'))
-                            ->required(),
-                        Select::make("rating")
-                            ->options([1, 2, 3, 4, 5])
-                            ->in([1, 2, 3, 4, 5])
-                            ->required()
-                    ])
-                    ->addActionLabel('Add Skill')
-                    ->columns(2)
-                    ->defaultItems(2)
-                    ->collapsible()
-                    ->itemLabel(fn(array $state): string => $options[$state['skill_item_id']] ?? "")
-            ]);
-        }
-
         return Step::make('Skills Rating')
-            ->description('Lorem ipsum dolor')
             ->schema([
                 Group::make([
                     Tabs::make('Label')
-                        ->tabs($schema)
+                        ->tabs(SkillsSchema::make())
                 ])
             ])
         ;

@@ -11,4 +11,8 @@
             @apply bg-purple-500 hover:bg-purple-700
         }
     }
+
+    .fi-sidebar {
+        @apply bg-purple-500 dark:bg-gray-950;
+    }
 }
