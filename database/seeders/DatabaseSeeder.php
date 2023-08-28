@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use Database\Seeders\Production\OldDataSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +20,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersSeeder::class);
         $this->call(SkillsSeeder::class);
         $this->call(JobsSeeder::class);
+
+        if (config('app.env') === 'production') {
+            $this->call(OldDataSeeder::class);
+        }
 
         /**
          * TODO: Create Subscription, Plans

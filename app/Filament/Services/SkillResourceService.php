@@ -5,6 +5,8 @@ namespace App\Filament\Services;
 use App\Models\Jobseeker;
 use App\Models\Services\ModelService;
 use App\Models\Skill;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 
 class SkillResourceService extends ModelService
 {
@@ -45,6 +47,17 @@ class SkillResourceService extends ModelService
     }
 
     /**
+     * Find a pick list
+     *
+     * @param $identifier
+     * @return Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
+    public function findSkill($identifier)
+    {
+        return $this->query()->where('identifier', $identifier)->first();
+    }
+
+    /**
      * @param Jobseeker $jobseeker
      *
      * @return null|array
@@ -61,5 +74,82 @@ class SkillResourceService extends ModelService
         }
 
         return $data;
+    }
+
+    /**
+     * @param string $identifier
+     *
+     * @return mixed
+     */
+    public function getCachedSelectableList(string $identifier)
+    {
+        return Cache::rememberForever('skill::' . $identifier, function() use ($identifier) {
+            if ($skill = $this->getSelectableList($identifier)) {
+                return $skill;
+            } else {
+                throw new \Exception(sprintf('Pick List %s does not exist', $identifier));
+            }
+        });
+    }
+
+    /**
+     * @param $identifier
+     *
+     * @return null|object
+     */
+    public function getSelectableList($identifier)
+    {
+        if (!$skill = $this->findSkill($identifier)) {
+            return null;
+        }
+
+        /**
+         * @var Builder $query
+         */
+        $query = $skill->skill_items();
+        $query->select('id', 'identifier', 'label');
+        $query->orderBy('sequence', 'ASC');
+        $query->orderBy('label', 'ASC');
+
+        $query->where('status', true);
+
+        $skill = $skill->toArray();
+        $items = $query->get();
+        $skill['items'] = $items->mapWithKeys(function($item){
+            return [$item->identifier => $item->toArray()];
+        });
+
+        return $skill;
+    }
+
+    /**
+     * @param string $identifier
+     */
+    public function clearCachedSelectableList(string $identifier)
+    {
+        Cache::forget('skill::' . $identifier);
+    }
+
+    /**
+     * Get's the specific property of a pick list item or an array of values based on the given key
+     *
+     * @param string $pick_list_identifier The Pick List the item belongs to
+     * @param string $item_identifier The item identifier
+     * @param string|array $key A single key to extract off the item, or an array of keys to extract more than one property off the item
+     * @param null $default The default value to return if none is foudn
+     * @return array|mixed|null
+     */
+    public function getSkillItem($skill_identifier, $item_identifier, $key = 'label', $default = null)
+    {
+        $list = $this->getCachedSelectableList($skill_identifier);
+
+        if ($list && isset($list['items'][$item_identifier])) {
+            if (is_array($key)) {
+                return Arr::only($list['items'][$item_identifier], $key);
+            } else {
+                return Arr::get($list['items'][$item_identifier], $key);
+            }
+        }
+        return $default;
     }
 }

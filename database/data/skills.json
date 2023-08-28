@@ -18,7 +18,7 @@
             },
             {
                 "label": "JavaScript",
-                "identifier": "js",
+                "identifier": "javascript",
                 "description": "A versatile scripting language used for adding interactivity and dynamic elements to web pages."
             },
             {
@@ -85,6 +85,11 @@
                 "label": "WordPress",
                 "identifier": "wordpress",
                 "description": "A popular content management system (CMS) for creating and managing websites and blogs."
+            },
+            {
+                "label": "Shopify",
+                "identifier": "shopify",
+                "description": "A popular content management system (CMS) for creating and managing e-commerce websites."
             },
             {
                 "label": "GraphQL",
