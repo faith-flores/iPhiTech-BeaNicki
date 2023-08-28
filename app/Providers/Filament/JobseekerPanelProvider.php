@@ -40,6 +40,7 @@ class JobseekerPanelProvider extends PanelProvider
             ->login()
             ->registration(JobseekerRegister::class)
             ->emailVerification()
+            ->passwordReset()
             ->viteTheme('resources/css/filament/jobseekers/theme.css')
             ->discoverResources(in: app_path('Filament/JobseekerPanel/Resources'), for: 'App\\Filament\\JobseekerPanel\\Resources')
             ->discoverPages(in: app_path('Filament/JobseekerPanel/Pages'), for: 'App\\Filament\\JobseekerPanel\\Pages')
