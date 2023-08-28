@@ -2,7 +2,6 @@
 
 namespace App\Http\Forms\Schema;
 
-use App\Http\Forms\Schema\Types\DateOfBirth;
 use App\Http\Forms\Schema\Types\Email;
 use App\Http\Forms\Schema\Types\FirstName;
 use App\Http\Forms\Schema\Types\LastName;
@@ -22,11 +21,12 @@ class ProfileSchema
     {
         return Group::make()
             ->schema([
-                FirstName::make(),
-                LastName::make(),
-                Phone::make(),
-                Email::make(),
-                DateOfBirth::make(),
+                Grid::make(2)->schema([
+                    FirstName::make(),
+                    LastName::make(),
+                    Phone::make(),
+                    Email::make(),
+                ])
             ]);
     }
 }

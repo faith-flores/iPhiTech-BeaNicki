@@ -127,7 +127,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasName, Filament
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if (Auth::guard('jobseeker')->check() ) {
+        if (Auth::guard('jobseeker')->check()) {
             return $panel->getAuthGuard() === "jobseeker";
         }
 
