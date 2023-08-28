@@ -38,6 +38,16 @@ class Jobseeker extends Model implements HasAddress, HasMedia
         'skills_summary',
         'experience',
         'website_url',
+        'iq_score',
+        'english_score',
+        'disc_dominance_score',
+        'disc_dominance_url',
+        'disc_influence_score',
+        'disc_influence_url',
+        'disc_compliance_score',
+        'disc_compliance_url',
+        'disc_steadiness_score',
+        'disc_steadiness_url',
     ];
 
     /**

@@ -34,6 +34,17 @@ return new class extends Migration
             $table->boolean('is_profile_completed')->default(false);
             $table->integer('status')->default(1);
 
+            $table->integer('iq')->nullable();
+            $table->string('english')->nullable();
+            $table->string('disc_dominance_score')->nullable();
+            $table->string('disc_dominance_url')->nullable();
+            $table->string('disc_influence_score')->nullable();
+            $table->string('disc_influence_url')->nullable();
+            $table->string('disc_compliance_score')->nullable();
+            $table->string('disc_compliance_url')->nullable();
+            $table->string('disc_steadiness_score')->nullable();
+            $table->string('disc_steadiness_url')->nullable();
+
             $table->softDeletes();
         });
     }
