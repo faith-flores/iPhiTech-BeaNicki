@@ -46,7 +46,7 @@ class UsersSeeder extends Seeder
             /**
              * @var User $user
              */
-            $user = User::factory()->create(['email' => $email]);
+            $user = User::factory()->verified()->create(['email' => $email]);
             $user->syncRoles($role);
 
             event(new UserRegistered($user, $role->name));

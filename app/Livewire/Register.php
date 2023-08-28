@@ -60,7 +60,7 @@ class Register extends Component implements HasForms, HasActions
             $this->addError('register', 'There wrong process.');
         }
 
-        event(new UserRegistered($user, $role));
+        event(new UserRegistered($user, $role->name));
 
         Auth::login($user, true);
 
