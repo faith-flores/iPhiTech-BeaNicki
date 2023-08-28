@@ -1,0 +1,235 @@
+[
+    {
+        "label": "Web Development",
+        "identifier": "web_development",
+        "description": "Skills related to building and maintaining websites.",
+        "default_item": null,
+        "is_tag": false,
+        "items": [
+            {
+                "label": "HTML",
+                "identifier": "html",
+                "description": "HyperText Markup Language, used for creating the structure of web pages."
+            },
+            {
+                "label": "CSS",
+                "identifier": "css",
+                "description": "Cascading Style Sheets, used for styling the presentation and layout of web pages."
+            },
+            {
+                "label": "JavaScript",
+                "identifier": "js",
+                "description": "A versatile scripting language used for adding interactivity and dynamic elements to web pages."
+            },
+            {
+                "label": "PHP",
+                "identifier": "php",
+                "description": "A server-side scripting language used for web development and building dynamic websites."
+            },
+            {
+                "label": "Python",
+                "identifier": "python",
+                "description": "A high-level programming language often used for web development and building web applications."
+            },
+            {
+                "label": "Ruby",
+                "identifier": "ruby",
+                "description": "A dynamic, object-oriented programming language commonly used in web development."
+            },
+            {
+                "label": "Java",
+                "identifier": "java",
+                "description": "A widely-used object-oriented programming language for building cross-platform web applications."
+            },
+            {
+                "label": "Node.js",
+                "identifier": "nodejs",
+                "description": "A JavaScript runtime environment that allows executing server-side JavaScript code."
+            },
+            {
+                "label": "Express.js",
+                "identifier": "expressjs",
+                "description": "A minimal and flexible Node.js web application framework, ideal for building APIs."
+            },
+            {
+                "label": "React",
+                "identifier": "react",
+                "description": "A JavaScript library for building user interfaces, particularly for single-page applications."
+            },
+            {
+                "label": "Angular",
+                "identifier": "angular",
+                "description": "A TypeScript-based web application framework for building dynamic, single-page applications."
+            },
+            {
+                "label": "Vue.js",
+                "identifier": "vuejs",
+                "description": "A progressive JavaScript framework for building user interfaces, suitable for single-page applications."
+            },
+            {
+                "label": "Laravel",
+                "identifier": "laravel",
+                "description": "A PHP web framework for building web applications following the MVC architectural pattern."
+            },
+            {
+                "label": "Django",
+                "identifier": "django",
+                "description": "A high-level Python web framework for rapid development and clean, pragmatic design."
+            },
+            {
+                "label": "Ruby on Rails",
+                "identifier": "rails",
+                "description": "A web application framework written in Ruby, designed for simplicity and productivity."
+            },
+            {
+                "label": "WordPress",
+                "identifier": "wordpress",
+                "description": "A popular content management system (CMS) for creating and managing websites and blogs."
+            },
+            {
+                "label": "GraphQL",
+                "identifier": "graphql",
+                "description": "A query language for APIs, often used to fetch data from servers to clients in a more efficient way."
+            },
+            {
+                "label": "MongoDB",
+                "identifier": "mongodb",
+                "description": "A popular NoSQL database used for storing and retrieving data in web applications."
+            },
+            {
+                "label": "MySQL",
+                "identifier": "mysql",
+                "description": "An open-source relational database management system, commonly used in web development."
+            },
+            {
+                "label": "Git",
+                "identifier": "git",
+                "description": "A distributed version control system used to manage and track changes in code repositories."
+            },
+            {
+                "label": "Webpack",
+                "identifier": "webpack",
+                "description": "A module bundler for JavaScript applications, commonly used with modern web development workflows."
+            },
+            {
+                "label": "Sass/SCSS",
+                "identifier": "sass",
+                "description": "Extensions of CSS that provide additional features like variables and nested rules for easier styling."
+            },
+            {
+                "label": "Bootstrap",
+                "identifier": "bootstrap",
+                "description": "A popular CSS framework for building responsive and visually appealing web interfaces."
+            },
+            {
+                "label": "jQuery",
+                "identifier": "jquery",
+                "description": "A fast and lightweight JavaScript library for simplifying interactions with HTML documents."
+            },
+            {
+                "label": "RESTful APIs",
+                "identifier": "restful_apis",
+                "description": "Design and implementation of APIs that follow the principles of Representational State Transfer."
+            },
+            {
+                "label": "JSON",
+                "identifier": "json",
+                "description": "A lightweight data-interchange format often used for data transmission between a server and a web application."
+            },
+            {
+                "label": "XML",
+                "identifier": "xml",
+                "description": "Another data-interchange format used for storing and transporting data between different systems."
+            },
+            {
+                "label": "HTTP/HTTPS",
+                "identifier": "http",
+                "description": "Understanding of the Hypertext Transfer Protocol and its secure version used for web communication."
+            },
+            {
+                "label": "Cross-Browser Compatibility",
+                "identifier": "cross_browser",
+                "description": "Ensuring web applications work well on different web browsers and versions."
+            },
+            {
+                "label": "Responsive Web Design",
+                "identifier": "responsive_design",
+                "description": "Designing and developing websites to provide optimal user experience on various devices and screen sizes."
+            }
+        ]
+    },
+    {
+        "label": "Multimedia",
+        "identifier": "multimedia",
+        "description": "Skills related to creating and editing multimedia content.",
+        "default_item": null,
+        "is_tag": false,
+        "items": [
+            {
+                "label": "Adobe Photoshop",
+                "identifier": "photoshop",
+                "description": "A powerful image editing software used for graphic design and photo manipulation."
+            },
+            {
+                "label": "Adobe Illustrator",
+                "identifier": "illustrator",
+                "description": "A vector graphics editor used for creating illustrations, logos, and icons."
+            },
+            {
+                "label": "Adobe Premiere Pro",
+                "identifier": "premiere_pro",
+                "description": "A video editing software used for professional video production."
+            },
+            {
+                "label": "Final Cut Pro",
+                "identifier": "final_cut_pro",
+                "description": "Apple's video editing software designed for macOS users."
+            },
+            {
+                "label": "3D Modeling",
+                "identifier": "3d_modeling",
+                "description": "The process of creating three-dimensional models of objects using specialized software."
+            },
+            {
+                "label": "Video Editing",
+                "identifier": "video_editing",
+                "description": "The process of manipulating and rearranging video clips to create a final video production."
+            },
+            {
+                "label": "Motion Graphics",
+                "identifier": "motion_graphics",
+                "description": "The art of using animation and visual effects to create the illusion of motion in multimedia projects."
+            },
+            {
+                "label": "Adobe After Effects",
+                "identifier": "after_effects",
+                "description": "A digital visual effects, motion graphics, and compositing application used in post-production."
+            },
+            {
+                "label": "Audio Editing",
+                "identifier": "audio_editing",
+                "description": "The process of manipulating and enhancing audio recordings for various multimedia projects."
+            },
+            {
+                "label": "Sound Design",
+                "identifier": "sound_design",
+                "description": "The creation and manipulation of audio elements to enhance the overall auditory experience of multimedia projects."
+            },
+            {
+                "label": "Blender",
+                "identifier": "blender",
+                "description": "An open-source 3D computer graphics software used for creating animated films, visual effects, and games."
+            },
+            {
+                "label": "UI/UX Design",
+                "identifier": "ui_ux_design",
+                "description": "The process of enhancing user satisfaction by improving the usability, accessibility, and overall interaction with digital products."
+            },
+            {
+                "label": "Web Designer",
+                "identifier": "web_designer",
+                "description": "A professional who designs and creates the visual elements and user interfaces for websites."
+            }
+        ]
+    }
+]

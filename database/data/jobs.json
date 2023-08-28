@@ -1,0 +1,566 @@
+[
+    [
+        {
+            "title": "Software Engineer",
+            "description": "We are looking for a skilled Software Engineer to join our team.",
+            "total_hire_count": null,
+            "salary": 80000,
+            "start_date": "2023-08-10",
+            "interview_availability": "2023-08-05",
+            "status": 1
+        },
+        {
+            "title": "Data Analyst",
+            "description": "We are seeking a Data Analyst to analyze and interpret business data.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-09-01",
+            "interview_availability": "2023-08-25",
+            "status": 1
+        },
+        {
+            "title": "Graphic Designer",
+            "description": "We are hiring a creative Graphic Designer to work on exciting projects.",
+            "total_hire_count": null,
+            "salary": 50000,
+            "start_date": "2023-08-20",
+            "interview_availability": "2023-08-15",
+            "status": 1
+        },
+        {
+            "title": "Marketing Specialist",
+            "description": "We are looking for a Marketing Specialist to develop and implement marketing strategies.",
+            "total_hire_count": null,
+            "salary": 60000,
+            "start_date": "2023-08-25",
+            "interview_availability": "2023-08-20",
+            "status": 1
+        },
+        {
+            "title": "Mobile App Developer",
+            "description": "We are seeking a Mobile App Developer to build innovative mobile applications.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-09-05",
+            "interview_availability": "2023-09-01",
+            "status": 1
+        },
+        {
+            "title": "Content Writer",
+            "description": "We are hiring a Content Writer to create engaging and SEO-friendly content.",
+            "total_hire_count": null,
+            "salary": 55000,
+            "start_date": "2023-09-10",
+            "interview_availability": "2023-09-05",
+            "status": 1
+        },
+        {
+            "title": "Frontend Developer",
+            "description": "We are seeking a Frontend Developer to work on user interfaces.",
+            "total_hire_count": null,
+            "salary": 75000,
+            "start_date": "2023-09-15",
+            "interview_availability": "2023-09-10",
+            "status": 1
+        },
+        {
+            "title": "HR Specialist",
+            "description": "We are hiring an HR Specialist to handle recruitment and employee relations.",
+            "total_hire_count": null,
+            "salary": 60000,
+            "start_date": "2023-09-20",
+            "interview_availability": "2023-09-15",
+            "status": 1
+        },
+        {
+            "title": "Software QA Tester",
+            "description": "We are seeking a Software QA Tester to ensure the quality of our applications.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-09-25",
+            "interview_availability": "2023-09-20",
+            "status": 1
+        },
+        {
+            "title": "Social Media Manager",
+            "description": "We are hiring a Social Media Manager to handle our social media accounts.",
+            "total_hire_count": null,
+            "salary": 65000,
+            "start_date": "2023-09-30",
+            "interview_availability": "2023-09-25",
+            "status": 1
+        },
+        {
+            "title": "Database Administrator",
+            "description": "We are seeking a Database Administrator to manage and optimize databases.",
+            "total_hire_count": null,
+            "salary": 80000,
+            "start_date": "2023-10-05",
+            "interview_availability": "2023-10-01",
+            "status": 1
+        },
+        {
+            "title": "Customer Support Representative",
+            "description": "We are hiring a Customer Support Representative to assist our customers.",
+            "total_hire_count": null,
+            "salary": 45000,
+            "start_date": "2023-10-10",
+            "interview_availability": "2023-10-05",
+            "status": 1
+        },
+        {
+            "title": "DevOps Engineer",
+            "description": "We are seeking a DevOps Engineer to manage our infrastructure.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-10-15",
+            "interview_availability": "2023-10-10",
+            "status": 1
+        },
+        {
+            "title": "Content Marketing Specialist",
+            "description": "We are hiring a Content Marketing Specialist to drive our content strategy.",
+            "total_hire_count": null,
+            "salary": 65000,
+            "start_date": "2023-10-20",
+            "interview_availability": "2023-10-15",
+            "status": 1
+        },
+        {
+            "title": "UI/UX Designer",
+            "description": "We are seeking a talented UI/UX Designer to create stunning user experiences.",
+            "total_hire_count": null,
+            "salary": 80000,
+            "start_date": "2023-10-25",
+            "interview_availability": "2023-10-20",
+            "status": 1
+        },
+        {
+            "title": "Sales Representative",
+            "description": "We are hiring a Sales Representative to promote and sell our products.",
+            "total_hire_count": null,
+            "salary": 50000,
+            "start_date": "2023-10-30",
+            "interview_availability": "2023-10-25",
+            "status": 1
+        },
+        {
+            "title": "Network Engineer",
+            "description": "We are seeking a Network Engineer to design and maintain our network infrastructure.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-11-05",
+            "interview_availability": "2023-11-01",
+            "status": 1
+        },
+        {
+            "title": "Financial Analyst",
+            "description": "We are hiring a Financial Analyst to analyze financial data and provide insights.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-11-10",
+            "interview_availability": "2023-11-05",
+            "status": 1
+        }
+    ],
+    [
+        {
+            "title": "IT Support Specialist",
+            "description": "We are seeking an IT Support Specialist to provide technical assistance.",
+            "total_hire_count": null,
+            "salary": 65000,
+            "start_date": "2023-11-15",
+            "interview_availability": "2023-11-10",
+            "status": 1
+        },
+        {
+            "title": "Digital Marketing Manager",
+            "description": "We are hiring a Digital Marketing Manager to oversee our online marketing efforts.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-11-20",
+            "interview_availability": "2023-11-15",
+            "status": 1
+        },
+        {
+            "title": "Business Development Manager",
+            "description": "We are seeking a Business Development Manager to drive growth and sales.",
+            "total_hire_count": null,
+            "salary": 90000,
+            "start_date": "2023-11-25",
+            "interview_availability": "2023-11-20",
+            "status": 1
+        },
+        {
+            "title": "Technical Writer",
+            "description": "We are hiring a Technical Writer to create clear and concise documentation.",
+            "total_hire_count": null,
+            "salary": 60000,
+            "start_date": "2023-11-30",
+            "interview_availability": "2023-11-25",
+            "status": 1
+        },
+        {
+            "title": "Software Architect",
+            "description": "We are seeking a Software Architect to design scalable software solutions.",
+            "total_hire_count": null,
+            "salary": 95000,
+            "start_date": "2023-12-05",
+            "interview_availability": "2023-12-01",
+            "status": 1
+        },
+        {
+            "title": "Administrative Assistant",
+            "description": "We are hiring an Administrative Assistant to provide administrative support.",
+            "total_hire_count": null,
+            "salary": 45000,
+            "start_date": "2023-12-10",
+            "interview_availability": "2023-12-05",
+            "status": 1
+        },
+        {
+            "title": "Product Manager",
+            "description": "We are seeking a Product Manager to lead product development initiatives.",
+            "total_hire_count": null,
+            "salary": 90000,
+            "start_date": "2023-12-15",
+            "interview_availability": "2023-12-10",
+            "status": 1
+        },
+        {
+            "title": "Customer Success Manager",
+            "description": "We are hiring a Customer Success Manager to ensure customer satisfaction.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-12-20",
+            "interview_availability": "2023-12-15",
+            "status": 1
+        },
+        {
+            "title": "Systems Administrator",
+            "description": "We are seeking a Systems Administrator to manage our IT infrastructure.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-12-25",
+            "interview_availability": "2023-12-20",
+            "status": 1
+        },
+        {
+            "title": "Sales Manager",
+            "description": "We are hiring a Sales Manager to lead our sales team and drive revenue.",
+            "total_hire_count": null,
+            "salary": 75000,
+            "start_date": "2023-12-30",
+            "interview_availability": "2023-12-25",
+            "status": 1
+        }
+    ],
+    [
+        {
+            "title": "Backend Developer",
+            "description": "We are seeking a Backend Developer to build and maintain server-side applications.",
+            "total_hire_count": null,
+            "salary": 80000,
+            "start_date": "2023-01-05",
+            "interview_availability": "2023-01-01",
+            "status": 1
+        },
+        {
+            "title": "Content Marketing Manager",
+            "description": "We are hiring a Content Marketing Manager to lead content strategy and campaigns.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-01-10",
+            "interview_availability": "2023-01-05",
+            "status": 1
+        },
+        {
+            "title": "Network Security Specialist",
+            "description": "We are seeking a Network Security Specialist to protect our network and data.",
+            "total_hire_count": null,
+            "salary": 90000,
+            "start_date": "2023-01-15",
+            "interview_availability": "2023-01-10",
+            "status": 1
+        },
+        {
+            "title": "Business Analyst",
+            "description": "We are hiring a Business Analyst to gather and analyze business requirements.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-01-20",
+            "interview_availability": "2023-01-15",
+            "status": 1
+        },
+        {
+            "title": "Mobile App UX/UI Designer",
+            "description": "We are seeking a Mobile App UX/UI Designer to create intuitive mobile interfaces.",
+            "total_hire_count": null,
+            "salary": 75000,
+            "start_date": "2023-01-25",
+            "interview_availability": "2023-01-20",
+            "status": 1
+        },
+        {
+            "title": "Customer Service Representative",
+            "description": "We are hiring a Customer Service Representative to handle customer inquiries.",
+            "total_hire_count": null,
+            "salary": 45000,
+            "start_date": "2023-01-30",
+            "interview_availability": "2023-01-25",
+            "status": 1
+        },
+        {
+            "title": "Data Scientist",
+            "description": "We are seeking a Data Scientist to analyze and interpret large datasets.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-02-05",
+            "interview_availability": "2023-02-01",
+            "status": 1
+        },
+        {
+            "title": "Digital Marketing Specialist",
+            "description": "We are hiring a Digital Marketing Specialist to manage online marketing campaigns.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-02-10",
+            "interview_availability": "2023-02-05",
+            "status": 1
+        },
+        {
+            "title": "Full Stack Developer",
+            "description": "We are seeking a Full Stack Developer to work on both front-end and back-end development.",
+            "total_hire_count": null,
+            "salary": 90000,
+            "start_date": "2023-02-15",
+            "interview_availability": "2023-02-10",
+            "status": 1
+        },
+        {
+            "title": "Product Marketing Manager",
+            "description": "We are hiring a Product Marketing Manager to drive product marketing strategies.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-02-20",
+            "interview_availability": "2023-02-15",
+            "status": 1
+        },
+        {
+            "title": "IT Project Manager",
+            "description": "We are seeking an IT Project Manager to oversee technology projects.",
+            "total_hire_count": null,
+            "salary": 90000,
+            "start_date": "2023-02-25",
+            "interview_availability": "2023-02-20",
+            "status": 1
+        },
+        {
+            "title": "Operations Manager",
+            "description": "We are hiring an Operations Manager to oversee daily business operations.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-03-05",
+            "interview_availability": "2023-03-01",
+            "status": 1
+        },
+        {
+            "title": "UX Researcher",
+            "description": "We are seeking a UX Researcher to conduct user research and usability testing.",
+            "total_hire_count": null,
+            "salary": 75000,
+            "start_date": "2023-03-10",
+            "interview_availability": "2023-03-05",
+            "status": 1
+        },
+        {
+            "title": "Sales Operations Specialist",
+            "description": "We are hiring a Sales Operations Specialist to optimize sales processes.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-03-15",
+            "interview_availability": "2023-03-10",
+            "status": 1
+        },
+        {
+            "title": "Software Support Engineer",
+            "description": "We are seeking a Software Support Engineer to assist customers with technical issues.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-03-20",
+            "interview_availability": "2023-03-15",
+            "status": 1
+        },
+        {
+            "title": "HR Manager",
+            "description": "We are hiring an HR Manager to oversee human resources activities.",
+            "total_hire_count": null,
+            "salary": 90000,
+            "start_date": "2023-03-25",
+            "interview_availability": "2023-03-20",
+            "status": 1
+        },
+        {
+            "title": "Frontend UI Developer",
+            "description": "We are seeking a Frontend UI Developer to create visually appealing user interfaces.",
+            "total_hire_count": null,
+            "salary": 75000,
+            "start_date": "2023-03-30",
+            "interview_availability": "2023-03-25",
+            "status": 1
+        },
+        {
+            "title": "Financial Controller",
+            "description": "We are hiring a Financial Controller to oversee financial operations.",
+            "total_hire_count": null,
+            "salary": 95000,
+            "start_date": "2023-04-05",
+            "interview_availability": "2023-04-01",
+            "status": 1
+        },
+        {
+            "title": "E-commerce Manager",
+            "description": "We are seeking an E-commerce Manager to oversee our online store.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-04-10",
+            "interview_availability": "2023-04-05",
+            "status": 1
+        },
+        {
+            "title": "IT Support Technician",
+            "description": "We are hiring an IT Support Technician to provide technical assistance to employees.",
+            "total_hire_count": null,
+            "salary": 65000,
+            "start_date": "2023-04-15",
+            "interview_availability": "2023-04-10",
+            "status": 1
+        },
+        {
+            "title": "SEO Specialist",
+            "description": "We are seeking an SEO Specialist to improve search engine rankings.",
+            "total_hire_count": null,
+            "salary": 65000,
+            "start_date": "2023-04-20",
+            "interview_availability": "2023-04-15",
+            "status": 1
+        },
+        {
+            "title": "Operations Analyst",
+            "description": "We are hiring an Operations Analyst to analyze and optimize business processes.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-04-25",
+            "interview_availability": "2023-04-20",
+            "status": 1
+        },
+        {
+            "title": "Database Developer",
+            "description": "We are seeking a Database Developer to design and implement database solutions.",
+            "total_hire_count": null,
+            "salary": 80000,
+            "start_date": "2023-05-05",
+            "interview_availability": "2023-05-01",
+            "status": 1
+        },
+        {
+            "title": "Graphic Designer",
+            "description": "We are hiring a Graphic Designer to create visually compelling graphics.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-05-10",
+            "interview_availability": "2023-05-05",
+            "status": 1
+        },
+        {
+            "title": "Supply Chain Manager",
+            "description": "We are seeking a Supply Chain Manager to manage the flow of goods and services.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-05-15",
+            "interview_availability": "2023-05-10",
+            "status": 1
+        },
+        {
+            "title": "Technical Support Engineer",
+            "description": "We are hiring a Technical Support Engineer to troubleshoot and resolve technical issues.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-05-20",
+            "interview_availability": "2023-05-15",
+            "status": 1
+        },
+        {
+            "title": "Marketing Analyst",
+            "description": "We are seeking a Marketing Analyst to analyze marketing data and trends.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-05-25",
+            "interview_availability": "2023-05-20",
+            "status": 1
+        },
+        {
+            "title": "Training and Development Specialist",
+            "description": "We are hiring a Training and Development Specialist to design and conduct employee training programs.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-05-30",
+            "interview_availability": "2023-05-25",
+            "status": 1
+        },
+        {
+            "title": "Software Quality Assurance Engineer",
+            "description": "We are seeking a Software Quality Assurance Engineer to test and ensure software quality.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-06-05",
+            "interview_availability": "2023-06-01",
+            "status": 1
+        },
+        {
+            "title": "Content Writer",
+            "description": "We are hiring a Content Writer to create engaging and informative content.",
+            "total_hire_count": null,
+            "salary": 65000,
+            "start_date": "2023-06-10",
+            "interview_availability": "2023-06-05",
+            "status": 1
+        },
+        {
+            "title": "Business Intelligence Analyst",
+            "description": "We are seeking a Business Intelligence Analyst to analyze and interpret business data.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-06-15",
+            "interview_availability": "2023-06-10",
+            "status": 1
+        },
+        {
+            "title": "IT Security Specialist",
+            "description": "We are hiring an IT Security Specialist to protect our organization from security breaches.",
+            "total_hire_count": null,
+            "salary": 85000,
+            "start_date": "2023-06-20",
+            "interview_availability": "2023-06-15",
+            "status": 1
+        },
+        {
+            "title": "Social Media Manager",
+            "description": "We are seeking a Social Media Manager to develop and implement social media strategies.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-06-25",
+            "interview_availability": "2023-06-20",
+            "status": 1
+        },
+        {
+            "title": "Human Resources Generalist",
+            "description": "We are hiring a Human Resources Generalist to manage HR functions.",
+            "total_hire_count": null,
+            "salary": 70000,
+            "start_date": "2023-06-30",
+            "interview_availability": "2023-06-25",
+            "status": 1
+        }
+    ]
+]
