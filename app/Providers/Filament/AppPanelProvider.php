@@ -26,9 +26,9 @@ class AppPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            ->login()
             ->id('app')
             ->path('app')
-            ->login()
             ->colors([
                 'primary' => Color::Indigo,
             ])
@@ -53,11 +53,9 @@ class AppPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->authGuard('web')
             ->authMiddleware([
                 Authenticate::class,
                 EnsureEmailIsVerified::class,
-                EnsureProfileIsCompleted::class
             ]);
     }
 }

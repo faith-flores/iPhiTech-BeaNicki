@@ -49,7 +49,7 @@ class UsersSeeder extends Seeder
             $user = User::factory()->create(['email' => $email]);
             $user->syncRoles($role);
 
-            event(new UserRegistered($user, $role->name));
+            event(new UserRegistered($user, $role));
 
             return $user;
         }

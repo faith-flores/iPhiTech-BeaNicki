@@ -25,9 +25,9 @@ class CreateAccountDetails
     {
         $user = $event->user;
 
-        if ($event->role === User::USER_ROLE_EMPLOYER) {
+        if ($event->role->name === User::USER_ROLE_EMPLOYER) {
             $this->createClientAccount($user);
-        } else if ($event->role === User::USER_ROLE_JOBSEEKER) {
+        } else if ($event->role->name === User::USER_ROLE_JOBSEEKER) {
             $this->createJobseekerProfile($user);
         }
     }

@@ -11,6 +11,14 @@ class ListJobseekers extends ListRecords
     protected static string $resource = JobseekerResource::class;
 
     protected static bool $isDiscovered = false;
+    protected static bool $shouldRegisterNavigation = false;
+
+    public function mount(): void
+    {
+        static::authorizeResourceAccess();
+
+        redirect(route('filament.jobseekers.pages.dashboard'));
+    }
 
     protected function getHeaderActions(): array
     {

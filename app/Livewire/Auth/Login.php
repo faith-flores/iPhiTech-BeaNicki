@@ -35,7 +35,12 @@ class Login extends Component
             return;
         }
 
-        return redirect()->intended(route('home'));
+        if (Auth::guard('jobseeker')->check()) {
+            return redirect()->intended(route('filament.jobseekers.pages.dashboard'));
+        } else {
+            return redirect()->intended(route('filament.app.pages.dashboard'));
+        }
+
     }
 
     public function setLoginRole($role)

@@ -3,12 +3,9 @@
 namespace App\Filament\JobseekerPanel\Resources;
 
 use App\Filament\JobseekerPanel\Resources\JobseekerResource\Pages;
-use App\Filament\JobseekerPanel\Resources\JobseekerResource\Pages\JobseekerProfileWizard;
 use App\Models\Jobseeker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
 
 class JobseekerResource extends Resource
 {
@@ -16,7 +13,7 @@ class JobseekerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $slug = 'accounts';
+    protected static ?string $slug = 'account';
 
     protected static bool $shouldRegisterNavigation = false;
 
@@ -24,36 +21,13 @@ class JobseekerResource extends Resource
     {
         return $form
             ->schema([
-                //
-            ]);
-    }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
         ];
     }
 
@@ -61,8 +35,8 @@ class JobseekerResource extends Resource
     {
         return [
             'index' => Pages\ListJobseekers::route('/'),
-            'edit' => Pages\EditJobseeker::route('/{record}/edit'),
-            'edit-profile' => JobseekerProfileWizard::route('/{record}/edit-profile'),
+            'edit' => Pages\ViewJobseekerProfile::route('/{record}/edit'),
+            'setup-profile' => Pages\JobseekerProfileWizard::route('/{record}/setup-profile'),
         ];
     }
 }
