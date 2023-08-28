@@ -6,10 +6,6 @@ use App\Models\Account;
 use App\Models\Jobseeker;
 use App\Models\Profile;
 use App\Models\User;
-use Filament\Support\Colors\Color;
-use Filament\Support\Facades\FilamentColor;
-use Filament\Support\Facades\FilamentView;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
@@ -49,10 +45,5 @@ class AppServiceProvider extends ServiceProvider
         Auth::provider('guarded', function ($app, array $config) {
             return new GuardedUserProvider($app['hash'], $config['model'], $config['guard']);
         });
-
-        FilamentColor::register([
-            'primary' => Color::hex('#865DFF'),
-            'secondary' => Color::hex('#E384FF')
-        ]);
     }
 }
