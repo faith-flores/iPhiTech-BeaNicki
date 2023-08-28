@@ -15,6 +15,8 @@ class JobseekerProfileWizard extends EditRecord
 {
     use HasWizard;
 
+    protected static ?string $title = "Edit Your Profile";
+
     /**
      * @var SkillResourceService
      */
@@ -25,6 +27,11 @@ class JobseekerProfileWizard extends EditRecord
     public function __construct()
     {
         $this->skillService = app(SkillResourceService::class);
+    }
+
+    protected function authorizeAccess(): void
+    {
+        abort_unless(static::getResource()::canEdit($this->getRecord()), 403);
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
@@ -49,9 +56,5 @@ class JobseekerProfileWizard extends EditRecord
         if (app(JobseekerResourceService::class)->editProfile($this->getRecord(), $data)) {
             $this->redirect(route('filament.jobseekers.pages.dashboard'));
         }
-
-        /**
-         * TODO: Error message
-         */
     }
 }

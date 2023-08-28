@@ -4,8 +4,10 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\Jobseeker;
 use App\Models\Skill;
 use App\Models\User;
+use App\Policies\JobseekerPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SkillPolicy;
@@ -27,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Skill::class        => SkillPolicy::class,
         Role::class         => RolePolicy::class,
         Permission::class   => PermissionPolicy::class,
+        Jobseeker::class    => JobseekerPolicy::class,
     ];
 
     /**

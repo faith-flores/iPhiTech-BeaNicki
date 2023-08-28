@@ -3,16 +3,15 @@
         "guard": "web",
         "role": "employer",
         "permissions": [
-            "employer.read.own",
-            "employer.edit.own"
+            "employers.read.own",
+            "employers.edit.own"
         ]
     },
     {
         "guard": "jobseeker",
         "role": "jobseeker",
         "permissions": [
-            "jobseeker.read.own",
-            "jobseeker.edit.own"
+            "jobseekers.read.own"
         ]
     }
 ]

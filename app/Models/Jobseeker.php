@@ -12,12 +12,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Jobseeker extends Model implements HasAddress
+class Jobseeker extends Model implements HasAddress, HasMedia
 {
     use HasFactory;
     use WithAddress;
     use SkillRelations;
+    use InteractsWithMedia;
+
+    protected $appends = ['display_name'];
 
     /**
      * @var array The fillable values
@@ -101,6 +106,11 @@ class Jobseeker extends Model implements HasAddress
     public function education_attainment() : BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'education_attainment_id');
+    }
+
+    protected function getDisplayNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 
     /**

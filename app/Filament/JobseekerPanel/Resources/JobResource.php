@@ -31,9 +31,18 @@ class JobResource extends Resource
 {
     protected static ?string $model = Job::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
     protected int $defaultPaginationPageOption = 12;
+
+    protected static ?string $navigationGroup = 'Jobs';
+
+    protected static ?string $navigationLabel = 'Available Jobs';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
