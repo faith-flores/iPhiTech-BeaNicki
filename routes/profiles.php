@@ -13,5 +13,3 @@
 
 use App\Http\Livewire\ProfileWizard;
 use Illuminate\Support\Facades\Route;
-
-// Route::get('/profiles/client/{user}/edit-profile', ProfileWizard::class)->name('profiles.client.edit-profile');

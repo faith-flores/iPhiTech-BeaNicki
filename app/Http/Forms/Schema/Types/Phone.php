@@ -14,6 +14,7 @@ class Phone
             ->required()
             ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
             ->tel()
+            ->maxLength(13)
         ;
     }
 }
