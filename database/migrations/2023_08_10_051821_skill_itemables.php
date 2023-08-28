@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('skill_item_id');
             $table->morphs('skill_itemable');
             $table->integer('rating')->default(1);
-            $table->foreign('skill_item_id')->references('id')->on('skill_items')->onUpdate('NO ACTION')->onDelete('CASCADE');
+            // $table->foreign('skill_item_id')->references('id')->on('skill_items')->onUpdate('NO ACTION')->onDelete('CASCADE');
         });
     }
 
