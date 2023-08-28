@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('owner_user_id')->constrained('users')->restrictOnDelete();
+            $table->unsignedBigInteger('owner_user_id');
             $table->unsignedTinyInteger('account_type')->default(0);
             $table->string('company_name', 100)->nullable();
             $table->string('email', 100);
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('web_url', 1024)->nullable();
             $table->boolean('is_active')->default(false);
             $table->boolean('is_multi_user')->default(false);
-            $table->foreignId('client_status_id')->nullable()->constrained('picklist_items')->nullOnDelete();
+            $table->unsignedBigInteger('client_status_id')->nullable();
         });
     }
 

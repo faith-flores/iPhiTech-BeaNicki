@@ -15,17 +15,20 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('account_id')->constrained('profiles_accounts')->restrictOnDelete();
-            $table->foreignId('profile_id')->constrained('profiles')->restrictOnDelete();
+            $table->unsignedBigInteger('account_id');
+            $table->unsignedBigInteger('profile_id');
 
             $table->string('title');
             $table->mediumText('description');
             $table->string('identifier', 255);
-            $table->foreignId('hours_to_work_id')->nullable()->constrained('picklist_items')->nullOnDelete();
-            $table->foreignId('schedule_id')->nullable()->constrained('picklist_items')->nullOnDelete();
-            $table->foreignId('skill_level_id')->nullable()->constrained('picklist_items')->nullOnDelete();
-            $table->foreignId('type_of_work_id')->nullable()->constrained('picklist_items')->nullOnDelete();
-            $table->foreignId('duration_id')->nullable()->constrained('picklist_items')->nullOnDelete();
+
+
+            $table->unsignedBigInteger('hours_to_work_id')->nullable();
+            $table->unsignedBigInteger('schedule_id')->nullable();
+            $table->unsignedBigInteger('skill_level_id')->nullable();
+            $table->unsignedBigInteger('type_of_work_id')->nullable();
+            $table->unsignedBigInteger('duration_id')->nullable();
+
             $table->integer('total_hire_count')->nullable();
             $table->decimal('salary')->default(0);
             $table->date('start_date')->nullable();
