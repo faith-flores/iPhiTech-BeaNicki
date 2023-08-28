@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('picklist_id')->index()->constrained()->restrictOnDelete();
+            $table->unsignedBigInteger('picklist_id')->index();
+
             $table->string('label', 255)->index();
             $table->text('description')->nullable();
             $table->string('identifier', 100);

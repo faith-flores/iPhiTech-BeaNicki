@@ -14,11 +14,11 @@ return new class extends Migration
     {
         Schema::create('profiles_billing', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('account_id')->constrained('profiles_accounts')->restrictOnDelete();
+            $table->unsignedBigInteger('account_id');
 
             $table->string('company_name', 255);
             $table->string('invoice_name', 255);

@@ -16,14 +16,13 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
+            $table->unsignedBigInteger('skill_id')->index();
             $table->string('label', 50)->index();
             $table->text('description')->nullable();
             $table->string('identifier', 100);
             $table->integer('sequence');
             $table->boolean('status');
             $table->json('meta')->nullable();
-
-            $table->foreignId('skill_id')->index()->constrained()->cascadeOnDelete();
         });
     }
 
