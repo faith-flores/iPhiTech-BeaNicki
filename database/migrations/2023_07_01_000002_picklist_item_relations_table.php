@@ -15,7 +15,6 @@ return new class extends Migration
         {
             $table->unsignedBigInteger('picklist_item_id');
             $table->morphs('relatable');
-            $table->foreign('picklist_item_id')->references('id')->on('picklist_items')->onUpdate('NO ACTION')->onDelete('CASCADE');
         });
     }
 
