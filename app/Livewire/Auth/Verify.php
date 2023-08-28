@@ -11,7 +11,11 @@ class Verify extends Component
     public function resend()
     {
         if (Auth::user()->hasVerifiedEmail()) {
-            redirect(route('home'));
+            if (Auth::guard('jobseeker')->check()) {
+                return redirect()->intended(route('filament.jobseekers.pages.dashboard'));
+            } else {
+                return redirect()->intended(route('filament.app.pages.dashboard'));
+            }
         }
 
         Auth::user()->sendEmailVerificationNotification();

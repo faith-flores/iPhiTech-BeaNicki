@@ -3,7 +3,9 @@
 namespace App\Providers\Filament;
 
 use App\Filament\JobseekerPanel\Resources\JobseekerResource;
+use App\Filament\JobseekerPanel\Widgets\JobsCreatedChart;
 use App\Filament\JobseekerPanel\Widgets\StatsOverview;
+use App\Filament\Pages\Auth\JobseekerRegister;
 use App\Http\Middleware\Jobseeker\EnsureProfileIsCompleted;
 use App\Livewire\OurBrandsInfoWidget;
 use Filament\Http\Middleware\Authenticate;
@@ -13,6 +15,8 @@ use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Navigation\NavigationItem;
+use Filament\Pages\Dashboard;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
@@ -34,18 +38,22 @@ class JobseekerPanelProvider extends PanelProvider
             ->id('jobseekers')
             ->path('jobseekers')
             ->login()
+            ->registration(JobseekerRegister::class)
+            ->emailVerification()
+            ->passwordReset()
             ->viteTheme('resources/css/filament/jobseekers/theme.css')
             ->discoverResources(in: app_path('Filament/JobseekerPanel/Resources'), for: 'App\\Filament\\JobseekerPanel\\Resources')
             ->discoverPages(in: app_path('Filament/JobseekerPanel/Pages'), for: 'App\\Filament\\JobseekerPanel\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
+            ->topNavigation()
+            ->globalSearch()
             ->discoverWidgets(in: app_path('Filament/JobseekerPanel/Widgets'), for: 'App\\Filament\\JobseekerPanel\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
                 StatsOverview::class,
-                OurBrandsInfoWidget::class
+                JobsCreatedChart::class
             ])
             ->userMenuItems([
                 'profile' => MenuItem::make()
@@ -64,7 +72,6 @@ class JobseekerPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->databaseNotifications()
-            ->databaseNotificationsPolling('30s')
             ->authGuard('jobseeker')
             ->authMiddleware([
                 Authenticate::class,

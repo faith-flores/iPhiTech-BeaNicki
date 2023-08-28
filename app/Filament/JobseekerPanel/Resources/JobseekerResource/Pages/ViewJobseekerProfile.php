@@ -80,7 +80,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                             ->collection('avatars')
                             ->hiddenLabel()
                             ->size('227px')
-                            ->default(fn () => asset('/storage/logo/avatar.svg'))
+                            ->defaultImageUrl(asset('/storage/logo/avatar.svg'))
                             ->circular()->columnSpan(1)
                             ->action(
                                 Action::make('editProfilePicture')
@@ -96,7 +96,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                             ->hiddenLabel()
                                             ->alignCenter()
                                             ->columnSpanFull()
-                                            ->disk('local')
+                                            ->disk('public')
                                             ->avatar()
                                             ->collection('avatars')
                                     ])

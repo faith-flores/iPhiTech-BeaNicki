@@ -12,4 +12,17 @@
 
 .fi-infolist-star-rating > dl > .grid {
     @apply gap-0 !important;
+    grid-template-columns: repeat(5, 24px) !important;
+}
+
+.fi-nav-container > ul {
+    @apply ms-auto;
+}
+
+.fi-nav-container > ul ~ div {
+    margin-inline-start: unset;
+}
+
+.fi-topbar a > img {
+    height: 60px;
 }

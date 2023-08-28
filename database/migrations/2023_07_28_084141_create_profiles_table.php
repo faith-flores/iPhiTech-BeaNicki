@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('account_id')->constrained('profiles_accounts')->restrictOnDelete();
-            $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('client_manager_id')->nullable();
-            $table->foreignId('billing_id')->nullable()->refer('profiles_billing')->nullOnDelete();
+            $table->unsignedBigInteger('billing_id')->nullable();
 
             $table->string('first_name', 100);
             $table->string('last_name', 100);
@@ -28,12 +28,6 @@ return new class extends Migration
             $table->integer('status')->default(1);
 
             $table->softDeletes();
-
-            $table->foreign('client_manager_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('NO ACTION')
-                ->onDelete('SET NULL');
         });
     }
 

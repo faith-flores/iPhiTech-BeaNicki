@@ -27,7 +27,9 @@ Route::middleware('guest')->group(function () {
     Route::get('login', AuthLogin::class)
         ->name('login');
 
-    Route::get('register', LivewireRegister::class)
+    Route::get('register', function() {
+        return redirect()->route('filament.jobseekers.auth.register');
+    })
         ->name('register');
 });
 

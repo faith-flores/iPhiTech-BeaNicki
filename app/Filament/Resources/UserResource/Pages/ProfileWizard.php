@@ -101,7 +101,6 @@ class ProfileWizard extends Page implements HasForms
     {
         return Wizard\Step::make('Profile')
             ->icon('heroicon-o-identification')
-            ->description('Lorem ipsum dolor')
             ->schema([
                     Section::make('Profile Details')
                         ->description('Please complete your profile information below.')
@@ -125,7 +124,6 @@ class ProfileWizard extends Page implements HasForms
     {
         return Step::make('Business')
             ->icon('heroicon-o-building-office')
-            ->description('Lorem ipsum dolor')
             ->schema([
                 Section::make('Business Details')
                     ->description('Please complete your business information below.')
@@ -141,7 +139,6 @@ class ProfileWizard extends Page implements HasForms
     {
         return Wizard\Step::make('Billing')
                 ->icon('heroicon-o-document')
-                ->description('Lorem ipsum dolor')
                 ->schema([
                     Section::make('Billing Details')
                         ->description('Please complete your billing information below.')

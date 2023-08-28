@@ -60,7 +60,11 @@ class Reset extends Component
         if ($response == Password::PASSWORD_RESET) {
             session()->flash(trans($response));
 
-            return redirect(route('home'));
+            if (Auth::guard('jobseeker')->check()) {
+                return redirect()->intended(route('filament.jobseekers.pages.dashboard'));
+            } else {
+                return redirect()->intended(route('filament.app.pages.dashboard'));
+            }
         }
 
         $this->addError('email', trans($response));

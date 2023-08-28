@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->unsignedBigInteger('user_id');
+
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
             $table->string('nickname', 100)->nullable();
@@ -26,11 +27,12 @@ return new class extends Migration
             $table->mediumText('skills_summary')->nullable();
             $table->string('experience', 255)->nullable();
             $table->string('website_url', 255)->nullable();
-            $table->foreignId('gender_id')->nullable()->constrained('picklist_items')->nullOnDelete();
-            $table->foreignId('desired_salary_id')->nullable()->constrained('picklist_items')->nullOnDelete();
-            $table->foreignId('education_attainment_id')->nullable()->constrained('picklist_items')->nullOnDelete();
-            $table->foreignId('employment_status_id')->nullable()->constrained('picklist_items')->nullOnDelete();
-            $table->foreignId('hours_to_work_id')->nullable()->constrained('picklist_items')->nullOnDelete();
+            $table->unsignedBigInteger('gender_id')->nullable();
+            $table->unsignedBigInteger('desired_salary_id')->nullable();
+            $table->unsignedBigInteger('education_attainment_id')->nullable();
+            $table->unsignedBigInteger('employment_status_id')->nullable();
+            $table->unsignedBigInteger('hours_to_work_id')->nullable();
+
             $table->boolean('is_profile_completed')->default(false);
             $table->integer('status')->default(1);
 

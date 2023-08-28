@@ -13,6 +13,7 @@ use App\Http\Forms\Schema\Types\Jobseeker\HighestEducationAttainment;
 use App\Http\Forms\Schema\Types\Phone;
 use App\Http\Forms\Schema\Types\Website;
 use App\Models\Jobseeker;
+use Awcodes\Shout\Components\Shout;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
@@ -39,8 +40,10 @@ class JobseekerProfileWizardSchema implements HasFormSchema
     {
         return Step::make('Personal')
             ->icon('heroicon-o-identification')
-            ->description('Lorem ipsum dolor')
             ->schema([
+                Shout::make('required')
+                    ->content('You need to complete your profile details.')
+                    ->type('warning'),
                 Section::make('Profile Details')
                     ->description('Please complete your profile information below.')
                     ->schema([
@@ -57,8 +60,10 @@ class JobseekerProfileWizardSchema implements HasFormSchema
     {
         return Step::make('Jobseeker Profile')
             ->icon('heroicon-o-identification')
-            ->description('Lorem ipsum dolor')
             ->schema([
+                Shout::make('required')
+                    ->content('You need to complete your jobseeker details.')
+                    ->type('warning'),
                 TextInput::make('job_title')->required(),
                 Textarea::make('skills_summary')->required(),
                 HighestEducationAttainment::make(),
@@ -75,8 +80,10 @@ class JobseekerProfileWizardSchema implements HasFormSchema
     private static function wizardStepSkills()
     {
         return Step::make('Skills Rating')
-            ->description('Lorem ipsum dolor')
             ->schema([
+                Shout::make('required')
+                    ->content('You can skip this step.')
+                    ->type('info'),
                 Group::make([
                     Tabs::make('Label')
                         ->tabs(SkillsSchema::make())

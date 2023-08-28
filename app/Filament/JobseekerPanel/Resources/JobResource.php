@@ -35,8 +35,6 @@ class JobResource extends Resource
 
     protected int $defaultPaginationPageOption = 12;
 
-    protected static ?string $navigationGroup = 'Jobs';
-
     protected static ?string $navigationLabel = 'Available Jobs';
 
     public static function getNavigationBadge(): ?string
@@ -138,6 +136,7 @@ class JobResource extends Resource
                             ->weight(FontWeight::Bold)
                             ->columnSpanFull()
                             ->grow(false)
+                            ->searchable()
                             ->sortable(),
                         TextColumn::make('type_of_work.label')
                             ->badge()
@@ -149,6 +148,7 @@ class JobResource extends Resource
                         TextColumn::make('skill_level.label')
                             ->size(TextColumnSize::ExtraSmall)
                             ->suffix(' - ')
+                            ->searchable()
                             ->grow(false),
                         TextColumn::make('created_at')
                             ->size(TextColumnSize::ExtraSmall)
@@ -167,6 +167,7 @@ class JobResource extends Resource
                         Stack::make([
                             TextColumn::make('skills.label')
                                 ->badge()
+                                ->searchable()
                                 ->limitList(20),
                             TextColumn::make('account.company_name')
                                 ->prefix('Posted by: ')
