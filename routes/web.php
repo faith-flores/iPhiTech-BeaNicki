@@ -25,7 +25,7 @@ Route::get('/', function() {
     return redirect()->route('login');
 })->name('home');
 
-Route::middleware('guest')->group(function () {
+Route::middleware('guest.role')->group(function () {
     Route::get('login', AuthLogin::class)
         ->name('login');
 
