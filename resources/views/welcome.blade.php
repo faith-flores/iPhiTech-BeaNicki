@@ -28,7 +28,7 @@
 
         <div class="p-6 mx-auto max-w-7xl lg:p-8">
             <div class="flex justify-center">
-                <img class="" src="{{ asset('/storage/logo/beanicki-logo.svg') }}" />
+                @include('components.logo')
             </div>
         </div>
     </div>
