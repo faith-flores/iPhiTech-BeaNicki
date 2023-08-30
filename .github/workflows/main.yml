@@ -20,17 +20,12 @@ jobs:
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.MAIN_HOST }} 
-          username: ${{ secrets.MAIN_USERNAME }} 
-          password: ${{ secrets.MAIN_PASSPHRASE }} 
           port: ${{ secrets.PORT }} 
-
-          # host: ${{ secrets.MAIN_HOST }}
-          # key: ${{ secrets.MAIN_KEY }}
-          # passphrase: ${{ secrets.MAIN_PASSPHRASE }}
-          # port: ${{ secrets.PORT }}
-          # username: ${{ secrets.MAIN_USERNAME }}
+          username: ${{ secrets.MAIN_USERNAME }} 
+          key: ${{ secrets.MAIN_KEY }}
+          password: ${{ secrets.MAIN_PASSPHRASE }} 
           script: |
-            echo && hostname
+            echo && ${{ secrets.MAIN_HOST }}
             cd /var/www/beanicki
             git pull origin main
             composer install
