@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Forms\Schema\Types;
 
 class HoursToWork extends BaseSelectPicklistItem
 {
-
     public static function make()
     {
         return parent::build('hours_to_work_id')

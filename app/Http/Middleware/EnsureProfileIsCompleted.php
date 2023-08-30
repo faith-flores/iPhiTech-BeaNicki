@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureProfileIsCompleted
@@ -17,7 +17,9 @@ class EnsureProfileIsCompleted
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user() && $request->user()->hasRole(['Admin'])) return $next($request);
+        if ($request->user() && $request->user()->hasRole(['Admin'])) {
+            return $next($request);
+        }
 
         // Check if the route name is 'filament.app.resources.users.editProfile'
         if ($request->route()->getName() !== 'filament.app.resources.users.editProfile') {
@@ -29,7 +31,6 @@ class EnsureProfileIsCompleted
                         : redirect(route('filament.app.resources.users.editProfile', $request->user()));
             }
         }
-
 
         return $next($request);
     }

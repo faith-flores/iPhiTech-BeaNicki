@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Job;
 use App\Models\Profile;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class JobsSeeder extends Seeder
 {
@@ -37,20 +38,18 @@ class JobsSeeder extends Seeder
         }
 
         /**
-         * TODO: Fix this seeder haha
+         * TODO: Fix this seeder haha.
          */
-        $skill_levels = ["Beginner", "Intermediate", "Advanced", "Expert"];
-        $type_of_works = ["Remote", "On-site", "Hybrid"];
-        $hours_to_works = ["1-10 hours", "11-20 hours", "21-30 hours", "31-40 hours", "40+ hours"];
-        $schedule = ["Day Shift", "Night Shift", "Flexible", "Weekdays Only", "Weekends Only"];
+        $skill_levels = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
+        $type_of_works = ['Remote', 'On-site', 'Hybrid'];
+        $hours_to_works = ['1-10 hours', '11-20 hours', '21-30 hours', '31-40 hours', '40+ hours'];
+        $schedule = ['Day Shift', 'Night Shift', 'Flexible', 'Weekdays Only', 'Weekends Only'];
 
         foreach ($profiles as $key => $profile) {
             if (! empty($data[$key])) {
-
                 foreach ($data[$key] as $key => $list) {
                     $job = Job::factory()
-                            ->make($list)
-                        ;
+                            ->make($list);
 
                     $relations = [
                         'skill_level' => picklist_item('skill-level', Str::slug($skill_levels[rand(0, 3)]), 'id'),

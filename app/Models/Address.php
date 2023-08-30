@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,10 +12,10 @@ class Address extends Model
 {
     use HasFactory;
 
-    protected $table = "addresses";
+    protected $table = 'addresses';
 
     protected $attributes = [
-        'country' => 'PH'
+        'country' => 'PH',
     ];
 
     protected $fillable = [
@@ -24,7 +26,7 @@ class Address extends Model
         'province',
         'zip_code',
         'country',
-        'address_type'
+        'address_type',
     ];
 
     /**

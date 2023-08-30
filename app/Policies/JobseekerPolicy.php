@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Models\Jobseeker;
@@ -20,12 +22,11 @@ class JobseekerPolicy
      */
     public function view(User $user, Jobseeker $jobseeker): bool
     {
-        return (
+        return
             $user->getKey() === $jobseeker->user_id || (
                 $user->can('jobseekers.read') ||
                 $user->can('jobseekers.manage')
-            )
-        );
+            );
     }
 
     /**

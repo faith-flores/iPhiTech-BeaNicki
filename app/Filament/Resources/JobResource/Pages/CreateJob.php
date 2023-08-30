@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\JobResource\Pages;
 
 use App\Filament\Resources\JobResource;
-use App\Models\Account;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
 

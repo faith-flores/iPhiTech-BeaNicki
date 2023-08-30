@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Exception;
@@ -52,17 +54,11 @@ class Profile extends Model
         'is_profile_completed' => 'bool',
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function account() : BelongsTo
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -89,25 +85,20 @@ class Profile extends Model
         return "{$this->first_name} {$this->last_name}";
     }
 
-    /**
-     * @return bool
-     */
     public function isProfileCompleted() : bool
     {
         return $this->is_profile_completed === true;
     }
 
     /**
-     * Model Functions
+     * Model Functions.
      */
-
     public function setProfileCompleted()
     {
         $this->is_profile_completed = true;
 
         return $this->save();
     }
-
 
     public function editProfile(User $user, $data)
     {
@@ -123,7 +114,7 @@ class Profile extends Model
             $profile->fill($data);
         } else {
             // add
-            $profile = new Profile($data);
+            $profile = new self($data);
             $profile->account()->associate($user->account);
             $profile->user()->associate($user);
         }
@@ -134,6 +125,6 @@ class Profile extends Model
             return $profile;
         }
 
-        throw new Exception("Unable to save profile data", 1);
+        throw new Exception('Unable to save profile data', 1);
     }
 }

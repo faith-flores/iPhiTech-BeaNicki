@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\File;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
 use Spatie\Permission\Models\Role;
 
@@ -22,7 +23,7 @@ class AdminUsersSeeder extends Seeder
             $admin_role = Role::findByName('Admin');
         } catch (RoleDoesNotExist $e) {
         } finally {
-            if (!$admin_role) {
+            if (! $admin_role) {
                 $admin_role = Role::create(['name' => 'Admin']);
             }
         }
@@ -35,26 +36,22 @@ class AdminUsersSeeder extends Seeder
         $this->createUser([
             'name' => 'Super Admin',
             'email' => 'superadmin@domain.com',
-            'is_super_admin' => true
+            'is_super_admin' => true,
         ], $admin_role);
 
         //make the admin user
         $this->createUser([
             'name' => 'Admin',
-            'email' => 'admin@domain.com'
+            'email' => 'admin@domain.com',
         ], $admin_role);
-
     }
 
     /**
-     * @param      $data
-     * @param Role $role
-     *
      * @return bool|User
      */
     private function createUser($data, Role $role)
     {
-        if (!User::query()->where('email',  $data['email'])->exists()) {
+        if (! User::query()->where('email', $data['email'])->exists()) {
             /**
              * @var User $user
              */

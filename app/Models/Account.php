@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Models\Contracts\HasAddress;
@@ -20,7 +22,7 @@ class Account extends Model implements HasAddress
     const ACCOUNT_TYPE_PERSONAL = 0;
     const ACCOUNT_TYPE_BUSINESS = 1;
 
-    protected $table = "profiles_accounts";
+    protected $table = 'profiles_accounts';
 
     /**
      * @var array The fillable values
@@ -43,56 +45,38 @@ class Account extends Model implements HasAddress
         return new AccountFactory();
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_user_id');
     }
 
-    /**
-     * @return HasOne
-     */
     public function master_profile() : HasOne
     {
         return $this->hasOne(Profile::class, 'user_id', 'owner_user_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function owner_user() : BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_user_id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function billings() : HasMany
     {
         return $this->hasMany(Billing::class, 'account_id');
     }
 
-    /**
-     * @return HasOne
-     */
     public function default_billing() : HasOne
     {
         return $this->hasOne(Billing::class, 'account_id')
             ->where('is_default', true);
     }
 
-    /**
-     * @return HasMany
-     */
     public function profiles() : HasMany
     {
         return $this->hasMany(Profile::class);
     }
 
-    public function fillRelations(Account $account, $data)
+    public function fillRelations(self $account, $data)
     {
         if ($account->getKey() === auth()->user()->account->getKey()) {
             if (Arr::exists($data, 'address')) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
 |--------------------------------------------------------------------------
 | Routes for Profiles
@@ -10,6 +12,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-use App\Http\Livewire\ProfileWizard;
-use Illuminate\Support\Facades\Route;

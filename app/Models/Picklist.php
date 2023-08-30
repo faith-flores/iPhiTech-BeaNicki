@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use App\Models\PicklistItem;
 use App\Models\Traits\Sluggable;
 use Database\Factories\PicklistFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -10,12 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * TODO: Add Model Policy for Picklist
+ * TODO: Add Model Policy for Picklist.
  */
 class Picklist extends Model
 {
-    const SLUGGABLE_COLUMN  = 'identifier';
-    const SLUGGABLE_SOURCE  = 'label';
+    const SLUGGABLE_COLUMN = 'identifier';
+    const SLUGGABLE_SOURCE = 'label';
 
     use Sluggable;
     use HasFactory;
@@ -23,13 +24,13 @@ class Picklist extends Model
     protected $table = 'picklists';
 
     protected $attributes = [
-        'is_system' => false
+        'is_system' => false,
     ];
 
     protected $fillable = [
         'label',
         'description',
-        'is_tag'
+        'is_tag',
     ];
 
     protected $visible = [
@@ -40,11 +41,11 @@ class Picklist extends Model
         'is_tag',
         'default_item',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     protected $casts = [
-        'is_tag' => 'boolean'
+        'is_tag' => 'boolean',
     ];
 
     public function items()

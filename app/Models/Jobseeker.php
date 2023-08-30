@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Models\Contracts\HasAddress;
@@ -8,9 +10,6 @@ use App\Models\Traits\WithAddress;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -67,52 +66,34 @@ class Jobseeker extends Model implements HasAddress, HasMedia
      */
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id')->withTrashed();
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
-    /**
-     * @return MorphToMany
-     */
     public function skills() : MorphToMany
     {
         return $this->morphToMany(SkillItem::class, 'skill_itemable')->withPivot('rating');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function employment_status() : BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'employment_status_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function gender() : BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'gender_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function hours_to_work() : BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'hours_to_work_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function desired_salary() : BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'desired_salary_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function education_attainment() : BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'education_attainment_id');
@@ -123,9 +104,6 @@ class Jobseeker extends Model implements HasAddress, HasMedia
         return "{$this->first_name} {$this->last_name}";
     }
 
-    /**
-     * @return bool
-     */
     public function isProfileCompleted() : bool
     {
         return $this->is_profile_completed === true;

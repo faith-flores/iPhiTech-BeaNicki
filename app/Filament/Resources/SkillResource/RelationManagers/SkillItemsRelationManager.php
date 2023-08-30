@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\SkillResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Table;
 
 class SkillItemsRelationManager extends RelationManager
 {
@@ -16,7 +16,7 @@ class SkillItemsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'Skill';
 
-    protected static ?string $title = "Skills";
+    protected static ?string $title = 'Skills';
 
     public function form(Form $form): Form
     {
@@ -32,8 +32,7 @@ class SkillItemsRelationManager extends RelationManager
                     ->maxLength(100),
                 Forms\Components\TextArea::make('description')
                     ->maxLength(65535),
-            ])
-        ;
+            ]);
     }
 
     public function table(Table $table): Table
@@ -53,9 +52,8 @@ class SkillItemsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make("New Skill")
-                    ->label("New Skill")
-                ,
+                Tables\Actions\CreateAction::make('New Skill')
+                    ->label('New Skill'),
                 Tables\Actions\AssociateAction::make(),
             ])
             ->actions([

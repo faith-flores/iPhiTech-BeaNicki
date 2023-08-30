@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Job;
@@ -34,5 +36,4 @@ class JobFactory extends Factory
             'interview_availability' => $this->faker->dateTimeBetween('now', '+2 weeks'),
         ];
     }
-
 }

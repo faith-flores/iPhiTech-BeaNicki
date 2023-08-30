@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,9 +22,9 @@ class SkillFactory extends Factory
         $label = fake()->words(2);
 
         return [
-            "label" => $label,
-            "description" => fake()->sentences(2),
-            "identifier" => Str::slug($label)
+            'label' => $label,
+            'description' => fake()->sentences(2),
+            'identifier' => Str::slug($label),
         ];
     }
 }

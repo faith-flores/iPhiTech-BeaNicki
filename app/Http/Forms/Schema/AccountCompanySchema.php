@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Forms\Schema;
 
 use App\Models\User;
@@ -9,10 +11,6 @@ use Filament\Forms\Components\TextInput;
 
 class AccountCompanySchema
 {
-
-    /**
-     * @return Component
-     */
     public static function make() : Component
     {
         return Group::make()

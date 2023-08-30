@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +15,7 @@ class SkillItem extends Model
 
     protected $attributes = [
         'sequence' => 0,
-        'status' => true
+        'status' => true,
     ];
 
     /**
@@ -28,23 +30,15 @@ class SkillItem extends Model
         'status',
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function skill() : BelongsTo
     {
         return $this->belongsTo(Skill::class)->withoutGlobalScopes();
     }
 
-    /**
-     * @param Builder $query
-     * @param $slug
-     * @return Builder
-     */
     public function scopeOfSkillIdentifier(Builder $query, $slug) : Builder
     {
-        return $query->whereHas('skill', function($query) use ($slug) {
-            $query->ofSlug($slug );
+        return $query->whereHas('skill', function ($query) use ($slug) {
+            $query->ofSlug($slug);
         });
     }
 }

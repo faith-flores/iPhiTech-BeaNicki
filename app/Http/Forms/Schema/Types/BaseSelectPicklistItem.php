@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Forms\Schema\Types;
 
-use Closure;
 use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
@@ -28,24 +29,28 @@ class BaseSelectPicklistItem
     public function relationship(string $relationship): self
     {
         $this->relationship = $relationship;
+
         return $this;
     }
 
     public function label(string $label): self
     {
         $this->label = $label;
+
         return $this;
     }
 
     public function picklistIdentifier(string $identifier): self
     {
         $this->picklistIdentifier = $identifier;
+
         return $this;
     }
 
     public function required(bool $isRequired = true): self
     {
         $this->isRequired = $isRequired;
+
         return $this;
     }
 
@@ -64,4 +69,3 @@ class BaseSelectPicklistItem
         return $select;
     }
 }
-

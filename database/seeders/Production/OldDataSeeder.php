@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders\Production;
 
 use App\Filament\Services\JobseekerResourceService;
@@ -10,27 +12,19 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
 
 class OldDataSeeder extends Seeder
 {
-    /**
-     * @var JobseekerResourceService $service
-     */
     private JobseekerResourceService $jobseekerService;
 
-    /**
-     * @var PicklistItemResourceService $picklistService
-     */
     private PicklistItemResourceService $picklistService;
 
     public function __construct(
         JobseekerResourceService $jobseekerService,
         PicklistItemResourceService $picklistService
-    )
-    {
+    ) {
         $this->jobseekerService = $jobseekerService;
         $this->picklistService = $picklistService;
     }
@@ -46,7 +40,7 @@ class OldDataSeeder extends Seeder
             $data = File::get($file_path);
             $users = json_decode($data, true);
 
-            $role = Role::query()->where("name", "=", 'jobseeker')->first();
+            $role = Role::query()->where('name', '=', 'jobseeker')->first();
 
             app(SkillResourceService::class)->clearCachedSelectableList('web_development');
 
@@ -89,7 +83,7 @@ class OldDataSeeder extends Seeder
             $user = User::create([
                 'name' => "{$data['first_name']} {$data['last_name']}",
                 'email' => $data['email'],
-                'password' => $data['password']
+                'password' => $data['password'],
             ]);
         }
 
@@ -107,7 +101,6 @@ class OldDataSeeder extends Seeder
     }
 
     /**
-     * @param User $user
      * @param array $data
      *
      * @return Model
@@ -183,7 +176,7 @@ class OldDataSeeder extends Seeder
                     if ($skill_item_id) {
                         $jobseekerSkills[] = [
                             'skill_item_id' => skill_item('web_development', $skill['tag'], 'id'),
-                            'rating' => $rating
+                            'rating' => $rating,
                         ];
                     } else {
                         Log::debug('FAILED_SKILL === Unable to find skill for ' . $skill['tag']);

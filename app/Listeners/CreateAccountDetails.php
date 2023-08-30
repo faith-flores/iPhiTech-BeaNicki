@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listeners;
 
 use App\Events\UserRegistered;
@@ -27,7 +29,7 @@ class CreateAccountDetails
 
         if ($event->role->name === User::USER_ROLE_EMPLOYER) {
             $this->createClientAccount($user);
-        } else if ($event->role->name === User::USER_ROLE_JOBSEEKER) {
+        } elseif ($event->role->name === User::USER_ROLE_JOBSEEKER) {
             $this->createJobseekerProfile($user);
         }
     }

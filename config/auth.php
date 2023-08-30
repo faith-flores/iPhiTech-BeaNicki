@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -43,7 +45,7 @@ return [
 
         'jobseeker' => [
             'driver' => 'session',
-            'provider' => 'jobseekers'
+            'provider' => 'jobseekers',
         ],
     ],
 
@@ -81,19 +83,19 @@ return [
         'internal' => [
             'driver' => 'guarded',
             'model' => App\Models\User::class,
-            'guard' => 'web'
+            'guard' => 'web',
         ],
 
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-            'guard' => 'web'
+            'guard' => 'web',
         ],
 
         'jobseekers' => [
             'driver' => 'guarded',
             'model' => App\Models\User::class,
-            'guard' => 'jobseeker'
+            'guard' => 'jobseeker',
         ],
     ],
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Models\Account;
@@ -31,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         // Model::unguard();
 
         /**
-         * Register model dynamic relations
+         * Register model dynamic relations.
          */
         User::resolveRelationUsing('profile', function ($userModel) {
             return $userModel->hasOne(Profile::class, 'user_id');
@@ -45,14 +47,13 @@ class AppServiceProvider extends ServiceProvider
             return $userModel->hasOne(Jobseeker::class, 'user_id');
         });
 
-
         Auth::provider('guarded', function ($app, array $config) {
             return new GuardedUserProvider($app['hash'], $config['model'], $config['guard']);
         });
 
         FilamentColor::register([
             'primary' => Color::hex('#865DFF'),
-            'secondary' => Color::hex('#E384FF')
+            'secondary' => Color::hex('#E384FF'),
         ]);
 
         FilamentView::registerRenderHook(

@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Services;
 
 use App\Models\Account;
 use App\Models\Billing;
 use App\Models\Profile;
 use App\Models\Services\ModelService;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
 class BillingResourceService extends ModelService
 {
-
     /**
      * Returns the class name of the object managed by the repository.
      *
@@ -24,8 +24,6 @@ class BillingResourceService extends ModelService
     }
 
     /**
-     * @param $id
-     *
      * @return Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     public function findByAccountId($id)
@@ -43,7 +41,7 @@ class BillingResourceService extends ModelService
         $billing = self::make($data);
 
         if ($account_id = Arr::get($data, 'account_id')) {
-            if($account = Account::query()->find($account_id)){
+            if ($account = Account::query()->find($account_id)) {
                 $billing->account()->associate($account);
             }
         }
@@ -58,7 +56,6 @@ class BillingResourceService extends ModelService
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model|int $id
      * @param array $data
      *
      * @return bool|Builder|Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|int|object|null
@@ -78,10 +75,9 @@ class BillingResourceService extends ModelService
     }
 
     /**
-     * Store the billing details for the given account
+     * Store the billing details for the given account.
      *
      * @param array $data
-     * @param Account       $account
      *
      * @return bool|Builder|Builder[]|Collection|Model|int|mixed|object
      * @throws Exception
@@ -106,7 +102,7 @@ class BillingResourceService extends ModelService
 
     /**
      * Use sole purposely for the
-     * Profile Wizard only
+     * Profile Wizard only.
      *
      * @param array $data
      */
@@ -121,7 +117,6 @@ class BillingResourceService extends ModelService
 
     /**
      * @param Billing $billing
-     * @param array $data
      */
     public function fillRelations($billing, array $data) : Billing
     {
@@ -133,16 +128,15 @@ class BillingResourceService extends ModelService
 
         $billing_count = $this->query()->where('account_id', $billing->account_id)->count();
 
-        if($billing->exists &&  $billing_count == 1) { //if only 1 billing exists, automatically set this as default
+        if ($billing->exists && $billing_count == 1) { //if only 1 billing exists, automatically set this as default
             $billing->is_default = true;
-        }
-        else if(!$billing->exist &&  $billing_count == 0) { //if no billing exists, automatically set this as default
+        } elseif (! $billing->exist && $billing_count == 0) { //if no billing exists, automatically set this as default
             $billing->is_default = true;
         }
 
-        if($is_default = Arr::get($data, 'is_default')) { // only set one billing per account as default
+        if ($is_default = Arr::get($data, 'is_default')) { // only set one billing per account as default
             $this->query()
-                ->where('id','!=',$billing->id)
+                ->where('id', '!=', $billing->id)
                 ->where('account_id', $billing->account_id)
                 ->update(['is_default' => false]);
         }

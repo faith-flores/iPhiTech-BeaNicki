@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Traits;
 
 use App\Models\Address;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
- * Trait WithAddress
+ * Trait WithAddress.
  *
  * @property string $address_line_1
  * @property string $address_line_2
@@ -15,16 +17,9 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property string $province
  * @property string $country
  * @property string $zip_code
- *
- * @package App\Models\Traits
  */
-
 trait WithAddress
 {
-
-    /**
-     * @return MorphOne
-     */
     public function address(): MorphOne
     {
         return $this->morphOne(Address::class, 'addressable');

@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Livewire\Auth\Login as AuthLogin;
 use App\Livewire\Auth\Passwords\Confirm;
 use App\Livewire\Auth\Passwords\Email;
 use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Verify;
-use App\Livewire\Auth\Login as AuthLogin;
-use App\Livewire\Register as LivewireRegister;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function() {
+Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
 
@@ -29,7 +30,7 @@ Route::middleware('guest.role')->group(function () {
     Route::get('login', AuthLogin::class)
         ->name('login');
 
-    Route::get('register', function() {
+    Route::get('register', function () {
         return redirect()->route('filament.jobseekers.auth.register');
     })
         ->name('register');

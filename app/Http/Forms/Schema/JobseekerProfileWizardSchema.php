@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Forms\Schema;
 
-use App\Filament\Services\SkillResourceService;
 use App\Http\Forms\Schema\Contracts\HasFormSchema;
-use App\Http\Forms\Schema\Types\DateOfBirth;
 use App\Http\Forms\Schema\Types\DesiredSalary;
 use App\Http\Forms\Schema\Types\EmploymentStatus;
 use App\Http\Forms\Schema\Types\HoursToWork;
@@ -15,24 +15,20 @@ use App\Http\Forms\Schema\Types\Website;
 use App\Models\Jobseeker;
 use Awcodes\Shout\Components\Shout;
 use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard\Step;
-use Illuminate\Support\Str;
 
 class JobseekerProfileWizardSchema implements HasFormSchema
 {
-
     public static function make()
     {
         return [
             static::wizardStepPersonal(),
             static::wizardStepProfile(),
-            static::wizardStepSkills()
+            static::wizardStepSkills(),
         ];
     }
 
@@ -51,8 +47,8 @@ class JobseekerProfileWizardSchema implements HasFormSchema
                             ->model(Jobseeker::class),
                         AddressSchema::make()
                             ->relationship('address')
-                            ->model(Jobseeker::class)
-                    ])
+                            ->model(Jobseeker::class),
+                    ]),
             ]);
     }
 
@@ -86,9 +82,8 @@ class JobseekerProfileWizardSchema implements HasFormSchema
                     ->type('info'),
                 Group::make([
                     Tabs::make('Label')
-                        ->tabs(SkillsSchema::make())
-                ])
-            ])
-        ;
+                        ->tabs(SkillsSchema::make()),
+                ]),
+            ]);
     }
 }

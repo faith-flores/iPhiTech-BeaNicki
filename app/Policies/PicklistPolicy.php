@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Models\Picklist;
 use App\Models\PicklistItem;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class PicklistPolicy
 {
@@ -22,7 +23,7 @@ class PicklistPolicy
      */
     public function view(User $user, Picklist $picklist): bool
     {
-        return !!$user;
+        return (bool) $user;
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PicklistResource\Pages;
@@ -9,8 +11,8 @@ use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
 class PicklistResource extends Resource
@@ -81,12 +83,11 @@ class PicklistResource extends Resource
 
     public static function getLabelInput()
     {
-
         return Forms\Components\TextInput::make('label')
             ->maxLength(255)
             ->afterStateUpdated(function (\Filament\Forms\Get $get, \Filament\Forms\Set $set, ?string $state) {
                 if (! $get('is_slug_changed_manually') && filled($state)) {
-                    $set('identifier', Str::slug($state, "_"));
+                    $set('identifier', Str::slug($state, '_'));
                 }
             })
             ->reactive()

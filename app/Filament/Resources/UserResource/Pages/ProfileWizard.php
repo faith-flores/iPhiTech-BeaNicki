@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
 use App\Filament\Services\AccountResourceService;
 use App\Filament\Services\ProfileResourceService;
 use App\Http\Forms\Schema\AccountCompanySchema;
-use App\Http\Forms\Schema\AddressSchema;
-use App\Http\Forms\Schema\JobseekerProfileWizardSchema;
 use App\Http\Forms\Schema\ProfileBillingSchema;
 use App\Http\Forms\Schema\ProfileSchema;
 use App\Http\Forms\Schema\Types\AccountType;
@@ -15,14 +15,9 @@ use App\Http\Forms\Schema\Types\InvoiceName;
 use App\Models\Account;
 use App\Models\Profile;
 use App\Models\User;
-use Closure;
-use Filament\Actions\Action;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -30,10 +25,8 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Resources\Pages\Page;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 
 class ProfileWizard extends Page implements HasForms
@@ -43,7 +36,7 @@ class ProfileWizard extends Page implements HasForms
 
     protected static string $resource = UserResource::class;
 
-    protected static ?string $title = "Complete Your Profile";
+    protected static ?string $title = 'Complete Your Profile';
 
     protected static string $view = 'filament.employer.resources.user-resource.pages.profile-wizard';
 
@@ -63,10 +56,10 @@ class ProfileWizard extends Page implements HasForms
         $data = [
             'master_profile' => $account->master_profile ? [
                 ...$account?->master_profile->toArray(),
-                ...['email' => $account->email]
+                ...['email' => $account->email],
             ] : null,
             'account' => $account,
-            'billing' => $account?->master_profile->billing ?? []
+            'billing' => $account?->master_profile->billing ?? [],
         ];
 
         $this->form->fill([...$account->toArray(), ...$data]);
@@ -85,9 +78,9 @@ class ProfileWizard extends Page implements HasForms
                 self::getProfileStep(),
                 self::getCompanyStep(),
                 self::getBillingStep(),
-                self::getCompleteStep()
+                self::getCompleteStep(),
             ])
-            ->submitAction(new HtmlString('<button type="submit" class="btn btn-primary">Go to Dashboard</button>'))
+            ->submitAction(new HtmlString('<button type="submit" class="btn btn-primary">Go to Dashboard</button>')),
         ])
         ->statePath('data');
     }
@@ -114,8 +107,8 @@ class ProfileWizard extends Page implements HasForms
                             Checkbox::make('terms')
                                 ->label('I accept the BeaNicki Terms of Service and Privacy Policy')
                                 ->required(),
-                        ])->model(Profile::class)
-            ])->afterValidation(function($state) {
+                        ])->model(Profile::class),
+            ])->afterValidation(function ($state) {
                 app(ProfileResourceService::class)->editProfile($state, $this->record);
             });
     }
@@ -127,10 +120,10 @@ class ProfileWizard extends Page implements HasForms
             ->schema([
                 Section::make('Business Details')
                     ->description('Please complete your business information below.')
-                    ->schema([AccountCompanySchema::make()])
+                    ->schema([AccountCompanySchema::make()]),
             ])
             ->visible(fn (Get $get): bool => $get('account_type') == Account::ACCOUNT_TYPE_BUSINESS)
-            ->afterValidation(function($state) {
+            ->afterValidation(function ($state) {
                 app(AccountResourceService::class)->editBusinessDetails($state['account'], $this->record->account);
             });
     }
@@ -152,16 +145,16 @@ class ProfileWizard extends Page implements HasForms
                                 ->schema([ProfileBillingSchema::make()])
                                 ->relationship('billing')
                                 ->model(Profile::class)
-                                ->visible(fn (Get $get) : bool => $get('same_company_address') ? false : true)
-                        ])
+                                ->visible(fn (Get $get) : bool => $get('same_company_address') ? false : true),
+                        ]),
                 ])
-                ->afterValidation(function($state) {
+                ->afterValidation(function ($state) {
                     app(ProfileResourceService::class)->editBillingDetails($state, $this->record->account);
                 });
     }
 
     /**
-     * TODO: Need to add more details
+     * TODO: Need to add more details.
      */
     protected function getCompleteStep(): Step
     {
@@ -170,7 +163,7 @@ class ProfileWizard extends Page implements HasForms
                 ->description('You have completed our online registration')
                 ->schema([
                     Section::make('Congratulations')
-                        ->description('You are now ready to start uploading files for processing to your account. Once uploaded you will be presented with options based on your preferred turnaround as well as any extras you may require. You are able to save your job to your account as a draft at any time, should you wish to come back later and complete your order. You can also use our order process to generate a no obligation quote which is valid for 14 days.')
+                        ->description('You are now ready to start uploading files for processing to your account. Once uploaded you will be presented with options based on your preferred turnaround as well as any extras you may require. You are able to save your job to your account as a draft at any time, should you wish to come back later and complete your order. You can also use our order process to generate a no obligation quote which is valid for 14 days.'),
                 ]);
     }
 

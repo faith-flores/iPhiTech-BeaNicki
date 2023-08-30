@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Forms\Schema\Types;
+declare(strict_types=1);
 
-use Filament\Forms\Components\Field;
-use Filament\Forms\Components\Select;
-use Illuminate\Database\Eloquent\Builder;
+namespace App\Http\Forms\Schema\Types;
 
 class EmploymentStatus extends BaseSelectPicklistItem
 {
-
     public static function make()
     {
         return parent::build('employment_status_id')

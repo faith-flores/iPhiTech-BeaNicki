@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Auth;
 
-use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -18,7 +19,7 @@ class Login extends Component
     public $remember = false;
 
     /** @var string */
-    public $loginRole = "";
+    public $loginRole = '';
 
     protected $rules = [
         'email' => ['required', 'email'],
@@ -29,7 +30,7 @@ class Login extends Component
     {
         $this->validate();
 
-        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+        if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             $this->addError('email', trans('auth.failed'));
 
             return;
@@ -40,7 +41,6 @@ class Login extends Component
         } else {
             return redirect()->intended(route('filament.app.pages.dashboard'));
         }
-
     }
 
     public function setLoginRole($role)

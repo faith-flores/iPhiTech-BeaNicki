@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Services;
 
 use App\Models\Account;
@@ -11,7 +13,6 @@ use Illuminate\Support\Arr;
 
 class AccountResourceService extends ModelService
 {
-
     /**
      * Returns the class name of the object managed by the repository.
      *
@@ -32,13 +33,13 @@ class AccountResourceService extends ModelService
         $profile = Profile::make($data);
 
         if ($account_id = Arr::get($data, 'account_id')) {
-            if($account = Account::query()->find($account_id)) {
+            if ($account = Account::query()->find($account_id)) {
                 $profile->account()->associate($account);
             }
         }
 
         if ($user_id = Arr::get($data, 'user_id')) {
-            if($user = User::find($user_id)){
+            if ($user = User::find($user_id)) {
                 $profile->user()->associate($user);
             }
         }
@@ -68,7 +69,7 @@ class AccountResourceService extends ModelService
 
     /**
      * Use sole purposely for the
-     * Profile Wizard only
+     * Profile Wizard only.
      *
      * @param array $data
      */

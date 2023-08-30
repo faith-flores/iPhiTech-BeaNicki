@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -28,7 +30,7 @@ class DatabaseSeeder extends Seeder
         /**
          * TODO: Create Subscription, Plans
          * TODO: Add default subscription
-         * TODO: Settings for Subscription Features
+         * TODO: Settings for Subscription Features.
          */
     }
 }

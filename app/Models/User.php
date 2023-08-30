@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -7,9 +9,9 @@ namespace App\Models;
 use App\Models\Traits\Uuidable;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\HasName;
 use Filament\Panel;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -28,8 +30,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasName, Filament
     use HasRoles;
     use SoftDeletes;
 
-    const USER_ROLE_JOBSEEKER = "jobseeker";
-    const USER_ROLE_EMPLOYER = "employer";
+    const USER_ROLE_JOBSEEKER = 'jobseeker';
+    const USER_ROLE_EMPLOYER = 'employer';
 
     /**
      * The attributes that are mass assignable.
@@ -65,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasName, Filament
     protected static function boot()
     {
         parent::boot();
-        static::deleting(function(User $model){
+        static::deleting(function (self $model) {
             if ($model->isSuperAdmin()) {
                 throw new \Exception('You cannot delete a Super User');
             }
@@ -87,21 +89,16 @@ class User extends Authenticatable implements MustVerifyEmail, HasName, Filament
 
     public function getFilamentName(): string
     {
-        return $this->name ?? "";
+        return $this->name ?? '';
     }
 
-    /**
-     * @return HasOne
-     */
     public function account() : HasOne
     {
         return $this->hasOne(Account::class, 'owner_user_id');
     }
 
-    /**
-     * @return bool
-     */
-    public function isAdmin() : bool {
+    public function isAdmin() : bool
+    {
         return false;
         // return ($this->roles->contains('slug', '==', config('permission.admin.role', 'admin')) || $this->isSuperAdmin());
     }
@@ -109,15 +106,14 @@ class User extends Authenticatable implements MustVerifyEmail, HasName, Filament
     /**
      * @return bool
      */
-    public function isActive() {
+    public function isActive()
+    {
         return $this->active;
     }
 
-    /**
-     * @return bool
-     */
-    public function isSuperAdmin() : bool {
-        return !!$this->is_super_admin;
+    public function isSuperAdmin() : bool
+    {
+        return (bool) $this->is_super_admin;
     }
 
     public function scopeHasRole(Builder $query, string $role)
@@ -127,12 +123,12 @@ class User extends Authenticatable implements MustVerifyEmail, HasName, Filament
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if (Auth::guard('jobseeker')->check() ) {
-            return $panel->getAuthGuard() === "jobseeker";
+        if (Auth::guard('jobseeker')->check()) {
+            return $panel->getAuthGuard() === 'jobseeker';
         }
 
         if (Auth::guard('web')->check()) {
-            return $panel->getAuthGuard() === "web";
+            return $panel->getAuthGuard() === 'web';
         }
 
         return false;

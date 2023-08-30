@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Http\Forms\Schema;
 
 use App\Models\User;
@@ -8,7 +11,6 @@ use Filament\Forms\Components\TextInput;
 
 class AddressSchema
 {
-
     public static function make()
     {
         return Group::make()
@@ -23,7 +25,7 @@ class AddressSchema
                         TextInput::make('zip_code')->columnSpan(1)->required(),
                         TextInput::make('province')->columnSpan(1)->required(),
                         TextInput::make('address_type')->visible(! auth()->user()->hasRole(User::USER_ROLE_JOBSEEKER))->columnSpan(2),
-                    ])
+                    ]),
             ])->relationship('address');
     }
 }
