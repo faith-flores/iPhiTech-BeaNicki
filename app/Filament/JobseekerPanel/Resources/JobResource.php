@@ -1,12 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\JobseekerPanel\Resources;
 
 use App\Filament\JobseekerPanel\Resources\JobResource\Pages;
 use App\Models\Account;
 use App\Models\Job;
-use BladeUI\Icons\Components\Icon;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Grid;
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\Layout\Split;
@@ -15,17 +21,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextColumn\TextColumnSize;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Infolists;
-use Filament\Infolists\Components\Grid;
-use Filament\Infolists\Components\Group;
-use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\IconEntry\IconEntrySize;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Components\TextEntry\TextEntrySize;
-use Filament\Infolists\Infolist;
-use Illuminate\Database\Eloquent\Model;
-use Laravel\Prompts\Note;
 
 class JobResource extends Resource
 {
@@ -100,22 +95,22 @@ class JobResource extends Resource
                 Section::make('Job Overview')
                     ->schema([
                         TextEntry::make('description')
-                            ->markdown()
+                            ->markdown(),
                     ]),
                 Section::make('Notes')
                     ->schema([
-                        TextEntry::make('description')
+                        TextEntry::make('description'),
                     ]),
                 TextEntry::make('skills.label')
                     ->label('Skills and Expertise')
                     ->hidden(fn (Job $record) : bool => ! $record->skills()->count())
-                    ->badge()
+                    ->badge(),
             ]);
     }
 
     /**
      * TODO: Add dislike function,
-     *       Add Favorite Action
+     *       Add Favorite Action.
      */
     public static function table(Table $table): Table
     {
@@ -128,7 +123,7 @@ class JobResource extends Resource
                 Stack::make([
                     /**
                      * TODO: Add job duration
-                     *       Author Name / Company Name
+                     *       Author Name / Company Name.
                      */
                     Split::make([
                         TextColumn::make('title')
@@ -141,7 +136,7 @@ class JobResource extends Resource
                         TextColumn::make('type_of_work.label')
                             ->badge()
                             ->columnStart(3)
-                            ->grow(false)
+                            ->grow(false),
                     ]),
                     TextColumn::make('salary')->money(),
                     Split::make([
@@ -152,13 +147,13 @@ class JobResource extends Resource
                             ->grow(false),
                         TextColumn::make('created_at')
                             ->size(TextColumnSize::ExtraSmall)
-                            ->since()
+                            ->since(),
                     ]),
                     Split::make([
                         TextColumn::make('description')
                             ->size(TextColumnSize::Medium)
                             ->extraAttributes([
-                                'class' => 'mt-5'
+                                'class' => 'mt-5',
                             ], true)
                             ->limit(500)
                             ->columnSpanFull(),
@@ -175,8 +170,8 @@ class JobResource extends Resource
                             TextColumn::make('profile.display_name')
                                 ->prefix('Posted by: ')
                                 ->visible(fn (null|Job $record) : null|bool => $record?->account->account_type === Account::ACCOUNT_TYPE_PERSONAL),
-                        ])->space(3)
-                    ])
+                        ])->space(3),
+                    ]),
                 ])->space(2),
             ])
             ->paginated([12, 24, 36]);

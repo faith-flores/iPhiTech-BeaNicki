@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Pages\Auth;
 
 use App\Events\UserRegistered;
@@ -7,7 +9,6 @@ use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Http\Responses\Auth\RegistrationResponse;
 use Filament\Notifications\Notification;
@@ -17,7 +18,6 @@ use Spatie\Permission\Models\Role;
 
 class JobseekerRegister extends Register
 {
-
     public function register(): ?RegistrationResponse
     {
         try {

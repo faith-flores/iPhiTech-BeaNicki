@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\Filter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -88,10 +89,10 @@ class UserResource extends Resource
                 Filter::make('active')
                     ->query(fn (Builder $query): Builder => $query->where('active', true)),
                 Filter::make('employers')
-                    ->label("Employers")
+                    ->label('Employers')
                     ->query(fn (Builder $query): Builder => $query->hasRole(User::USER_ROLE_EMPLOYER)),
                 Filter::make('jobseekers')
-                    ->label("Jobseekers")
+                    ->label('Jobseekers')
                     ->query(fn (Builder $query): Builder => $query->hasRole(User::USER_ROLE_JOBSEEKER)),
                 Tables\Filters\TrashedFilter::make(),
             ])

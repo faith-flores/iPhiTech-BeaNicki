@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'admin' => [
         'name' => 'Admin',
-        'role' => 'admin'
+        'role' => 'admin',
     ],
 
     'models' => [

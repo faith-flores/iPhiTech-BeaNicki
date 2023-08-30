@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Events\UserRegistered;
@@ -23,7 +25,7 @@ class UsersSeeder extends Seeder
             $data = json_decode($data, true);
 
             foreach ($data as $list) {
-                $role = Role::query()->where("name", "=", $list['role'])->first();
+                $role = Role::query()->where('name', '=', $list['role'])->first();
 
                 if ($role) {
                     foreach ($list['users'] as $email) {
@@ -35,14 +37,11 @@ class UsersSeeder extends Seeder
     }
 
     /**
-     * @param      $data
-     * @param Role $role
-     *
      * @return bool|User
      */
     private function createUser($email, Role $role)
     {
-        if (!User::query()->where('email',  $email)->exists()) {
+        if (! User::query()->where('email', $email)->exists()) {
             /**
              * @var User $user
              */

@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Spatie\Permission\Models\Permission;
@@ -24,11 +25,11 @@ class RolesSeeder extends Seeder
             foreach ($data as $list) {
                 $role = Role::findByParam([
                     'name' => $list['role'],
-                    'guard_name' => $list['guard']
+                    'guard_name' => $list['guard'],
                 ]);
 
                 if (! $role) {
-                    $role = Role::create(["name" => $list['role'], "guard_name" => $list['guard']]);
+                    $role = Role::create(['name' => $list['role'], 'guard_name' => $list['guard']]);
                 }
 
                 foreach ($list['permissions'] as $permission_name) {

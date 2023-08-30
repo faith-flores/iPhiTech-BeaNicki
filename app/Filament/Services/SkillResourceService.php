@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Services;
 
 use App\Models\Jobseeker;
@@ -10,7 +12,6 @@ use Illuminate\Support\Facades\Cache;
 
 class SkillResourceService extends ModelService
 {
-
     /**
      * Returns the class name of the object managed by the repository.
      *
@@ -22,11 +23,7 @@ class SkillResourceService extends ModelService
     }
 
     /**
-     * Format the data from tab, repeater schema
-     *
-     * @param array $data
-     *
-     * @return array
+     * Format the data from tab, repeater schema.
      */
     public function formatFormSkillsData(array $data) : array
     {
@@ -47,9 +44,8 @@ class SkillResourceService extends ModelService
     }
 
     /**
-     * Find a pick list
+     * Find a pick list.
      *
-     * @param $identifier
      * @return Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     public function findSkill($identifier)
@@ -57,11 +53,6 @@ class SkillResourceService extends ModelService
         return $this->query()->where('identifier', $identifier)->first();
     }
 
-    /**
-     * @param Jobseeker $jobseeker
-     *
-     * @return null|array
-     */
     public function formatDataForDisplay(Jobseeker $jobseeker) : null|array
     {
         $data = [];
@@ -69,21 +60,16 @@ class SkillResourceService extends ModelService
         foreach ($jobseeker->skills as $key => $skillItem) {
             $data[$skillItem->skill->getRepeaterFieldKey()][] = [
                 'skill_item_id' => $skillItem->getKey(),
-                'rating' => $skillItem->pivot->rating
+                'rating' => $skillItem->pivot->rating,
             ];
         }
 
         return $data;
     }
 
-    /**
-     * @param string $identifier
-     *
-     * @return mixed
-     */
     public function getCachedSelectableList(string $identifier)
     {
-        return Cache::rememberForever('skill::' . $identifier, function() use ($identifier) {
+        return Cache::rememberForever('skill::' . $identifier, function () use ($identifier) {
             if ($skill = $this->getSelectableList($identifier)) {
                 return $skill;
             } else {
@@ -93,13 +79,11 @@ class SkillResourceService extends ModelService
     }
 
     /**
-     * @param $identifier
-     *
      * @return null|object
      */
     public function getSelectableList($identifier)
     {
-        if (!$skill = $this->findSkill($identifier)) {
+        if (! $skill = $this->findSkill($identifier)) {
             return null;
         }
 
@@ -115,25 +99,21 @@ class SkillResourceService extends ModelService
 
         $skill = $skill->toArray();
         $items = $query->get();
-        $skill['items'] = $items->mapWithKeys(function($item){
+        $skill['items'] = $items->mapWithKeys(function ($item) {
             return [$item->identifier => $item->toArray()];
         });
 
         return $skill;
     }
 
-    /**
-     * @param string $identifier
-     */
     public function clearCachedSelectableList(string $identifier)
     {
         Cache::forget('skill::' . $identifier);
     }
 
     /**
-     * Get's the specific property of a pick list item or an array of values based on the given key
+     * Get's the specific property of a pick list item or an array of values based on the given key.
      *
-     * @param string $pick_list_identifier The Pick List the item belongs to
      * @param string $item_identifier The item identifier
      * @param string|array $key A single key to extract off the item, or an array of keys to extract more than one property off the item
      * @param null $default The default value to return if none is foudn
@@ -150,6 +130,7 @@ class SkillResourceService extends ModelService
                 return Arr::get($list['items'][$item_identifier], $key);
             }
         }
+
         return $default;
     }
 }

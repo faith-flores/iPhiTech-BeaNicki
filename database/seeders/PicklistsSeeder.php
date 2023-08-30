@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Filament\Services\PicklistItemResourceService;
 use App\Filament\Services\PicklistResourceService;
 use App\Models\Picklist;
 use App\Models\PicklistItem;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class PicklistsSeeder extends Seeder
 {
@@ -54,11 +55,10 @@ class PicklistsSeeder extends Seeder
 
             if ($list['items']) {
                 foreach ($list['items'] as $key => $item) {
-
-                    if (!is_array($item)) {
+                    if (! is_array($item)) {
                         $item = [
                             'label' => $item,
-                            'identifier' => Str::slug($item)
+                            'identifier' => Str::slug($item),
                         ];
                     }
 
@@ -66,7 +66,7 @@ class PicklistsSeeder extends Seeder
 
                     $pickListItem = $picklistItemService->findOneBy([
                         'identifier' => $identifier,
-                        'picklist_id' => $picklist->getKey()
+                        'picklist_id' => $picklist->getKey(),
                     ]);
 
                     $new = false;

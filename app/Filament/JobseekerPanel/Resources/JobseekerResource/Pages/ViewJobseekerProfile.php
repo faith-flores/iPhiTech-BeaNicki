@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\JobseekerPanel\Resources\JobseekerResource\Pages;
 
 use App\Filament\JobseekerPanel\Resources\JobseekerResource;
 use App\Filament\Services\JobseekerResourceService;
 use App\Filament\Services\SkillResourceService;
-use App\Forms\Components\StarRating;
 use App\Http\Forms\Schema\AddressSchema;
 use App\Http\Forms\Schema\SkillsSchema;
 use App\Http\Forms\Schema\Types\DateOfBirth;
@@ -27,25 +28,23 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Infolists\Concerns\InteractsWithInfolists;
-use Filament\Infolists\Contracts\HasInfolists;
-use Filament\Resources\Pages\Page;
 use Filament\Infolists\Components\Actions\Action;
 use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\Group;
 use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Components\Tabs;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ViewEntry;
+use Filament\Infolists\Concerns\InteractsWithInfolists;
+use Filament\Infolists\Contracts\HasInfolists;
 use Filament\Infolists\Infolist;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
+use Filament\Resources\Pages\Page;
 use Filament\Support\Enums\Alignment;
-use Illuminate\Support\Arr;
 
 class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
 {
@@ -90,7 +89,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                     ->form([
                                         SpatieMediaLibraryFileUpload::make('media')
                                             ->extraAttributes([
-                                                'class' => 'justify-center text-center'
+                                                'class' => 'justify-center text-center',
                                             ])
                                             ->alignment(Alignment::Center)
                                             ->hiddenLabel()
@@ -98,10 +97,9 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                             ->columnSpanFull()
                                             ->disk('public')
                                             ->avatar()
-                                            ->collection('avatars')
+                                            ->collection('avatars'),
                                     ])
-                            )
-                        ,
+                            ),
                         Section::make(fn (Jobseeker $record) => $record->display_name)
                             ->inlineLabel()
                             ->columnSpan(3)
@@ -114,13 +112,13 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                             ->date('F d, Y'),
                                         TextEntry::make('average_rating')->label('Avg. Rating')->default(999),
                                         TextEntry::make('jobs_applied')->label('Jobs Applied')->default(999),
-                                        TextEntry::make('skills.label')->badge()->limitList(10)
-                                    ])
+                                        TextEntry::make('skills.label')->badge()->limitList(10),
+                                    ]),
                         ]),
                 ]),
                 Tabs::make('')
                     ->extraAttributes([
-                        'class' => 'fi-tabs-jobseeker'
+                        'class' => 'fi-tabs-jobseeker',
                     ], true)
                     ->columnSpan('full')
                     ->persistTabInQueryString()
@@ -151,7 +149,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                         ])
                                         ->columnSpanFull()
                                         ->columns(2)
-                                        ->relationship('address')
+                                        ->relationship('address'),
                                 ]),
                                 $this->tabAction(
                                     'editDetails',
@@ -163,7 +161,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                             ->unique('jobseekers', null, null, true),
                                         DateOfBirth::make(),
                                         Gender::make(),
-                                        AddressSchema::make()
+                                        AddressSchema::make(),
                                     ],
                                 ),
                         ]),
@@ -211,8 +209,8 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                             ->columns(5)
                                             ->grow(false)
                                             ->extraAttributes([
-                                                'class' => 'fi-infolist-star-rating'
-                                            ])
+                                                'class' => 'fi-infolist-star-rating',
+                                            ]),
                                 ]),
                                 $this->tabAction(
                                     'editSkillDetails',
@@ -222,8 +220,8 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                     ],
                                     'xl'
                                 ),
-                            ])
-                    ])
+                            ]),
+                    ]),
             ]);
     }
 
@@ -232,7 +230,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
         return ViewEntry::make($id)
             ->extraAttributes([
                 'class' => 'absolute top-3 right-3',
-                'action' => $id
+                'action' => $id,
             ], true)
             ->view('filament.infolists.tabs.edit-action')
             ->alignRight()
@@ -241,7 +239,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                 Action::make($id)
                     ->hiddenLabel()
                     ->icon('heroicon-o-pencil-square')
-                    ->fillForm(function(SkillResourceService $service) : array {
+                    ->fillForm(function (SkillResourceService $service) : array {
                         $data = $this->getRecord()->toArray();
                         $skills = $service->formatDataForDisplay($this->getRecord());
 
@@ -250,18 +248,18 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                     ->slideOver()
                     ->modalWidth($modalWidth)
                     ->form($form)
-                    ->afterFormValidated(function(array $data, Jobseeker $jobseeker) {
+                    ->afterFormValidated(function (array $data, Jobseeker $jobseeker) {
                         $data = app(SkillResourceService::class)->formatFormSkillsData($data);
 
                         if (app(JobseekerResourceService::class)->editProfile($this->getRecord(), $data)) {
                             Notification::make()
                                 ->success()
-                                ->title("Edit details successfully")
+                                ->title('Edit details successfully')
                                 ->send();
                         } else {
                             Notification::make()
                                 ->success()
-                                ->title("Edit details successfully")
+                                ->title('Edit details successfully')
                                 ->send();
                         }
                     }),
@@ -275,13 +273,12 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
     {
         $skills = [];
 
-        foreach(range(1, 5) as $number) {
+        foreach (range(1, 5) as $number) {
             $skills[] = IconEntry::make('pivot.rating')
                 ->icon('heroicon-m-star')
                 ->hiddenLabel()
                 ->grow()
-                ->color(fn (string $state): string => $number <= $state ? 'primary' : 'gray')
-            ;
+                ->color(fn (string $state): string => $number <= $state ? 'primary' : 'gray');
         }
 
         return $skills;

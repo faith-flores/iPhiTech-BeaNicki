@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Models\User;
@@ -21,7 +23,7 @@ class RedirectAuthenticatedRole
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if( Auth::user()->hasRole(User::USER_ROLE_JOBSEEKER)) {
+                if (Auth::user()->hasRole(User::USER_ROLE_JOBSEEKER)) {
                     return redirect(route('filament.jobseekers.pages.dashboard'));
                 } else {
                     return redirect(route('filament.app.pages.dashboard'));

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers\Filament;
 
 use App\Filament\JobseekerPanel\Resources\JobseekerResource;
@@ -7,7 +9,6 @@ use App\Filament\JobseekerPanel\Widgets\JobsCreatedChart;
 use App\Filament\JobseekerPanel\Widgets\StatsOverview;
 use App\Filament\Pages\Auth\JobseekerRegister;
 use App\Http\Middleware\Jobseeker\EnsureProfileIsCompleted;
-use App\Livewire\OurBrandsInfoWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -15,9 +16,6 @@ use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Navigation\NavigationItem;
-use Filament\Pages\Dashboard;
-use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -53,12 +51,12 @@ class JobseekerPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 StatsOverview::class,
-                JobsCreatedChart::class
+                JobsCreatedChart::class,
             ])
             ->userMenuItems([
                 'profile' => MenuItem::make()
                                 ->label('Edit Profile')
-                                ->url(fn() => JobseekerResource::getUrl('edit', [auth()->user()->jobseeker]))
+                                ->url(fn () => JobseekerResource::getUrl('edit', [auth()->user()->jobseeker])),
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -76,7 +74,7 @@ class JobseekerPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
                 EnsureEmailIsVerified::class,
-                EnsureProfileIsCompleted::class
+                EnsureProfileIsCompleted::class,
             ]);
     }
 }

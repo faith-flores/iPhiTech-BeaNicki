@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Services;
 
 use App\Models\Account;
@@ -10,16 +12,13 @@ use Illuminate\Support\Arr;
 
 class ProfileResourceService extends ModelService
 {
-
     /**
      * @var BillingService
      */
     private BillingResourceService $billingService;
 
     /**
-     * Profile Model Service class
-     *
-     * @param BillingResourceService $billingService
+     * Profile Model Service class.
      */
     public function __construct(BillingResourceService $billingService)
     {
@@ -36,7 +35,6 @@ class ProfileResourceService extends ModelService
         return Profile::class;
     }
 
-
     /**
      * @param array $data
      *
@@ -47,13 +45,13 @@ class ProfileResourceService extends ModelService
         $profile = Profile::make($data);
 
         if ($account_id = Arr::get($data, 'account_id')) {
-            if($account = Account::query()->find($account_id)) {
+            if ($account = Account::query()->find($account_id)) {
                 $profile->account()->associate($account);
             }
         }
 
         if ($user_id = Arr::get($data, 'user_id')) {
-            if($user = User::find($user_id)){
+            if ($user = User::find($user_id)) {
                 $profile->user()->associate($user);
             }
         }
@@ -85,20 +83,21 @@ class ProfileResourceService extends ModelService
 
     /**
      * Use sole purposely for the
-     * Profile Wizard only
+     * Profile Wizard only.
      *
      * @param array $data
      */
     public function editProfile($data, User $user)
     {
         $account = $user->account;
-        if (! $account) return false;
+        if (! $account) {
+            return false;
+        }
 
         $profile_data = $data['master_profile'];
 
         $profile_data['user_id'] = $user->getKey();
         $profile_data['account_id'] = $account->getKey();
-
 
         if ($account_type = Arr::pull($data, 'account_type')) {
             $account->account_type = $account_type;
@@ -121,7 +120,7 @@ class ProfileResourceService extends ModelService
 
     /**
      * Use sole purposely for the
-     * Profile Wizard only
+     * Profile Wizard only.
      *
      * @param array $data
      *
@@ -131,7 +130,7 @@ class ProfileResourceService extends ModelService
     {
         $billing = $this->billingService->findByAccountId($account->getKey());
 
-        if ($data['same_company_address'] == "true") {
+        if ($data['same_company_address'] == 'true') {
             $data['billing'] = [
                 'company_name' => $account->company_name,
                 'invoice_name' => $data['invoice_name'],
@@ -154,7 +153,6 @@ class ProfileResourceService extends ModelService
     private function fillRelations(Profile $profile, $data)
     {
         if ($billing = Arr::get($data, 'billing')) {
-
         }
 
         return $profile;

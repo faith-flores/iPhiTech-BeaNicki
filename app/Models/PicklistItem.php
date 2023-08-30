@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Models\Traits\Sluggable;
 use Database\Factories\PicklistItemFactory;
-use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 /**
- * TODO: Add Model Policy for PicklistItem
+ * TODO: Add Model Policy for PicklistItem.
  */
 class PicklistItem extends Model
 {
-    const SLUGGABLE_COLUMN  = 'identifier';
-    const SLUGGABLE_SOURCE  = 'label';
+    const SLUGGABLE_COLUMN = 'identifier';
+    const SLUGGABLE_SOURCE = 'label';
 
     use Sluggable;
     use HasFactory;
@@ -25,7 +27,7 @@ class PicklistItem extends Model
     protected $attributes = [
         'is_system' => false,
         'sequence' => 0,
-        'status' => true
+        'status' => true,
     ];
 
     protected $fillable = [
@@ -45,7 +47,7 @@ class PicklistItem extends Model
         'status',
         'meta',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     protected $casts = [
@@ -64,7 +66,7 @@ class PicklistItem extends Model
      */
     public function setPicklistAttribute($picklist)
     {
-        if(!$picklist instanceof Picklist && !empty($picklist)) {
+        if (! $picklist instanceof Picklist && ! empty($picklist)) {
             $picklist = Picklist::query()->find($picklist);
         }
         if ($picklist) {
@@ -73,26 +75,22 @@ class PicklistItem extends Model
     }
 
     /**
-     * Get models with given slug
-     *
-     * @param $slug
-     *
-     * @return mixed
+     * Get models with given slug.
      */
-    private function getRelatedSlugs( $slug ) {
+    private function getRelatedSlugs($slug)
+    {
         if (method_exists($this, 'trashed')) {
             $query = static::withTrashed();
         } else {
             $query = static::query();
         }
-        $query->select( $this->getQualifiedSluggableColumn(), $this->getQualifiedSluggableSourceColumn() )
-            ->where( $this->getQualifiedSluggableColumn(), 'like', $slug . '%' )
-            ->where( 'picklist_id', $this->picklist_id)
-        ;
+        $query->select($this->getQualifiedSluggableColumn(), $this->getQualifiedSluggableSourceColumn())
+            ->where($this->getQualifiedSluggableColumn(), 'like', $slug . '%')
+            ->where('picklist_id', $this->picklist_id);
 
         //ensure not the same record
-        if ( $key = $this->getKey() ) {
-            $query->where( $this->getQualifiedKeyName(), '!=', $key );
+        if ($key = $this->getKey()) {
+            $query->where($this->getQualifiedKeyName(), '!=', $key);
         }
 
         return $query->get();
@@ -108,20 +106,14 @@ class PicklistItem extends Model
         return new PicklistItemFactory();
     }
 
-    /**
-     * @param Builder $query
-     * @param $slug
-     * @return Builder
-     */
     public function scopeOfPicklistIdentifier(Builder $query, $slug) : Builder
     {
-        return $query->whereHas( 'picklist', function($query) use ($slug) {
-            $query->ofSlug($slug );
+        return $query->whereHas('picklist', function ($query) use ($slug) {
+            $query->ofSlug($slug);
         });
     }
 
     /**
-     * @param      $key
      * @param null $default
      *
      * @return array|\ArrayAccess|mixed|null

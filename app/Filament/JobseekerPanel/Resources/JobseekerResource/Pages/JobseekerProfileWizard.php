@@ -1,25 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\JobseekerPanel\Resources\JobseekerResource\Pages;
 
 use App\Filament\JobseekerPanel\Resources\JobseekerResource;
 use App\Filament\Services\JobseekerResourceService;
 use App\Filament\Services\SkillResourceService;
 use App\Http\Forms\Schema\JobseekerProfileWizardSchema;
-use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\EditRecord\Concerns\HasWizard;
-use Illuminate\Database\Eloquent\Model;
 
 class JobseekerProfileWizard extends EditRecord
 {
     use HasWizard;
 
-    protected static ?string $title = "Edit Your Profile";
+    protected static ?string $title = 'Edit Your Profile';
 
-    /**
-     * @var SkillResourceService
-     */
     private SkillResourceService $skillService;
 
     protected static string $resource = JobseekerResource::class;

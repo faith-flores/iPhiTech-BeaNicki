@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Services;
 
 use Illuminate\Database\Eloquent\Model;
@@ -7,9 +9,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class ModelService
 {
-
     /**
-     * Save the entity to the database
+     * Save the entity to the database.
      *
      * This will either insert or update the entity in the database
      *
@@ -28,7 +29,7 @@ abstract class ModelService
     abstract public function getClassName();
 
     /**
-     * Get a Query to execute with
+     * Get a Query to execute with.
      *
      * @return Builder
      */
@@ -55,7 +56,7 @@ abstract class ModelService
     }
 
     /**
-     * Find the record or throws an exception
+     * Find the record or throws an exception.
      *
      * @param int|Model $id
      * @param bool $fail If true, calls findOrFail and throws a not found exception if not found
@@ -67,9 +68,9 @@ abstract class ModelService
     {
         if ($id instanceof Model) {
             return $id;
-        } else if (is_int($id) || is_string($id)) {
+        } elseif (is_int($id) || is_string($id)) {
             $model = $this->query()->find($id);
-            if ($fail && !$model) {
+            if ($fail && ! $model) {
                 throw new NotFoundHttpException(__('Not found'));
             } else {
                 return $model;
@@ -80,7 +81,7 @@ abstract class ModelService
     }
 
     /**
-     * Make a new Entity/Model with the given values
+     * Make a new Entity/Model with the given values.
      *
      * @param array $values
      *
@@ -93,24 +94,24 @@ abstract class ModelService
         return new $class($values);
     }
 
-	/**
-	 * Finds a single object by a set of criteria.
-	 *
-	 * @param mixed[] $criteria The criteria.
-	 *
-	 * @return object|null The object.
-	 */
-	public function findOneBy(array $criteria)
-	{
-		$query = $this->query();
-		foreach ($criteria as $key => $value) {
-			if (is_array($value)) {
-				$query->whereIn($key, $value);
-			} else {
-				$query->where($key, $value);
-			}
-		}
+    /**
+     * Finds a single object by a set of criteria.
+     *
+     * @param mixed[] $criteria The criteria.
+     *
+     * @return object|null The object.
+     */
+    public function findOneBy(array $criteria)
+    {
+        $query = $this->query();
+        foreach ($criteria as $key => $value) {
+            if (is_array($value)) {
+                $query->whereIn($key, $value);
+            } else {
+                $query->where($key, $value);
+            }
+        }
 
-		return $query->first();
-	}
+        return $query->first();
+    }
 }

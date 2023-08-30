@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Skill extends Model
 {
     use HasFactory;
 
-    const REPEATER_PREFIX = "skill_items_";
+    const REPEATER_PREFIX = 'skill_items_';
 
     /**
      * @var string[]
@@ -22,7 +23,7 @@ class Skill extends Model
         'identifier',
         'description',
         'default_item',
-        'is_tag'
+        'is_tag',
     ];
 
     /**
@@ -44,9 +45,6 @@ class Skill extends Model
         'updated_at' => 'datetime:Y-m-d\TH:i:sP',
     ];
 
-    /**
-     * @return HasMany
-     */
     public function skill_items() : HasMany
     {
         return $this->hasMany(SkillItem::class, 'skill_id')->withoutGlobalScopes();

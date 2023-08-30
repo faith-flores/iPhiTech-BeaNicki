@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Services;
 
 use App\Models\Picklist;
@@ -10,7 +12,6 @@ use Illuminate\Support\Facades\Cache;
 
 class PicklistResourceService extends ModelService
 {
-
     /**
      * Returns the class name of the object managed by the repository.
      *
@@ -29,21 +30,17 @@ class PicklistResourceService extends ModelService
     /**
      * @return Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getLabelList() {
-
+    public function getLabelList()
+    {
         $query = $this->query();
         $query->select('id', 'label');
+
         return $query->get();
     }
 
-    /**
-     * @param string $identifier
-     *
-     * @return mixed
-     */
     public function getCachedSelectableList(string $identifier)
     {
-        return Cache::rememberForever('picklist::' . $identifier, function() use ($identifier) {
+        return Cache::rememberForever('picklist::' . $identifier, function () use ($identifier) {
             if ($picklist = $this->getSelectableList($identifier)) {
                 return $picklist;
             } else {
@@ -53,13 +50,11 @@ class PicklistResourceService extends ModelService
     }
 
     /**
-     * @param $identifier
-     *
      * @return null|object
      */
     public function getSelectableList($identifier)
     {
-        if (!$picklist = $this->findPicklist($identifier)) {
+        if (! $picklist = $this->findPicklist($identifier)) {
             return null;
         }
 
@@ -75,7 +70,7 @@ class PicklistResourceService extends ModelService
 
         $picklist = $picklist->toArray();
         $items = $query->get();
-        $picklist['items'] = $items->mapWithKeys(function($item){
+        $picklist['items'] = $items->mapWithKeys(function ($item) {
             return [$item->identifier => $item->toArray()];
         });
 
@@ -83,9 +78,8 @@ class PicklistResourceService extends ModelService
     }
 
     /**
-     * Find a pick list
+     * Find a pick list.
      *
-     * @param $identifier
      * @return Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     public function findPicklist($identifier)
@@ -93,16 +87,13 @@ class PicklistResourceService extends ModelService
         return $this->query()->where('identifier', $identifier)->first();
     }
 
-    /**
-     * @param string $identifier
-     */
     public function clearCachedSelectableList(string $identifier)
     {
         Cache::forget('picklist::' . $identifier);
     }
 
     /**
-     * Get's the specific property of a pick list item or an array of values based on the given key
+     * Get's the specific property of a pick list item or an array of values based on the given key.
      *
      * @param string $pick_list_identifier The Pick List the item belongs to
      * @param string $item_identifier The item identifier
@@ -120,6 +111,7 @@ class PicklistResourceService extends ModelService
                 return Arr::get($list['items'][$item_identifier], $key);
             }
         }
+
         return $default;
     }
 

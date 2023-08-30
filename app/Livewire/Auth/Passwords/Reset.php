@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Auth\Passwords;
 
-use App\Providers\RouteServiceProvider;
-use Livewire\Component;
-use Illuminate\Support\Str;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class Reset extends Component
 {
@@ -42,7 +43,7 @@ class Reset extends Component
             [
                 'token' => $this->token,
                 'email' => $this->email,
-                'password' => $this->password
+                'password' => $this->password,
             ],
             function ($user, $password) {
                 $user->password = Hash::make($password);

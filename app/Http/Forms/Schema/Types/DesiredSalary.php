@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Forms\Schema\Types;
 
 class DesiredSalary extends BaseSelectPicklistItem
 {
-
     public static function make()
     {
         return parent::build('desired_salary_id')

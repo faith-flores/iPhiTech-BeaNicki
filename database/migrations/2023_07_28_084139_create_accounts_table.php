@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('account_type')->default(0);
             $table->string('company_name', 100)->nullable();
             $table->string('email', 100);
-            $table->string('company_phone',100)->nullable();
+            $table->string('company_phone', 100)->nullable();
             $table->string('web_url', 1024)->nullable();
             $table->boolean('is_active')->default(false);
             $table->boolean('is_multi_user')->default(false);

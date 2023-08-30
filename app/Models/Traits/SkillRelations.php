@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Traits;
 
 use App\Models\SkillItem;
@@ -7,9 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
- * Trait HasSkillRelations
- *
- * @package App\Models\Traits
+ * Trait HasSkillRelations.
  */
 trait SkillRelations
 {

@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Services;
 
 use App\Models\Jobseeker;
 use App\Models\PicklistItem;
 use App\Models\Services\ModelService;
 use App\Models\User;
-use Exception;
 use Illuminate\Support\Arr;
 
 class JobseekerResourceService extends ModelService
 {
-
     /**
      * Returns the class name of the object managed by the repository.
      *
@@ -32,7 +32,7 @@ class JobseekerResourceService extends ModelService
         $jobseeker = self::make($data);
 
         if ($user_id = Arr::get($data, 'user_id')) {
-            if($user = User::query()->find($user_id)) {
+            if ($user = User::query()->find($user_id)) {
                 $jobseeker->user()->associate($user);
             }
         }
@@ -46,8 +46,6 @@ class JobseekerResourceService extends ModelService
 
     /**
      * @param array $data
-     *
-     * @return bool|Jobseeker
      */
     public function update($data, Jobseeker $jobseeker) : bool|Jobseeker
     {

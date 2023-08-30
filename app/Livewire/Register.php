@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use App\Events\UserRegistered;
 use App\Http\Forms\Schema\Types\Email;
 use App\Models\User;
-use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Actions\CreateAction;
@@ -15,7 +16,6 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Support\Enums\Alignment;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +24,7 @@ use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
 /**
- * TODO: Replace placeholder content
+ * TODO: Replace placeholder content.
  */
 class Register extends Component implements HasForms, HasActions
 {
@@ -93,7 +93,7 @@ class Register extends Component implements HasForms, HasActions
     {
         return CreateAction::make($action)
                 ->model(User::class)
-                ->label('Create a '. $accountType . ' account')
+                ->label('Create a ' . $accountType . ' account')
                 ->modalHeading('Account')
                 ->form([
                     TextInput::make('name')->required(),
@@ -108,18 +108,18 @@ class Register extends Component implements HasForms, HasActions
                 ->slideOver()
                 ->using(function (array $data): Model {
                     $user = $this->register($data);
+
                     return $user;
                 })
                 ->successNotification(
                     /**
-                     * TODO: Change success message
+                     * TODO: Change success message.
                      */
                     Notification::make()
                         ->success()
                         ->title('User registered')
                         ->body('The user has been created successfully.')->send(),
-                )
-            ;
+                );
     }
 
     protected function getPasswordFormComponent(): FormComponent
@@ -148,7 +148,7 @@ class Register extends Component implements HasForms, HasActions
         return $this->role;
     }
 
-    protected function setRole($role = "")
+    protected function setRole($role = '')
     {
         $this->role = $role;
     }

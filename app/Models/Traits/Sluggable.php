@@ -1,88 +1,87 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 /**
- * Trait Sluggable
+ * Trait Sluggable.
  *
  * Create a unique slug for a given model
  *
  * @author Medard Ilunga
- *
  */
-trait Sluggable {
+trait Sluggable
+{
+    /**
+     * Laravel Model Boot function.
+     */
+    protected static function bootSluggable()
+    {
+        static::creating(function ($model) {
+            /** @var $model Sluggable */
+            if (empty($model->{$model->getSluggableColumn()})) {
+                $model->{$model->getSluggableColumn()} = $model->createSlug($model->{$model->getSluggableSourceColumn()});
+            }
+        });
+    }
 
-	/**
-	 * Laravel Model Boot function
-	 */
-	protected static function bootSluggable() {
-		static::creating( function ( $model ) {
-			/**@var $model Sluggable */
-			if (empty($model->{$model->getSluggableColumn()})) {
-				$model->{$model->getSluggableColumn()} = $model->createSlug( $model->{$model->getSluggableSourceColumn()} );
-			}
-		} );
-	}
-
-	/**
-	 * Create a new slug
-	 *
-	 * @param string $text
-	 *
-	 * @return string
-	 * @throws \Exception
-	 */
-	public function createSlug( string $text ) {
-		//Create slug
-		$slug  = Str::slug( $text );
-		$column = $this->getSluggableColumn();
-		// Get any that could possibly be related.
-		$allSlugs = $this->getRelatedSlugs( $slug );
-		// If we haven't used it before then we are all good.
-		/**@var $allSlugs Collection */
-		if ( ! $allSlugs->contains( $column, $slug ) ) {
-			return $slug;
-		}
-		// Just append numbers until we find one not used.
-		for ( $i = 1; $i <= 1000; $i ++ ) {
-			$newSlug = $slug . '-' . $i;
-			if ( ! $allSlugs->contains( $column, $newSlug ) ) {
-				return $newSlug;
-			}
-		}
-
-		throw new \Exception( 'Can not create a unique slug' );
-	}
-
-	/**
-	 * Get models with given slug
-	 *
-	 * @param $slug
-	 *
-	 * @return mixed
-	 */
-	private function getRelatedSlugs( $slug ) {
-		if (method_exists($this, 'trashed')) {
-			$query = static::withTrashed();
-		} else {
-			$query = static::query();
-		}
-		$query->select( $this->getQualifiedSluggableColumn(), $this->getQualifiedSluggableSourceColumn() )->where( $this->getQualifiedSluggableColumn(), 'like', $slug . '%' );
-
-		if ($namespaced = $this->getSluggableNamespaceColumn()) {
-		    $query->where($this->getQualifiedSluggableNamespaceColumn(), '=', $this->$namespaced);
+    /**
+     * Create a new slug.
+     *
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function createSlug(string $text)
+    {
+        //Create slug
+        $slug = Str::slug($text);
+        $column = $this->getSluggableColumn();
+        // Get any that could possibly be related.
+        $allSlugs = $this->getRelatedSlugs($slug);
+        // If we haven't used it before then we are all good.
+        /** @var $allSlugs Collection */
+        if (! $allSlugs->contains($column, $slug)) {
+            return $slug;
+        }
+        // Just append numbers until we find one not used.
+        for ($i = 1; $i <= 1000; $i++) {
+            $newSlug = $slug . '-' . $i;
+            if (! $allSlugs->contains($column, $newSlug)) {
+                return $newSlug;
+            }
         }
 
-		//ensure not the same record
-		if ( $key = $this->getKey() ) {
-			$query->where( $this->getQualifiedKeyName(), '!=', $key );
-		}
+        throw new \Exception('Can not create a unique slug');
+    }
 
-		return $query->get();
-	}
+    /**
+     * Get models with given slug.
+     */
+    private function getRelatedSlugs($slug)
+    {
+        if (method_exists($this, 'trashed')) {
+            $query = static::withTrashed();
+        } else {
+            $query = static::query();
+        }
+        $query->select($this->getQualifiedSluggableColumn(), $this->getQualifiedSluggableSourceColumn())->where($this->getQualifiedSluggableColumn(), 'like', $slug . '%');
+
+        if ($namespaced = $this->getSluggableNamespaceColumn()) {
+            $query->where($this->getQualifiedSluggableNamespaceColumn(), '=', $this->$namespaced);
+        }
+
+        //ensure not the same record
+        if ($key = $this->getKey()) {
+            $query->where($this->getQualifiedKeyName(), '!=', $key);
+        }
+
+        return $query->get();
+    }
 
     /**
      * Get the name of the "deleted at" column.
@@ -134,7 +133,6 @@ trait Sluggable {
         return $this->qualifyColumn($this->getSluggableSourceColumn());
     }
 
-
     /**
      * Get the fully qualified "namespaced at" column.
      *
@@ -145,15 +143,8 @@ trait Sluggable {
         return $this->qualifyColumn($this->getSluggableNamespaceColumn());
     }
 
-    /**
-     * @param Builder $query
-     * @param         $slug
-     *
-     * @return Builder
-     */
     public function scopeOfSlug(Builder $query, $slug) : Builder
     {
         return $query->where($this->getQualifiedSluggableColumn(), $slug);
     }
-
 }

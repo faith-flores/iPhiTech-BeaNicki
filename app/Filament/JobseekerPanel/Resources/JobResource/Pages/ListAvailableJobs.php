@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\JobseekerPanel\Resources\JobResource\Pages;
 
 use App\Filament\JobseekerPanel\Resources\JobResource;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListAvailableJobs extends ListRecords
