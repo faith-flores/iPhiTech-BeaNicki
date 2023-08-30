@@ -17,9 +17,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Deployment
-        uses: fifsky/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.4
         with:
-          commands: |
+          host: ${{ secrets.MAIN_HOST }} 
+          username: ${{ secrets.MAIN_USERNAME }} 
+          password: ${{ secrets.MAIN_PASSPHRASE }} 
+          port: ${{ secrets.PORT }} 
+
+          # host: ${{ secrets.MAIN_HOST }}
+          # key: ${{ secrets.MAIN_KEY }}
+          # passphrase: ${{ secrets.MAIN_PASSPHRASE }}
+          # port: ${{ secrets.PORT }}
+          # username: ${{ secrets.MAIN_USERNAME }}
+          script: |
             echo && hostname
             cd /var/www/beanicki
             git pull origin main
@@ -28,8 +38,3 @@ jobs:
             php artisan migrate
             npm run build
             php artisan optimize:clear
-          host: ${{ secrets.MAIN_HOST }}
-          port: ${{ secrets.PORT }}
-          user: ${{ secrets.MAIN_USERNAME }}
-          key: ${{ secrets.MAIN_KEY }}
-          pass: ${{ secrets.MAIN_PASSPHRASE }}
