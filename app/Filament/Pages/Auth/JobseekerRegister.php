@@ -5,6 +5,10 @@ namespace App\Filament\Pages\Auth;
 use App\Events\UserRegistered;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Facades\Filament;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Component;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
 use Filament\Http\Responses\Auth\RegistrationResponse;
 use Filament\Notifications\Notification;
 use Filament\Pages\Auth\Register;
@@ -49,5 +53,33 @@ class JobseekerRegister extends Register
         session()->regenerate();
 
         return app(RegistrationResponse::class);
+    }
+
+    public function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                $this->getNameFormComponent(),
+                $this->getEmailFormComponent(),
+                $this->getPasswordFormComponent(),
+                $this->getPasswordConfirmationFormComponent(),
+                $this->getTermsAgreement(),
+                $this->getPromotionalAgreement(),
+            ])
+            ->statePath('data');
+    }
+
+    protected function getTermsAgreement(): Component
+    {
+        return Checkbox::make('terms')
+            ->label('I agree to the Terms of Service and Privacy Policy')
+            ->required();
+    }
+
+    protected function getPromotionalAgreement(): Component
+    {
+        return Checkbox::make('promotional')
+            ->label('I agree to receive promotional emails and updates.')
+            ->required();
     }
 }
