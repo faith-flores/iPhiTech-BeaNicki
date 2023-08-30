@@ -22,7 +22,7 @@ jobs:
           host: ${{ secrets.MAIN_HOST }}
           key: ${{ secrets.MAIN_KEY }}
           passphrase: ${{ secrets.MAIN_PASSPHRASE }}
-          username: ${{ secrets.MAIN_USERNAME }}
+          # username: ${{ secrets.MAIN_USERNAME }}
           script: |
             cd /var/www/beanicki
             git pull origin main
