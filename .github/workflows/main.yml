@@ -17,14 +17,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Deployment
-        uses: appleboy/ssh-action@v0.1.3
+        uses: fifsky/ssh-action@master
         with:
-          host: ${{ secrets.MAIN_HOST }} 
-          username: ${{ secrets.MAIN_USERNAME }} 
-          key: ${{ secrets.MAIN_KEY }}
-          port: ${{ secrets.PORT }} 
-          script: |
+          command: |
             whoami
             echo "$HOST"
             ls -a
+          host: ${{ secrets.MAIN_HOST }} 
+          user: ${{ secrets.MAIN_USERNAME }} 
+          key: ${{ secrets.MAIN_KEY }}
+          port: ${{ secrets.PORT }} 
 
