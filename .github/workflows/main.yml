@@ -20,9 +20,14 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-            whoami
-            echo "$HOST"
-            ls -a
+            echo && ${{ secrets.MAIN_HOST }}
+            cd  ${{ secrets.APPLICATION_PATH }} 
+            git pull origin main
+            composer install
+            npm install
+            php artisan migrate
+            npm run build
+            php artisan optimize:clear
           host: ${{ secrets.MAIN_HOST }} 
           user: ${{ secrets.MAIN_USERNAME }} 
           key: ${{ secrets.MAIN_KEY }}
