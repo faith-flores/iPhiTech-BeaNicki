@@ -17,13 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Deployment
-        uses: appleboy/ssh-action@master
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.MAIN_HOST }}
           key: ${{ secrets.MAIN_KEY }}
           passphrase: ${{ secrets.MAIN_PASSPHRASE }}
           port: ${{ secrets.PORT }}
-          # username: ${{ secrets.MAIN_USERNAME }}
+          username: ${{ secrets.MAIN_USERNAME }}
           script: |
             cd /var/www/beanicki
             git pull origin main
