@@ -21,14 +21,19 @@ class EmailVerificationController extends Controller
             throw new AuthorizationException();
         }
 
+        $panel = Auth::guard('jobseeker')->check() ? 'jobseekers' : 'app';
+
         if (Auth::user()->hasVerifiedEmail()) {
-            return redirect(route('home'));
+            return redirect(route("filament.{$panel}.pages.dashboard"));
         }
 
         if (Auth::user()->markEmailAsVerified()) {
             event(new Verified(Auth::user()));
         }
 
-        return redirect(route('home'));
+        $user = Auth::user();
+
+
+        return redirect(route("filament.{$panel}.pages.dashboard"));
     }
 }

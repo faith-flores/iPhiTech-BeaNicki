@@ -1,0 +1,17 @@
+[
+    {
+        "guard": "web",
+        "role": "employer",
+        "permissions": [
+            "employers.read.own",
+            "employers.edit.own"
+        ]
+    },
+    {
+        "guard": "jobseeker",
+        "role": "jobseeker",
+        "permissions": [
+            "jobseekers.read.own"
+        ]
+    }
+]

@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'jobseeker',
         'passwords' => 'users',
     ],
 
@@ -38,8 +38,26 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'internal',
         ],
+
+        'jobseeker' => [
+            'driver' => 'session',
+            'provider' => 'jobseekers'
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Assignable Guards
+    |--------------------------------------------------------------------------
+    |
+    | The following lists the guards that are assignable to users
+    |
+    */
+    'assignable' => [
+        'web',
+        'jobseeker',
     ],
 
     /*
@@ -60,15 +78,23 @@ return [
     */
 
     'providers' => [
+        'internal' => [
+            'driver' => 'guarded',
+            'model' => App\Models\User::class,
+            'guard' => 'web'
+        ],
+
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'guard' => 'web'
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'jobseekers' => [
+            'driver' => 'guarded',
+            'model' => App\Models\User::class,
+            'guard' => 'jobseeker'
+        ],
     ],
 
     /*

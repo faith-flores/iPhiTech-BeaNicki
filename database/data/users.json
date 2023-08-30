@@ -1,0 +1,20 @@
+[
+    {
+        "role": "employer",
+        "guard": "web",
+        "users": [
+            "employer@domain.com",
+            "employer2@domain.com",
+            "employer3@domain.com"
+        ]
+    },
+    {
+        "role": "jobseeker",
+        "guard": "jobseeker",
+        "users": [
+            "jobseeker@domain.com",
+            "jobseeker2@domain.com",
+            "jobseeker3@domain.com"
+        ]
+    }
+]

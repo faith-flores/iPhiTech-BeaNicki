@@ -1,0 +1,38 @@
+[
+    {
+        "label": "Hours To Work",
+        "items": ["1-10 hours", "11-20 hours", "21-30 hours", "31-40 hours", "40+ hours"]
+    },
+    {
+        "label": "Gender",
+        "items": ["Male", "Female", "Others"]
+    },
+    {
+        "label": "Desired Salary",
+        "items": ["< $30,000", "$30,000 - $50,000", "$50,000 - $70,000", "$70,000 - $90,000", "> $90,000"]
+    },
+    {
+        "label": "Employment Status",
+        "items": ["Full-time", "Part-time", "Freelance", "Contract", "Unemployed"]
+    },
+    {
+        "label": "Education Attainment",
+        "items": ["High School", "Associate's Degree", "Bachelor's Degree", "Master's Degree", "PhD"]
+    },
+    {
+        "label": "Schedule",
+        "items": ["Day Shift", "Night Shift", "Flexible", "Weekdays Only", "Weekends Only"]
+    },
+    {
+        "label": "Skill Level",
+        "items": ["Beginner", "Intermediate", "Advanced", "Expert"]
+    },
+    {
+        "label": "Type of Work",
+        "items": ["Remote", "On-site", "Hybrid"]
+    },
+    {
+        "label": "Client Status",
+        "items": ["Active", "Inactive", "Pending"]
+    }
+]

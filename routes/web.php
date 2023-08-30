@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Livewire\Auth\Login;
-use App\Http\Livewire\Auth\Passwords\Confirm;
-use App\Http\Livewire\Auth\Passwords\Email;
-use App\Http\Livewire\Auth\Passwords\Reset;
-use App\Http\Livewire\Auth\Register;
-use App\Http\Livewire\Auth\Verify;
+use App\Livewire\Auth\Passwords\Confirm;
+use App\Livewire\Auth\Passwords\Email;
+use App\Livewire\Auth\Passwords\Reset;
+use App\Livewire\Auth\Verify;
+use App\Livewire\Auth\Login as AuthLogin;
+use App\Livewire\Register as LivewireRegister;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,13 +21,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', function() {
+    return redirect()->route('login');
+})->name('home');
 
-Route::middleware('guest')->group(function () {
-    Route::get('login', Login::class)
+Route::middleware('guest.role')->group(function () {
+    Route::get('login', AuthLogin::class)
         ->name('login');
 
-    Route::get('register', Register::class)
+    Route::get('register', function() {
+        return redirect()->route('filament.jobseekers.auth.register');
+    })
         ->name('register');
 });
 

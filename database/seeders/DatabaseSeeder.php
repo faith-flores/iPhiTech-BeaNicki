@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use Database\Seeders\Production\OldDataSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +14,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(AdminUsersSeeder::class);
+        $this->call(RolesSeeder::class);
+        $this->call(PicklistsSeeder::class);
+        $this->call(UsersSeeder::class);
+        $this->call(SkillsSeeder::class);
+        $this->call(JobsSeeder::class);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        if (config('app.env') === 'production') {
+            $this->call(OldDataSeeder::class);
+        }
+
+        /**
+         * TODO: Create Subscription, Plans
+         * TODO: Add default subscription
+         * TODO: Settings for Subscription Features
+         */
     }
 }

@@ -38,7 +38,7 @@
                 <p>Before proceeding, please check your email for a verification link.</p>
 
                 <p class="mt-3">
-                    If you did not receive the email, <a wire:click="resend" class="text-indigo-700 cursor-pointer hover:text-indigo-600 focus:outline-none focus:underline transition ease-in-out duration-150">click here to request another</a>.
+                    If you did not receive the email, <a wire:click="resend" class="text-primary cursor-pointer hover:text-indigo-600 focus:outline-none focus:underline transition ease-in-out duration-150">click here to request another</a>.
                 </p>
             </div>
         </div>

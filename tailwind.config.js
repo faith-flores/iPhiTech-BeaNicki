@@ -1,11 +1,18 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+import preset from './vendor/filament/support/tailwind.config.preset'
 
 module.exports = {
+    presets: [preset],
+    darkMode: 'class',
     theme: {
         extend: {
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'primary': '#865DFF',
+                'secondary': '#E384FF'
+            }
         },
     },
     variants: {
@@ -14,6 +21,9 @@ module.exports = {
         }
     },
     content: [
+        './app/Filament/**/*.php',
+        './resources/views/filament/**/*.blade.php',
+        './vendor/filament/**/*.blade.php',
         './app/**/*.php',
         './resources/**/*.html',
         './resources/**/*.js',
