@@ -23,7 +23,6 @@ jobs:
           port: ${{ secrets.PORT }} 
           username: ${{ secrets.MAIN_USERNAME }} 
           key: ${{ secrets.MAIN_KEY }}
-          passphrase: ${{ secrets.MAIN_PASSPHRASE }} 
           script: |
             echo && ${{ secrets.MAIN_HOST }}
             cd /var/www/beanicki
