@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Deployment
-        uses: appleboy/ssh-action@v0.1.5+
+        uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.MAIN_HOST }}
           key: ${{ secrets.MAIN_KEY }}
