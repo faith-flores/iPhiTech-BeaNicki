@@ -20,13 +20,14 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
+            sudo su
             cd  ${{ secrets.APPLICATION_PATH }} 
-            sudo git pull origin main
-            sudo yes | composer install
-            sudo yes | npm install
-            sudo yes | php artisan migrate
-            sudo yes | npm run build
-            sudo php artisan optimize:clear
+            git pull origin main
+            yes | composer install
+            yes | npm install
+            yes | php artisan migrate
+            yes | npm run build
+            php artisan optimize:clear
           host: ${{ secrets.MAIN_HOST }} 
           user: ${{ secrets.MAIN_USERNAME }} 
           key: ${{ secrets.MAIN_KEY }}
