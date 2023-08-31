@@ -23,7 +23,6 @@ class SkillsSchema
 
             $schema[$key] = Tabs\Tab::make($skill->label)->schema([
                 Repeater::make($skill->getRepeaterFieldKey())
-                    ->orderColumn(false)
                     ->label('Skills')
                     ->schema([
                         Select::make('skill_item_id')
