@@ -24,8 +24,7 @@ jobs:
             cd  ${{ secrets.APPLICATION_PATH }} 
             git pull origin main
             yes | composer install
-            yes | npm install
-            yes | php artisan migrate
+            yes | php artisan migrate --force
             yes | npm run build
             php artisan optimize:clear
           host: ${{ secrets.MAIN_HOST }} 
