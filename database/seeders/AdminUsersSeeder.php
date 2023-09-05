@@ -24,7 +24,7 @@ class AdminUsersSeeder extends Seeder
         } catch (RoleDoesNotExist $e) {
         } finally {
             if (! $admin_role) {
-                $admin_role = Role::create(['name' => 'Admin']);
+                $admin_role = Role::create(['name' => 'Admin', 'guard_name' => 'web']);
             }
         }
 
