@@ -48,7 +48,7 @@ class JobsSeeder extends Seeder
             $profiles = Profile::query()->get();
         }
 
-        $skill_level = $this->service->getCachedSelectableList('skill-levels')['items']->random();
+        $skill_level = $this->service->getCachedSelectableList('skill-level')['items']->random();
         $type_of_work = $this->service->getCachedSelectableList('type-of-work')['items']->random();
         $hours_to_work = $this->service->getCachedSelectableList('hours-to-work')['items']->random();
         $schedule = $this->service->getCachedSelectableList('schedule')['items']->random();
