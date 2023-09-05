@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Filament\Services\PicklistResourceService;
 use App\Models\Job;
 use App\Models\Profile;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class JobsSeeder extends Seeder
 {
+    private PicklistResourceService $service;
+
+    public function __construct(PicklistResourceService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Run the database seeds.
      */
@@ -37,13 +44,10 @@ class JobsSeeder extends Seeder
             $profiles = Profile::query()->get();
         }
 
-        /**
-         * TODO: Fix this seeder haha.
-         */
-        $skill_levels = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
-        $type_of_works = ['Remote', 'On-site', 'Hybrid'];
-        $hours_to_works = ['1-10 hours', '11-20 hours', '21-30 hours', '31-40 hours', '40+ hours'];
-        $schedule = ['Day Shift', 'Night Shift', 'Flexible', 'Weekdays Only', 'Weekends Only'];
+        $skill_level = $this->service->getCachedSelectableList('skill-levels')['items']->random();
+        $type_of_work = $this->service->getCachedSelectableList('type-of-work')['items']->random();
+        $hours_to_work = $this->service->getCachedSelectableList('hours-to-work')['items']->random();
+        $schedule = $this->service->getCachedSelectableList('schedule')['items']->random();
 
         foreach ($profiles as $key => $profile) {
             if (! empty($data[$key])) {
@@ -52,10 +56,10 @@ class JobsSeeder extends Seeder
                             ->make($list);
 
                     $relations = [
-                        'skill_level' => picklist_item('skill-level', Str::slug($skill_levels[rand(0, 3)]), 'id'),
-                        'schedule' => picklist_item('schedule', Str::slug($schedule[rand(0, 4)]), 'id'),
-                        'hours_to_work' => picklist_item('hours-to-work', Str::slug($hours_to_works[rand(0, 4)]), 'id'),
-                        'type_of_work' => picklist_item('type-of-work', Str::slug($type_of_works[rand(0, 2)]), 'id'),
+                        'skill_level' => $skill_level['id'],
+                        'schedule' => $schedule['id'],
+                        'hours_to_work' => $hours_to_work['id'],
+                        'type_of_work' => $type_of_work['id'],
                     ];
 
                     $job = $job->fillRelations($job, $relations);
