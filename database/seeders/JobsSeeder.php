@@ -9,13 +9,9 @@ use App\Models\Job;
 use App\Models\Profile;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class JobsSeeder extends Seeder
 {
-    /**
-     * @var PicklistResourceService
-     */
     private PicklistResourceService $service;
 
     public function __construct(PicklistResourceService $service)
