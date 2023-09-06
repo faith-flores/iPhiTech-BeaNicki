@@ -33,7 +33,7 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->unique(
-                        ignorable: fn (null|Model $record) : null|Model => $record,
+                        ignorable: fn (null|Model $record): null|Model => $record,
                     )
                     ->email()
                     ->unique()
@@ -45,7 +45,7 @@ class UserResource extends Resource
                     ->hiddenOn([Pages\EditUser::class, Pages\ViewUser::class])
                     ->required()
                     ->maxLength(255),
-                Tables\Columns\TextColumn::make('role'),
+                Forms\Components\TextInput::make('role'),
                 Forms\Components\Toggle::make('is_super_admin')
                     ->required(),
                 Forms\Components\Toggle::make('active')
@@ -70,7 +70,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('roles.name')
-                        ->sortable(),
+                    ->sortable(),
                 Tables\Columns\IconColumn::make('is_super_admin')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('active')
