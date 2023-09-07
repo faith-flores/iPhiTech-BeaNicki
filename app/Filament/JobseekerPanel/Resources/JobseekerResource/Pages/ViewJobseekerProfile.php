@@ -114,8 +114,8 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                         TextEntry::make('jobs_applied')->label('Jobs Applied')->default(999),
                                         TextEntry::make('skills.label')->badge()->limitList(10),
                                     ]),
-                        ]),
-                ]),
+                            ]),
+                    ]),
                 Tabs::make('')
                     ->extraAttributes([
                         'class' => 'fi-tabs-jobseeker',
@@ -127,8 +127,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                             ->inlineLabel()
                             ->schema([
                                 Grid::make(2)
-                                    ->registerActions([
-                                    ])
+                                    ->registerActions([])
                                     ->schema([
                                         TextEntry::make('display_name')->label('Full Name'),
                                         TextEntry::make('nickname'),
@@ -136,7 +135,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                         TextEntry::make('gender.label'),
                                         TextEntry::make('phone_number'),
                                         TextEntry::make('email'),
-                                ])->extraAttributes(['class' => 'pb-6 border-b border-gray-400'], true),
+                                    ])->extraAttributes(['class' => 'pb-6 border-b border-gray-400'], true),
                                 Grid::make(2)
                                     ->schema([
                                         Group::make([
@@ -147,10 +146,10 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                             TextEntry::make('city'),
                                             TextEntry::make('province'),
                                         ])
-                                        ->columnSpanFull()
-                                        ->columns(2)
-                                        ->relationship('address'),
-                                ]),
+                                            ->columnSpanFull()
+                                            ->columns(2)
+                                            ->relationship('address'),
+                                    ]),
                                 $this->tabAction(
                                     'editDetails',
                                     [
@@ -164,23 +163,23 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                         AddressSchema::make(),
                                     ],
                                 ),
-                        ]),
+                            ]),
                         Tabs\Tab::make('Work Details')
                             ->inlineLabel()
                             ->schema([
                                 Grid::make(2)
-                                ->schema([
-                                    TextEntry::make('job_title')->alignStart(),
-                                    TextEntry::make('skills_summary')->alignStart(),
-                                    TextEntry::make('experience')->alignStart(),
-                                    TextEntry::make('website_url')->alignStart(),
-                                    TextEntry::make('education_attainment.label')
-                                        ->label('Highest Educational Attainment')->alignStart(),
-                                    TextEntry::make('website_url'),
-                                    TextEntry::make('hours_to_work.label'),
-                                    TextEntry::make('desired_salary.label'),
-                                    TextEntry::make('employment_status.label'),
-                                ]),
+                                    ->schema([
+                                        TextEntry::make('job_title')->alignStart(),
+                                        TextEntry::make('skills_summary')->alignStart(),
+                                        TextEntry::make('experience')->alignStart(),
+                                        TextEntry::make('website_url')->alignStart(),
+                                        TextEntry::make('education_attainment.label')
+                                            ->label('Highest Educational Attainment')->alignStart(),
+                                        TextEntry::make('website_url'),
+                                        TextEntry::make('hours_to_work.label'),
+                                        TextEntry::make('desired_salary.label'),
+                                        TextEntry::make('employment_status.label'),
+                                    ]),
                                 $this->tabAction(
                                     'editWorkDetails',
                                     [
@@ -194,7 +193,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                         Website::make(),
                                     ]
                                 ),
-                        ]),
+                            ]),
                         Tabs\Tab::make('Skills')
                             ->schema([
                                 RepeatableEntry::make('skills')
@@ -211,7 +210,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                                             ->extraAttributes([
                                                 'class' => 'fi-infolist-star-rating',
                                             ]),
-                                ]),
+                                    ]),
                                 $this->tabAction(
                                     'editSkillDetails',
                                     [
@@ -225,7 +224,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
             ]);
     }
 
-    private function tabAction(string $id, array | Closure | null $form, string $modalWidth = 'md') : ViewEntry
+    private function tabAction(string $id, array | Closure | null $form, string $modalWidth = 'md'): ViewEntry
     {
         return ViewEntry::make($id)
             ->extraAttributes([
@@ -239,7 +238,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
                 Action::make($id)
                     ->hiddenLabel()
                     ->icon('heroicon-o-pencil-square')
-                    ->fillForm(function (SkillResourceService $service) : array {
+                    ->fillForm(function (SkillResourceService $service): array {
                         $data = $this->getRecord()->toArray();
                         $skills = $service->formatDataForDisplay($this->getRecord());
 
@@ -269,7 +268,7 @@ class ViewJobseekerProfile extends Page implements HasForms, HasInfolists
     /**
      * @param int $rating
      */
-    private function renderStarRating($rating) : array
+    private function renderStarRating($rating): array
     {
         $skills = [];
 
