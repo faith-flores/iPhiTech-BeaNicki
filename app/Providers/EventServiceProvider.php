@@ -6,6 +6,8 @@ namespace App\Providers;
 
 use App\Events\UserRegistered;
 use App\Listeners\CreateAccountDetails;
+use App\Listeners\SubscribeUserToMailchimp;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
             CreateAccountDetails::class,
         ],
+        Verified::class => [
+            SubscribeUserToMailchimp::class
+        ]
     ];
 
     /**

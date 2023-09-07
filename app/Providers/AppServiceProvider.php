@@ -14,6 +14,7 @@ use Filament\Support\Facades\FilamentView;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use MailchimpMarketing\ApiClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,7 +23,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(ApiClient::class, function ($app) {
+            $client = new ApiClient();
+
+            $client->setConfig([
+                'apiKey' => env('MAILCHIMP_API_KEY'),
+                'server' => env('MAILCHIMP_SERVER_PREFIX'),
+            ]);
+
+            return $client;
+        });
     }
 
     /**
