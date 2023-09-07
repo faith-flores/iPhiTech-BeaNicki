@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use MailchimpMarketing\ApiClient;
 
 class MailchimpService
 {
-
-    /**
-     * @var ApiClient
-     */
     private ApiClient $mailchimp;
 
     private $listId;
@@ -29,16 +27,16 @@ class MailchimpService
     private function setListId()
     {
         /**
-         * TODO: Replace to fetch from admin settings
+         * TODO: Replace to fetch from admin settings.
          */
-        $this->listId = "6a2515a99e";
+        $this->listId = '6a2515a99e';
     }
 
     public function subscribe($email)
     {
         $response = $this->mailchimp->lists->addListMember($this->getListId(), [
-            "email_address" => $email,
-            "status" => "subscribed"
+            'email_address' => $email,
+            'status' => 'subscribed',
         ]);
 
         return $response;

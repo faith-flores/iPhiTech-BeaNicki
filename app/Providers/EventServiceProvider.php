@@ -25,8 +25,8 @@ class EventServiceProvider extends ServiceProvider
             CreateAccountDetails::class,
         ],
         Verified::class => [
-            SubscribeUserToMailchimp::class
-        ]
+            SubscribeUserToMailchimp::class,
+        ],
     ];
 
     /**
