@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages;
 
 use Closure;
+use App\Models\User;
 use App\Models\Jobseeker;
 use Filament\Pages\Actions;
 use Filament\Infolists\Infolist;
@@ -51,71 +52,74 @@ class ViewUser extends ViewRecord
         ];
     }
 
-    private function tabAction(string $id, array | Closure | null $form, string $modalWidth = 'md'): ViewEntry
-    {
-        return ViewEntry::make($id)
-            ->extraAttributes([
-                'class' => 'absolute top-3 right-3',
-                'action' => $id,
-            ], true)
-            ->view('filament.infolists.tabs.edit-action')
-            ->alignRight()
-            ->alignEnd()
-            ->action(
-                Action::make($id)
-                    ->hiddenLabel()
-                    ->icon('heroicon-o-pencil-square')
-                    ->fillForm(function (SkillResourceService $service): array {
-                        $data = $this->getRecord()->toArray();
-                        $skills = $service->formatDataForDisplay($this->getRecord());
+    // private function tabAction(string $id, array | Closure | null $form, string $modalWidth = 'md'): ViewEntry
+    // {
+    //     return ViewEntry::make($id)
+    //         ->extraAttributes([
+    //             'class' => 'absolute top-3 right-3',
+    //             'action' => $id,
+    //         ], true)
+    //         ->view('filament.infolists.tabs.edit-action')
+    //         ->alignRight()
+    //         ->alignEnd()
+    //         ->action(
+    //             Action::make($id)
+    //                 ->hiddenLabel()
+    //                 ->icon('heroicon-o-pencil-square')
+    //                 ->fillForm(function (SkillResourceService $service): array {
+    //                     $data = $this->getRecord()->toArray();
+    //                     $skills = $service->formatDataForDisplay($this->getRecord());
 
-                        return [...$data, ...$skills];
-                    })
-                    ->slideOver()
-                    ->modalWidth($modalWidth)
-                    ->form($form)
-                    ->afterFormValidated(function (array $data, Jobseeker $jobseeker) {
-                        $data = app(SkillResourceService::class)->formatFormSkillsData($data);
+    //                     return [...$data, ...$skills];
+    //                 })
+    //                 ->slideOver()
+    //                 ->modalWidth($modalWidth)
+    //                 ->form($form)
+    //                 ->afterFormValidated(function (array $data, Jobseeker $jobseeker) {
+    //                     $data = app(SkillResourceService::class)->formatFormSkillsData($data);
 
-                        if (app(JobseekerResourceService::class)->editProfile($this->getRecord(), $data)) {
-                            Notification::make()
-                                ->success()
-                                ->title('Edit details successfully')
-                                ->send();
-                        } else {
-                            Notification::make()
-                                ->success()
-                                ->title('Edit details successfully')
-                                ->send();
-                        }
-                    }),
-            );
-    }
+    //                     if (app(JobseekerResourceService::class)->editProfile($this->getRecord(), $data)) {
+    //                         Notification::make()
+    //                             ->success()
+    //                             ->title('Edit details successfully')
+    //                             ->send();
+    //                     } else {
+    //                         Notification::make()
+    //                             ->success()
+    //                             ->title('Edit details successfully')
+    //                             ->send();
+    //                     }
+    //                 }),
+    //         );
+    // }
 
     public function infolist(Infolist $infolist): Infolist
     {
+        $user = $this->record;
+        $jobseeker = $user->jobseeker;
+
         return $infolist
             ->record($this->record)
             ->schema([
-                Section::make(function ($record) {
-                    if ($record instanceof Jobseeker) {
-                        return $record->display_name;
-                    }
-                })
-                    ->inlineLabel()
-                    ->columnSpan(3)
+                Grid::make(4)
                     ->schema([
-                        Grid::make(2)
+                        Section::make($jobseeker->display_name)
+                            ->inlineLabel()
+                            ->columnSpan(3)
                             ->schema([
-                                TextEntry::make('address.province')->label('Province'),
-                                TextEntry::make('created_at')
-                                    ->label('Joining Date')
-                                    ->date('F d, Y'),
-                                TextEntry::make('average_rating')->label('Avg. Rating')->default(999),
-                                TextEntry::make('jobs_applied')->label('Jobs Applied')->default(999),
-                                TextEntry::make('skills.label')->badge()->limitList(10),
+                                Grid::make(2)
+                                    ->schema([
+                                        TextEntry::make($jobseeker->address->province)
+                                            ->label('Province'),
+                                        TextEntry::make('created_at')
+                                            ->label('Joining Date')
+                                            ->date('F d, Y'),
+                                        TextEntry::make('average_rating')->label('Avg. Rating')->default(999),
+                                        TextEntry::make('jobs_applied')->label('Jobs Applied')->default(999),
+                                        TextEntry::make('skills.label')->badge()->limitList(10),
+                                    ]),
                             ]),
-                    ]),
+                    ])
             ]);
     }
 }

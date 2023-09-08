@@ -69,32 +69,32 @@ class Jobseeker extends Model implements HasAddress, HasMedia
         return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
-    public function skills() : MorphToMany
+    public function skills(): MorphToMany
     {
         return $this->morphToMany(SkillItem::class, 'skill_itemable')->withPivot('rating');
     }
 
-    public function employment_status() : BelongsTo
+    public function employment_status(): BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'employment_status_id');
     }
 
-    public function gender() : BelongsTo
+    public function gender(): BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'gender_id');
     }
 
-    public function hours_to_work() : BelongsTo
+    public function hours_to_work(): BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'hours_to_work_id');
     }
 
-    public function desired_salary() : BelongsTo
+    public function desired_salary(): BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'desired_salary_id');
     }
 
-    public function education_attainment() : BelongsTo
+    public function education_attainment(): BelongsTo
     {
         return $this->belongsTo(PicklistItem::class, 'education_attainment_id');
     }
@@ -104,7 +104,7 @@ class Jobseeker extends Model implements HasAddress, HasMedia
         return "{$this->first_name} {$this->last_name}";
     }
 
-    public function isProfileCompleted() : bool
+    public function isProfileCompleted(): bool
     {
         return $this->is_profile_completed === true;
     }
